@@ -1,0 +1,53 @@
+export const sharesPhoto = [
+  {
+    id: 'sadaa',
+    photos: [
+      'https://i.ibb.co/pB2tYhzr/phone.jpg',
+      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
+      'https://i.ibb.co/s9kNq82S/img.jpg',
+    ],
+    discount: 4,
+    text: 'Смартфон Apple iPhone 13 128GB',
+    price: 75999,
+    valute: '₴',
+    available: true,
+  },
+  {
+    id: 'sadsdsdaa',
+    photos: [
+      'https://i.ibb.co/pB2tYhzr/phone.jpg',
+      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
+      'https://i.ibb.co/s9kNq82S/img.jpg',
+    ],
+    discount: 10,
+    text: 'Смартфон Apple iPhone 12 64GB',
+    price: 45999,
+    valute: '₴',
+    available: true,
+  },
+  {
+    id: 'sa2323daa',
+    photos: [
+      'https://i.ibb.co/pB2tYhzr/phone.jpg',
+      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
+      'https://i.ibb.co/s9kNq82S/img.jpg',
+    ],
+    discount: 12,
+    text: 'Смартфон HONOR X8A 6/128GB',
+    price: 13600,
+    valute: '₴',
+    available: true,
+  },
+];
+export const FavoriteIcon = () => (
+  <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M17.612 2.32611C17.1722 1.90569 16.65 1.57219 16.0752 1.34465C15.5005 1.11711 14.8844 1 14.2623 1C13.6401 1 13.0241 1.11711 12.4493 1.34465C11.8746 1.57219 11.3524 1.90569 10.9126 2.32611L9.99977 3.19821L9.08699 2.32611C8.19858 1.4773 6.99364 1.00044 5.73725 1.00044C4.48085 1.00044 3.27591 1.4773 2.38751 2.32611C1.4991 3.17492 1 4.32616 1 5.52656C1 6.72696 1.4991 7.87819 2.38751 8.727L3.30029 9.5991L9.99977 16L16.6992 9.5991L17.612 8.727C18.0521 8.30679 18.4011 7.80785 18.6393 7.25871C18.8774 6.70957 19 6.12097 19 5.52656C19 4.93214 18.8774 4.34355 18.6393 3.7944C18.4011 3.24526 18.0521 2.74633 17.612 2.32611Z"
+      fill="#F6F6F6"
+      stroke="#0C0C0C"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
