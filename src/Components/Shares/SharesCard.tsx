@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useEffect, useRef, useState, type FC } from 'react';
 import type { SharesItem } from '../../types';
 import {
   ButtonsContainer,
@@ -20,14 +20,27 @@ export const SharesCard: FC<ISharesCardProps> = ({ item }) => {
   const [pointer, setPointer] = useState(0);
   const availabletext = 'В навності';
   const noAvailabletext = 'Немає в наявності';
+  const listRef = useRef<HTMLUListElement>(null);
+  const onClickCircle = (e: React.MouseEvent<HTMLUListElement>) => {
+    const target = e.target as HTMLLIElement;
+    if (pointer == parseInt(target.id) || target.id == 'list') return;
+    setPointer(parseInt(target.id));
+  };
+  useEffect(() => {
+    if (!listRef.current) return;
+
+    Array.from(listRef.current.children).forEach((li) => {
+      (li as HTMLElement).style.backgroundColor = li.id === pointer.toString() ? 'blue' : 'white';
+    });
+  }, [pointer]);
   return (
     <SharesCardContainer>
       <ImageContainer>
-        <img src={item.photos[pointer]} alt={item.text} />
-        <ChangeList>
-          <li></li>
-          <li></li>
-          <li></li>
+        <img width={114} height={158} src={item.photos[pointer]} alt={item.text} />
+        <ChangeList ref={listRef} onClick={onClickCircle} id="list">
+          <li id="0"></li>
+          <li id="1"></li>
+          <li id="2"></li>
         </ChangeList>
       </ImageContainer>
       <TextContainer>

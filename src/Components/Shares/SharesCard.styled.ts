@@ -89,5 +89,6 @@ export const ChangeList = styled.ul`
     border: 1px solid black;
     background-color: white;
     border-radius: 50%;
+    cursor: pointer;
   }
 `;

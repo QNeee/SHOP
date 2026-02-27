@@ -5,13 +5,25 @@ export const Carousel = styled.div`
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-
   padding: 0 16px;
   gap: 20px;
-
+  padding-bottom: 5px;
   &::-webkit-scrollbar {
-    display: none;
+    height: 8px;
   }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #0077ff;
+    border-radius: 4px;
+    border: 2px solid #f0f0f0;
+  }
+  scrollbar-width: thin;
+  scrollbar-color: #0077ff #f0f0f0;
 `;
 export const Slide = styled.img`
   flex: 0 0 100%;
@@ -22,6 +34,9 @@ export const Slide = styled.img`
   }
   @media screen and (min-width: 768px) and (max-width: 1280px) {
     height: 300px;
+  }
+  @media screen and (min-width: 1280px) {
+    height: 500px;
   }
   scroll-snap-align: center;
   border-radius: 16px;

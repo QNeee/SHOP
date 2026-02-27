@@ -1,2 +1,14 @@
 export const catalogPhotos = [
-    {id:"PC",item:"https://i.ibb.co/B544CG6K/pcs.jpg" ,text :"Комп'ютери"},{id:"lamp",item:"https://i.ibb.co/hRtbY2Pn/lamp.jpg",text :"Лампи"},{id:"sound",item:"https://i.ibb.co/KzxxkgMQ/sound.jpg",text :"Колонки"},{id:"smart",item:"https://i.ibb.co/QB8fSV9/Smart.jpg",text :"Смартфони"}];
+  { id: 'PC', item: 'https://i.ibb.co/B544CG6K/pcs.jpg', text: "Комп'ютери" },
+  { id: 'lamp', item: 'https://i.ibb.co/hRtbY2Pn/lamp.jpg', text: 'Лампи' },
+  { id: 'sound', item: 'https://i.ibb.co/KzxxkgMQ/sound.jpg', text: 'Колонки' },
+  { id: 'smart', item: 'https://i.ibb.co/QB8fSV9/Smart.jpg', text: 'Смартфони' },
+  { id: 'PC1', item: 'https://i.ibb.co/B544CG6K/pcs.jpg', text: "Комп'ютери" },
+  { id: 'lamp1', item: 'https://i.ibb.co/hRtbY2Pn/lamp.jpg', text: 'Лампи' },
+  { id: 'sound1', item: 'https://i.ibb.co/KzxxkgMQ/sound.jpg', text: 'Колонки' },
+  { id: 'smart1', item: 'https://i.ibb.co/QB8fSV9/Smart.jpg', text: 'Смартфони' },
+  { id: 'PC2', item: 'https://i.ibb.co/B544CG6K/pcs.jpg', text: "Комп'ютери" },
+  { id: 'lamp2', item: 'https://i.ibb.co/hRtbY2Pn/lamp.jpg', text: 'Лампи' },
+  { id: 'sound2', item: 'https://i.ibb.co/KzxxkgMQ/sound.jpg', text: 'Колонки' },
+  { id: 'smart2', item: 'https://i.ibb.co/QB8fSV9/Smart.jpg', text: 'Смартфони' },
+];

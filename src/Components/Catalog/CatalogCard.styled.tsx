@@ -6,6 +6,7 @@ export const CatalogCardWrapper = styled.div`
   flex: 0 0 98px;
   height: 163px;
   p {
+    margin-top: auto;
     margin-left: auto;
     margin-right: auto;
   }
