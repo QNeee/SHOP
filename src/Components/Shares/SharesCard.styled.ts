@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 
-export const ImageContainer = styled.div``;
+export const ImageContainer = styled.div`
+  margin-bottom: auto;
+  margin-top: 20px;
+`;
 export const TextContainer = styled.div`
   width: 144px;
   height: 85px;
-  outline: 1px solid tomato;
+  margin-bottom: auto;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
   p {
-    margin: 0;
     line-height: 1.2;
     font-size: 14px;
   }
@@ -14,25 +21,56 @@ export const TextContainer = styled.div`
 export const CostContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 5px;
+  align-items: center;
   width: 100%;
-  overflow: hidden;
-
+`;
+export const ButtonsContainer = styled.div<{ $available: boolean }>`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: auto;
+  height: 32px;
+  margin-top: 16px;
   p {
-    margin: 0;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    font-size: 12px;
+    color: ${({ $available }) => ($available ? 'green' : 'blue')};
   }
 `;
-export const ButtonsContainer = styled.div``;
 export const SharesCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 144px;
-  height: 395px;
+  width: 100%;
+`;
+export const FavoriteContainer = styled.div`
+  width: 35px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 4px;
+`;
+export const Price = styled.p`
+  font-size: 20px;
+  font-weight: 600;
+`;
+
+export const OldPrice = styled.p`
+  position: relative;
+  font-size: 14px;
+  color: gray;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background: gray;
+  }
 `;
 export const ChangeList = styled.ul`
   display: flex;

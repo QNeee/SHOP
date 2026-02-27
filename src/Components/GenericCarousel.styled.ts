@@ -27,3 +27,14 @@ export const Slide = styled.img`
   border-radius: 16px;
   object-fit: cover;
 `;
+export const Button = styled.button`
+  width: 131px;
+  height: 44px;
+  border-radius: 8px;
+  background-color: darkblue;
+  color: white;
+  &:hover {
+    background-color: lightblue;
+    color: gray;
+  }
+`;

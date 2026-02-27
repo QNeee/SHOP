@@ -10,7 +10,7 @@ export const sharesPhoto = [
     text: 'Смартфон Apple iPhone 13 128GB',
     price: 75999,
     valute: '₴',
-    available: true,
+    available: false,
   },
   {
     id: 'sadsdsdaa',
