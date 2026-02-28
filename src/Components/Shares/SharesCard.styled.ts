@@ -3,6 +3,19 @@ import styled from 'styled-components';
 export const ImageContainer = styled.div`
   margin-bottom: auto;
   margin-top: 20px;
+  position: relative;
+`;
+export const DiscountContainer = styled.div`
+  width: 65px;
+  height: 45px;
+  position: absolute;
+  top: 0;
+  right: 0%;
+  border-radius: 8px;
+  background-color: yellow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 export const TextContainer = styled.div`
   width: 144px;
@@ -52,6 +65,7 @@ export const FavoriteContainer = styled.div`
   align-items: center;
   background-color: whitesmoke;
   border-radius: 4px;
+  cursor: pointer;
 `;
 export const Price = styled.p`
   font-size: 20px;

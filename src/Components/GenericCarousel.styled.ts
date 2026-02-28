@@ -32,10 +32,7 @@ export const Slide = styled.img`
   @media screen and (min-width: 480px) and (max-width: 768px) {
     height: 180px;
   }
-  @media screen and (min-width: 768px) and (max-width: 1280px) {
-    height: 300px;
-  }
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
     height: 500px;
   }
   scroll-snap-align: center;
@@ -52,4 +49,5 @@ export const Button = styled.button`
     background-color: lightblue;
     color: gray;
   }
+  cursor: pointer;
 `;
