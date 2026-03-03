@@ -12,8 +12,8 @@ import {
   SharesCardContainer,
   TextContainer,
 } from './SharesCard.styled';
-import { FavoriteIcon } from '../../assets/Shares/Shares';
 import { Button } from '../GenericCarousel.styled';
+import { FavoriteIcon } from '../FavoriteIcon';
 interface ISharesCardProps {
   item: SharesItem;
   onClickFavorite: (id: string) => void;

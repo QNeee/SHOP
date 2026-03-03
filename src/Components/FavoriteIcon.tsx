@@ -1,46 +1,5 @@
 import type { FC } from 'react';
 
-export const sharesPhoto = [
-  {
-    id: 'sadaa',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
-    discount: 4,
-    text: 'Смартфон Apple iPhone 13 128GB',
-    price: 75999,
-    valute: '₴',
-    available: false,
-  },
-  {
-    id: 'sadsdsdaa',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
-    discount: 10,
-    text: 'Смартфон Apple iPhone 12 64GB',
-    price: 45999,
-    valute: '₴',
-    available: true,
-  },
-  {
-    id: 'sa2323daa',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
-    discount: 12,
-    text: 'Смартфон HONOR X8A 6/128GB',
-    price: 13600,
-    valute: '₴',
-    available: true,
-  },
-];
 export interface IFavoriteIcon {
   num: number;
 }

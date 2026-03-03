@@ -9,8 +9,8 @@ interface IButtonIconcon {
 export const ButtonIcon: FC<IButtonIconcon> = ({ direction = 'prev', onClick, hidden }) => {
   return (
     <svg
-      width="52"
-      height="52"
+      width="60"
+      height="60"
       viewBox="0 0 52 52"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -19,6 +19,7 @@ export const ButtonIcon: FC<IButtonIconcon> = ({ direction = 'prev', onClick, hi
         opacity: hidden ? 0 : 1,
         transition: 'opacity 0.2s ease',
         pointerEvents: hidden ? 'none' : 'auto',
+        cursor: 'pointer',
       }}
       onClick={onClick}
       id={direction}
@@ -30,7 +31,7 @@ export const ButtonIcon: FC<IButtonIconcon> = ({ direction = 'prev', onClick, hi
         height="50"
         rx="25"
         transform="matrix(-1 0 0 1 50 0)"
-        stroke="#C1C1C1"
+        stroke="red"
         strokeWidth="2"
       />
       <path

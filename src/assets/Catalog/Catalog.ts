@@ -11,4 +11,12 @@ export const catalogPhotos = [
   { id: 'lamp2', item: 'https://i.ibb.co/hRtbY2Pn/lamp.jpg', text: 'Лампи' },
   { id: 'sound2', item: 'https://i.ibb.co/KzxxkgMQ/sound.jpg', text: 'Колонки' },
   { id: 'smart2', item: 'https://i.ibb.co/QB8fSV9/Smart.jpg', text: 'Смартфони' },
+  { id: 'PC3', item: 'https://i.ibb.co/B544CG6K/pcs.jpg', text: "Комп'ютери" },
+  { id: 'lamp3', item: 'https://i.ibb.co/hRtbY2Pn/lamp.jpg', text: 'Лампи' },
+  { id: 'sound3', item: 'https://i.ibb.co/KzxxkgMQ/sound.jpg', text: 'Колонки' },
+  { id: 'smart3', item: 'https://i.ibb.co/QB8fSV9/Smart.jpg', text: 'Смартфони' },
+  { id: 'PC4', item: 'https://i.ibb.co/B544CG6K/pcs.jpg', text: "Комп'ютери" },
+  { id: 'lamp4', item: 'https://i.ibb.co/hRtbY2Pn/lamp.jpg', text: 'Лампи' },
+  { id: 'sound4', item: 'https://i.ibb.co/KzxxkgMQ/sound.jpg', text: 'Колонки' },
+  { id: 'smart4', item: 'https://i.ibb.co/QB8fSV9/Smart.jpg', text: 'Смартфони' },
 ];
