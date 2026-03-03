@@ -6,7 +6,7 @@ import { useIsmobileWidth } from './Helper';
 
 function App() {
   return (
-    <div className="container">
+    <div>
       <Header />
       <Main />
       {useIsmobileWidth() ? <Footer /> : null}

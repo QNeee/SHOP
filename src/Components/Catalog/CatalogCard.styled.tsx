@@ -8,10 +8,10 @@ export const CatalogCardWrapper = styled.div`
   p {
     @media screen and (min-width: 1280px) {
       font-size: x-large;
+      margin-top: 12px;
     }
-    margin-top: auto;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 16px;
+    text-align: center;
   }
   @media screen and (min-width: 1280px) {
     flex: 0 0 200px;

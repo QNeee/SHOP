@@ -14,7 +14,7 @@ import {
 } from './SharesCard.styled';
 import { Button } from '../GenericCarousel.styled';
 import { FavoriteIcon } from '../FavoriteIcon';
-import { useIsmobileWidth } from '../../Helper';
+import { isDesktop, isMobile, useIsmobileWidth } from '../../Helper';
 interface ISharesCardProps {
   item: SharesItem;
   onClickFavorite: (id: string) => void;
@@ -22,6 +22,8 @@ interface ISharesCardProps {
 }
 
 export const SharesCard: FC<ISharesCardProps> = ({ item, onClickFavorite, favorite }) => {
+  const isMobileWidth = useIsmobileWidth();
+  const itemPhotos = isMobileWidth ? item.photos[isMobile] : item.photos[isDesktop];
   const [pointer, setPointer] = useState(0);
   const availabletext = 'В навності';
   const noAvailabletext = 'Немає в наявності';
@@ -45,12 +47,7 @@ export const SharesCard: FC<ISharesCardProps> = ({ item, onClickFavorite, favori
   return (
     <SharesCardContainer id={item.id}>
       <ImageContainer>
-        <img
-          width={useIsmobileWidth() ? 114 : 169}
-          height={useIsmobileWidth() ? 158 : 216}
-          src={item.photos[pointer]}
-          alt={item.text}
-        />
+        <img src={itemPhotos[pointer]} alt={item.text} />
         <ChangeList ref={listRef} onClick={onClickCircle} id="list">
           <li id="0"></li>
           <li id="1"></li>
@@ -71,7 +68,7 @@ export const SharesCard: FC<ISharesCardProps> = ({ item, onClickFavorite, favori
           <FavoriteIcon num={favorite.findIndex((it) => it === item.id)} />
         </FavoriteContainer>
       </ButtonsContainer>
-      <Button style={{ marginTop: '15px', marginBottom: '15px' }}>В кошик</Button>
+      <Button type="button">В кошик</Button>
     </SharesCardContainer>
   );
 };

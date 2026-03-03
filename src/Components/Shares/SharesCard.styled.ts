@@ -12,7 +12,7 @@ export const DiscountContainer = styled.div`
   top: 0;
   right: 0%;
   border-radius: 8px;
-  background-color: yellow;
+  background-color: orange;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,6 +57,7 @@ export const SharesCardContainer = styled.div`
   align-items: center;
   width: 164px;
   height: 395px;
+  border-radius: 8px;
   @media screen and (min-width: 1280px) {
     width: 217px;
     height: 531px;

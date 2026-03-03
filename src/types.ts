@@ -1,12 +1,15 @@
 export type PhotoItem = {
   id: string;
-  item: string;
+  item: SharesPhotoItem;
   text: string;
 };
-
+type SharesPhotoItem = {
+  320: string | string[];
+  1280: string | string[];
+};
 export type SharesItem = {
   id: string;
-  photos: string[];
+  photos: SharesPhotoItem;
   discount: number;
   text: string;
   price: number;

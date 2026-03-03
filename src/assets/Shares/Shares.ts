@@ -1,11 +1,18 @@
 export const sharesPhoto = [
   {
     id: '1',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
+    photos: {
+      320: [
+        'https://i.postimg.cc/j2D5tqTb/1.png',
+        'https://i.postimg.cc/ryDx8MQ8/3.png',
+        'https://i.postimg.cc/ZqYvXSW-Y/2.png',
+      ],
+      1280: [
+        'https://i.postimg.cc/25JjTRv3/Rectangle-81-1-removebg-preview.png',
+        'https://i.postimg.cc/15PmvKgT/Rectangle-81-3-removebg-preview.png',
+        'https://i.postimg.cc/cJK0v9jK/Rectangle-81-removebg-preview.png',
+      ],
+    },
     discount: 4,
     text: 'Смартфон Apple iPhone 13 128GB',
     price: 75999,
@@ -14,11 +21,18 @@ export const sharesPhoto = [
   },
   {
     id: '2',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
+    photos: {
+      320: [
+        'https://i.postimg.cc/j2D5tqTb/1.png',
+        'https://i.postimg.cc/ryDx8MQ8/3.png',
+        'https://i.postimg.cc/ZqYvXSW-Y/2.png',
+      ],
+      1280: [
+        'https://i.postimg.cc/25JjTRv3/Rectangle-81-1-removebg-preview.png',
+        'https://i.postimg.cc/15PmvKgT/Rectangle-81-3-removebg-preview.png',
+        'https://i.postimg.cc/cJK0v9jK/Rectangle-81-removebg-preview.png',
+      ],
+    },
     discount: 10,
     text: 'Смартфон Apple iPhone 12 64GB',
     price: 45999,
@@ -27,11 +41,18 @@ export const sharesPhoto = [
   },
   {
     id: '3',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
+    photos: {
+      320: [
+        'https://i.postimg.cc/j2D5tqTb/1.png',
+        'https://i.postimg.cc/ryDx8MQ8/3.png',
+        'https://i.postimg.cc/ZqYvXSW-Y/2.png',
+      ],
+      1280: [
+        'https://i.postimg.cc/25JjTRv3/Rectangle-81-1-removebg-preview.png',
+        'https://i.postimg.cc/15PmvKgT/Rectangle-81-3-removebg-preview.png',
+        'https://i.postimg.cc/cJK0v9jK/Rectangle-81-removebg-preview.png',
+      ],
+    },
     discount: 12,
     text: 'Смартфон HONOR X8A 6/128GB',
     price: 13600,
@@ -40,11 +61,18 @@ export const sharesPhoto = [
   },
   {
     id: '4',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
+    photos: {
+      320: [
+        'https://i.postimg.cc/j2D5tqTb/1.png',
+        'https://i.postimg.cc/ryDx8MQ8/3.png',
+        'https://i.postimg.cc/ZqYvXSW-Y/2.png',
+      ],
+      1280: [
+        'https://i.postimg.cc/25JjTRv3/Rectangle-81-1-removebg-preview.png',
+        'https://i.postimg.cc/15PmvKgT/Rectangle-81-3-removebg-preview.png',
+        'https://i.postimg.cc/cJK0v9jK/Rectangle-81-removebg-preview.png',
+      ],
+    },
     discount: 12,
     text: 'Смартфон HONOR X8A 6/128GB',
     price: 13600,
@@ -53,11 +81,18 @@ export const sharesPhoto = [
   },
   {
     id: '5',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
+    photos: {
+      320: [
+        'https://i.postimg.cc/j2D5tqTb/1.png',
+        'https://i.postimg.cc/ryDx8MQ8/3.png',
+        'https://i.postimg.cc/ZqYvXSW-Y/2.png',
+      ],
+      1280: [
+        'https://i.postimg.cc/25JjTRv3/Rectangle-81-1-removebg-preview.png',
+        'https://i.postimg.cc/15PmvKgT/Rectangle-81-3-removebg-preview.png',
+        'https://i.postimg.cc/cJK0v9jK/Rectangle-81-removebg-preview.png',
+      ],
+    },
     discount: 12,
     text: 'Смартфон HONOR X8A 6/128GB',
     price: 13600,
@@ -66,11 +101,18 @@ export const sharesPhoto = [
   },
   {
     id: '6',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
+    photos: {
+      320: [
+        'https://i.postimg.cc/j2D5tqTb/1.png',
+        'https://i.postimg.cc/ryDx8MQ8/3.png',
+        'https://i.postimg.cc/ZqYvXSW-Y/2.png',
+      ],
+      1280: [
+        'https://i.postimg.cc/25JjTRv3/Rectangle-81-1-removebg-preview.png',
+        'https://i.postimg.cc/15PmvKgT/Rectangle-81-3-removebg-preview.png',
+        'https://i.postimg.cc/cJK0v9jK/Rectangle-81-removebg-preview.png',
+      ],
+    },
     discount: 12,
     text: 'Смартфон HONOR X8A 6/128GB',
     price: 13600,
@@ -79,11 +121,18 @@ export const sharesPhoto = [
   },
   {
     id: '7',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
+    photos: {
+      320: [
+        'https://i.postimg.cc/j2D5tqTb/1.png',
+        'https://i.postimg.cc/ryDx8MQ8/3.png',
+        'https://i.postimg.cc/ZqYvXSW-Y/2.png',
+      ],
+      1280: [
+        'https://i.postimg.cc/25JjTRv3/Rectangle-81-1-removebg-preview.png',
+        'https://i.postimg.cc/15PmvKgT/Rectangle-81-3-removebg-preview.png',
+        'https://i.postimg.cc/cJK0v9jK/Rectangle-81-removebg-preview.png',
+      ],
+    },
     discount: 12,
     text: 'Смартфон HONOR X8A 6/128GB',
     price: 13600,
@@ -92,11 +141,18 @@ export const sharesPhoto = [
   },
   {
     id: '8',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
+    photos: {
+      320: [
+        'https://i.postimg.cc/j2D5tqTb/1.png',
+        'https://i.postimg.cc/ryDx8MQ8/3.png',
+        'https://i.postimg.cc/ZqYvXSW-Y/2.png',
+      ],
+      1280: [
+        'https://i.postimg.cc/25JjTRv3/Rectangle-81-1-removebg-preview.png',
+        'https://i.postimg.cc/15PmvKgT/Rectangle-81-3-removebg-preview.png',
+        'https://i.postimg.cc/cJK0v9jK/Rectangle-81-removebg-preview.png',
+      ],
+    },
     discount: 12,
     text: 'Смартфон HONOR X8A 6/128GB',
     price: 13600,
@@ -105,11 +161,18 @@ export const sharesPhoto = [
   },
   {
     id: '9',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
+    photos: {
+      320: [
+        'https://i.postimg.cc/j2D5tqTb/1.png',
+        'https://i.postimg.cc/ryDx8MQ8/3.png',
+        'https://i.postimg.cc/ZqYvXSW-Y/2.png',
+      ],
+      1280: [
+        'https://i.postimg.cc/25JjTRv3/Rectangle-81-1-removebg-preview.png',
+        'https://i.postimg.cc/15PmvKgT/Rectangle-81-3-removebg-preview.png',
+        'https://i.postimg.cc/cJK0v9jK/Rectangle-81-removebg-preview.png',
+      ],
+    },
     discount: 12,
     text: 'Смартфон HONOR X8A 6/128GB',
     price: 13600,
@@ -118,11 +181,18 @@ export const sharesPhoto = [
   },
   {
     id: '10',
-    photos: [
-      'https://i.ibb.co/pB2tYhzr/phone.jpg',
-      'https://i.ibb.co/gbLkjzrk/phone1.jpg',
-      'https://i.ibb.co/s9kNq82S/img.jpg',
-    ],
+    photos: {
+      320: [
+        'https://i.postimg.cc/j2D5tqTb/1.png',
+        'https://i.postimg.cc/ryDx8MQ8/3.png',
+        'https://i.postimg.cc/ZqYvXSW-Y/2.png',
+      ],
+      1280: [
+        'https://i.postimg.cc/25JjTRv3/Rectangle-81-1-removebg-preview.png',
+        'https://i.postimg.cc/15PmvKgT/Rectangle-81-3-removebg-preview.png',
+        'https://i.postimg.cc/cJK0v9jK/Rectangle-81-removebg-preview.png',
+      ],
+    },
     discount: 12,
     text: 'Смартфон HONOR X8A 6/128GB',
     price: 13600,

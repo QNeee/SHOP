@@ -1,22 +1,58 @@
 export const catalogPhotos = [
-  { id: 'PC', item: 'https://i.ibb.co/B544CG6K/pcs.jpg', text: "Комп'ютери" },
-  { id: 'lamp', item: 'https://i.ibb.co/hRtbY2Pn/lamp.jpg', text: 'Лампи' },
-  { id: 'sound', item: 'https://i.ibb.co/KzxxkgMQ/sound.jpg', text: 'Колонки' },
-  { id: 'smart', item: 'https://i.ibb.co/QB8fSV9/Smart.jpg', text: 'Смартфони' },
-  { id: 'PC1', item: 'https://i.ibb.co/B544CG6K/pcs.jpg', text: "Комп'ютери" },
-  { id: 'lamp1', item: 'https://i.ibb.co/hRtbY2Pn/lamp.jpg', text: 'Лампи' },
-  { id: 'sound1', item: 'https://i.ibb.co/KzxxkgMQ/sound.jpg', text: 'Колонки' },
-  { id: 'smart1', item: 'https://i.ibb.co/QB8fSV9/Smart.jpg', text: 'Смартфони' },
-  { id: 'PC2', item: 'https://i.ibb.co/B544CG6K/pcs.jpg', text: "Комп'ютери" },
-  { id: 'lamp2', item: 'https://i.ibb.co/hRtbY2Pn/lamp.jpg', text: 'Лампи' },
-  { id: 'sound2', item: 'https://i.ibb.co/KzxxkgMQ/sound.jpg', text: 'Колонки' },
-  { id: 'smart2', item: 'https://i.ibb.co/QB8fSV9/Smart.jpg', text: 'Смартфони' },
-  { id: 'PC3', item: 'https://i.ibb.co/B544CG6K/pcs.jpg', text: "Комп'ютери" },
-  { id: 'lamp3', item: 'https://i.ibb.co/hRtbY2Pn/lamp.jpg', text: 'Лампи' },
-  { id: 'sound3', item: 'https://i.ibb.co/KzxxkgMQ/sound.jpg', text: 'Колонки' },
-  { id: 'smart3', item: 'https://i.ibb.co/QB8fSV9/Smart.jpg', text: 'Смартфони' },
-  { id: 'PC4', item: 'https://i.ibb.co/B544CG6K/pcs.jpg', text: "Комп'ютери" },
-  { id: 'lamp4', item: 'https://i.ibb.co/hRtbY2Pn/lamp.jpg', text: 'Лампи' },
-  { id: 'sound4', item: 'https://i.ibb.co/KzxxkgMQ/sound.jpg', text: 'Колонки' },
-  { id: 'smart4', item: 'https://i.ibb.co/QB8fSV9/Smart.jpg', text: 'Смартфони' },
+  {
+    id: 'smart',
+    item: {
+      320: 'https://i.postimg.cc/85cj5zb3/smart320.png',
+      1280: 'https://i.postimg.cc/nLdsKDRW/smart1280.png',
+    },
+    text: 'Смартфони',
+  },
+  {
+    id: 'laptop',
+    item: {
+      320: 'https://i.postimg.cc/x1jk75zj/note320-(1).png',
+      1280: 'https://i.ibb.co/Qv7yC9zk/note1280.png',
+    },
+    text: 'Ноутбуки',
+  },
+  {
+    id: 'tv',
+    item: {
+      320: 'https://i.postimg.cc/VLhQQLSW-/tv320-(1).png',
+      1280: 'https://i.ibb.co/ynpCTCZp/Tv1280.png',
+    },
+    text: 'Телевізори',
+  },
+  {
+    id: 'tablets',
+    item: {
+      320: 'https://i.postimg.cc/C5Z7jYwW/tablet320-(1).png',
+      1280: 'https://i.postimg.cc/HknjYxsJ/tablet1280.png',
+    },
+    text: 'Планшети',
+  },
+  {
+    id: 'sound',
+    item: {
+      320: 'https://i.postimg.cc/LXGCQhQ9/sound320-(1).png',
+      1280: 'https://i.postimg.cc/W3v2kbT2/sound1280.png',
+    },
+    text: 'Колонки',
+  },
+  {
+    id: 'headsets',
+    item: {
+      320: 'https://i.postimg.cc/jjm4tmHm/istockphoto-860853774-1024x1024-removebg-preview-(1)-(1).png',
+      1280: 'https://i.postimg.cc/mZdt0CTs/istockphoto-860853774-1024x1024-removebg-preview-(1).png',
+    },
+    text: 'Навушники',
+  },
+  {
+    id: 'micros',
+    item: {
+      320: 'https://i.postimg.cc/bNwDVLbN/micro-(1).png',
+      1280: 'https://i.postimg.cc/2yfRtH3g/micro.png',
+    },
+    text: 'Мікрофони',
+  },
 ];

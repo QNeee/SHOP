@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const SharesSection = styled.section`
   position: relative;
-
+  padding-bottom: 19px;
   @media screen and (min-width: 1280px) {
     padding: 0 80px;
   }
@@ -26,6 +26,8 @@ export const SharesSection = styled.section`
   }
 
   @media screen and (min-width: 1280px) {
+    padding-bottom: 24px;
+    margin-bottom: 24px;
     &::before,
     &::after {
       left: 80px;
