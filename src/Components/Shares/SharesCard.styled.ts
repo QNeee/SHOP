@@ -55,7 +55,12 @@ export const SharesCardContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 164px;
+  height: 395px;
+  @media screen and (min-width: 1280px) {
+    width: 217px;
+    height: 531px;
+  }
 `;
 export const FavoriteContainer = styled.div`
   width: 35px;

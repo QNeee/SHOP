@@ -14,6 +14,7 @@ import {
 } from './SharesCard.styled';
 import { Button } from '../GenericCarousel.styled';
 import { FavoriteIcon } from '../FavoriteIcon';
+import { useIsmobileWidth } from '../../Helper';
 interface ISharesCardProps {
   item: SharesItem;
   onClickFavorite: (id: string) => void;
@@ -44,7 +45,12 @@ export const SharesCard: FC<ISharesCardProps> = ({ item, onClickFavorite, favori
   return (
     <SharesCardContainer id={item.id}>
       <ImageContainer>
-        <img width={114} height={158} src={item.photos[pointer]} alt={item.text} />
+        <img
+          width={useIsmobileWidth() ? 114 : 169}
+          height={useIsmobileWidth() ? 158 : 216}
+          src={item.photos[pointer]}
+          alt={item.text}
+        />
         <ChangeList ref={listRef} onClick={onClickCircle} id="list">
           <li id="0"></li>
           <li id="1"></li>

@@ -25,6 +25,7 @@ export const Carousel = styled.div`
   scrollbar-width: thin;
   scrollbar-color: #0077ff #f0f0f0;
   @media screen and (min-width: 1280px) {
+    padding: 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
 
