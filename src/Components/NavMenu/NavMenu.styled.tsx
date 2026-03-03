@@ -9,10 +9,15 @@ export const IconsUl = styled.ul`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 20px;
+  @media screen and (min-width: 1280px) {
+    width: 230px;
+  }
 `;
-export const UrlText = styled.h3`
+export const UrlText = styled.span`
   font-size: 14px;
   color: #454545;
+  margin-top: 8px;
 `;
 export const SvgIcon = styled.svg`
   width: 26px;

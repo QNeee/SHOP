@@ -5,6 +5,7 @@ export const CatalogSection = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 export const CatalogText = styled.h2`
   margin-left: 16px;

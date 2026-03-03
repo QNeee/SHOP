@@ -13,3 +13,8 @@ export type SharesItem = {
   valute: string;
   available: boolean;
 };
+export type CarouselsRefs = {
+  AdBanner: React.RefObject<HTMLDivElement | null>;
+  Catalog: React.RefObject<HTMLDivElement | null>;
+  Shares: React.RefObject<HTMLDivElement | null>;
+};

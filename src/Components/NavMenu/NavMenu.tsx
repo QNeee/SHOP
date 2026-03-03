@@ -1,16 +1,20 @@
 import { BasketIcon, CatalogIcon, HomeIcon, ProfileIcon } from '../../assets/NavMenu/NavMenu';
+import { useIsmobileWidth } from '../../Helper';
 import { IconsUl, IconsUrl, Nav, UrlText } from './NavMenu.styled';
 
 export const NavMenu = () => {
   return (
     <Nav>
       <IconsUl>
-        <li>
-          <IconsUrl href="#home">
-            <HomeIcon />
-            <UrlText>Головна</UrlText>
-          </IconsUrl>
-        </li>
+        {useIsmobileWidth() && (
+          <li>
+            <IconsUrl href="#home">
+              <HomeIcon />
+              <UrlText>Головна</UrlText>
+            </IconsUrl>
+          </li>
+        )}
+
         <li>
           <IconsUrl href="#catalog">
             <CatalogIcon />

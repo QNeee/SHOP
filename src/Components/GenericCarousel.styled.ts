@@ -24,6 +24,14 @@ export const Carousel = styled.div`
   }
   scrollbar-width: thin;
   scrollbar-color: #0077ff #f0f0f0;
+  @media screen and (min-width: 1280px) {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 export const Slide = styled.img`
   flex: 0 0 100%;
