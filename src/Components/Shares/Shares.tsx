@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { sharesPhoto } from '../../assets/Shares/Shares';
-import { SharesSection, SharesText } from './Shares.styled';
+import { SharesTextContainer, SharesSection, SharesText } from './Shares.styled';
 import { SharesCard } from './SharesCard';
 import { GenericCarousel } from '../GenericCarousel';
 import { SharesId } from '../../Helper';
@@ -14,8 +14,10 @@ interface ISharesProps {
 export const Shares: FC<ISharesProps> = ({ onClickFavorite, favorite, onClick, carouselRef }) => {
   return (
     <>
-      <SharesText>Акції</SharesText>
       <SharesSection>
+        <SharesTextContainer>
+          <SharesText>Акції</SharesText>
+        </SharesTextContainer>
         <GenericCarousel id={SharesId} carouselRef={carouselRef} onClick={onClick}>
           <>
             {sharesPhoto.map((item) => (

@@ -11,8 +11,8 @@ interface ICatalogProps {
 export const Catalog: FC<ICatalogProps> = ({ carouselRef, onClick }) => {
   return (
     <>
-      <CatalogText>Каталог</CatalogText>
       <CatalogSection>
+        <CatalogText>Каталог</CatalogText>
         <GenericCarousel id={CatalogId} carouselRef={carouselRef} onClick={onClick}>
           <>
             {catalogPhotos.map((item) => (

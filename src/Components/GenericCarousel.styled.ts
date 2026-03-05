@@ -37,7 +37,7 @@ export const Carousel = styled.div`
 export const Slide = styled.img`
   flex: 0 0 100%;
   height: 149px;
-  width: 100vw;
+  width: 100%;
   @media screen and (min-width: 480px) and (max-width: 768px) {
     height: 180px;
   }
