@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 export const AdBannerId = 'AdBanner';
 export const CatalogId = 'Catalog';
 export const SharesId = 'Shares';
+export const WatchedId = 'Watched';
 export const isMobile = 320;
 export const isDesktop = 1280;
 export const useIsmobileWidth = (): boolean => {

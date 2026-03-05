@@ -8,7 +8,9 @@ export const HeaderContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 0;
   }
 `;
@@ -20,8 +22,8 @@ export const Logo = styled.img`
   margin-right: auto;
   padding-top: 58px;
   @media screen and (min-width: 1280px) {
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: 0;
+    margin-right: auto;
     padding-top: 0;
   }
 `;

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FC } from 'react';
-import type { SharesItem } from '../../types';
+import type { FavoriteObject, ProductItem } from '../../types';
 import {
   ButtonsContainer,
   ChangeList,
@@ -9,19 +9,20 @@ import {
   ImageContainer,
   OldPrice,
   Price,
-  SharesCardContainer,
+  ProductCardContainer,
   TextContainer,
-} from './SharesCard.styled';
+} from './ProductCard.styled';
 import { Button } from '../GenericCarousel.styled';
 import { FavoriteIcon } from '../FavoriteIcon';
 import { isDesktop, isMobile, useIsmobileWidth } from '../../Helper';
-interface ISharesCardProps {
-  item: SharesItem;
-  onClickFavorite: (id: string) => void;
+interface IProductCardProps {
+  item: ProductItem;
+  onClickFavorite: (obj: FavoriteObject) => void;
   favorite: string[];
+  id: string;
 }
 
-export const SharesCard: FC<ISharesCardProps> = ({ item, onClickFavorite, favorite }) => {
+export const ProductCard: FC<IProductCardProps> = ({ item, onClickFavorite, favorite, id }) => {
   const isMobileWidth = useIsmobileWidth();
   const itemPhotos = isMobileWidth ? item.photos[isMobile] : item.photos[isDesktop];
   const [pointer, setPointer] = useState(0);
@@ -45,7 +46,7 @@ export const SharesCard: FC<ISharesCardProps> = ({ item, onClickFavorite, favori
     });
   }, [pointer]);
   return (
-    <SharesCardContainer id={item.id}>
+    <ProductCardContainer id={item.id}>
       <ImageContainer>
         <img src={itemPhotos[pointer]} alt={item.text} />
         <ChangeList ref={listRef} onClick={onClickCircle} id="list">
@@ -64,11 +65,14 @@ export const SharesCard: FC<ISharesCardProps> = ({ item, onClickFavorite, favori
       </TextContainer>
       <ButtonsContainer $available={item.available}>
         <p>{item.available ? availabletext : noAvailabletext}</p>
-        <FavoriteContainer onClick={() => onClickFavorite(item.id)} id={item.id}>
+        <FavoriteContainer
+          onClick={() => onClickFavorite({ id: item.id, elemId: id })}
+          id={item.id}
+        >
           <FavoriteIcon num={favorite.findIndex((it) => it === item.id)} />
         </FavoriteContainer>
       </ButtonsContainer>
       <Button type="button">В кошик</Button>
-    </SharesCardContainer>
+    </ProductCardContainer>
   );
 };

@@ -7,7 +7,7 @@ type SharesPhotoItem = {
   320: string | string[];
   1280: string | string[];
 };
-export type SharesItem = {
+export type ProductItem = {
   id: string;
   photos: SharesPhotoItem;
   discount: number;
@@ -20,4 +20,13 @@ export type CarouselsRefs = {
   AdBanner: React.RefObject<HTMLDivElement | null>;
   Catalog: React.RefObject<HTMLDivElement | null>;
   Shares: React.RefObject<HTMLDivElement | null>;
+  Watched: React.RefObject<HTMLDivElement | null>;
+};
+export type FavoriteObject = {
+  id: string;
+  elemId: string;
+};
+export type FavoriteLocalStorage = {
+  Shares: string[];
+  Watched: string[];
 };

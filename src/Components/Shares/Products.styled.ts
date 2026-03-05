@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-export const SharesSection = styled.section`
+export const ProductSection = styled.section`
   position: relative;
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 19px;
+  margin-top: 40px;
   &::after {
     content: '';
     position: absolute;
@@ -32,13 +33,13 @@ export const SharesSection = styled.section`
     }
   }
 `;
-export const SharesText = styled.h2`
+export const ProductText = styled.h2`
   margin-left: 16px;
   @media screen and (min-width: 1280px) {
     margin-left: 0;
   }
 `;
-export const SharesTextContainer = styled.div`
+export const ProductTextContainer = styled.div`
   position: relative;
   &::after {
     content: '';

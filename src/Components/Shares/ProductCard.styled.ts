@@ -50,7 +50,7 @@ export const ButtonsContainer = styled.div<{ $available: boolean }>`
     color: ${({ $available }) => ($available ? 'green' : 'blue')};
   }
 `;
-export const SharesCardContainer = styled.div`
+export const ProductCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
