@@ -2,15 +2,15 @@ import { type FC } from 'react';
 
 import React from 'react';
 import { AdBannerId, CatalogId, SharesId, useIsmobileWidth, WatchedId } from '../Helper';
-import type { CarouselsRefs, LocalSorageObject, LocalStorageItem } from '../types';
+import type { CarouselsRefs, LocalSorageObject, LocalStorageItemCategory } from '../types';
 import { AdBanner } from '../Components/AdBanner/AdBanner';
 import { Catalog } from '../Components/Catalog/Catalog';
 import { Products } from '../Components/Products/Products';
 import { sharesPhoto } from '../assets/Shares/Shares';
 
 interface IMainPageProps {
-  favorite: LocalStorageItem;
-  baket: LocalStorageItem;
+  favorite: LocalStorageItemCategory;
+  baket: LocalStorageItemCategory;
   onClick: (obj: LocalSorageObject) => void;
 }
 export const MainPage: FC<IMainPageProps> = ({ onClick, favorite, baket }) => {
@@ -41,8 +41,8 @@ export const MainPage: FC<IMainPageProps> = ({ onClick, favorite, baket }) => {
       <Catalog carouselRef={carouselsRefs[CatalogId]} onClick={onClickCarouselButton} />
       {isMobile ? (
         <Products
-          baket={baket[WatchedId]}
-          favorite={favorite[WatchedId]}
+          baket={baket}
+          favorite={favorite}
           carouselRef={carouselsRefs[WatchedId]}
           onClickCarousel={onClickCarouselButton}
           items={sharesPhoto}
@@ -52,8 +52,8 @@ export const MainPage: FC<IMainPageProps> = ({ onClick, favorite, baket }) => {
         />
       ) : null}
       <Products
-        baket={baket[SharesId]}
-        favorite={favorite[SharesId]}
+        baket={baket}
+        favorite={favorite}
         carouselRef={carouselsRefs[SharesId]}
         onClickCarousel={onClickCarouselButton}
         items={sharesPhoto}

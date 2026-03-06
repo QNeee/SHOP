@@ -3,7 +3,12 @@ import LogoImg from '../../assets/glance.png';
 import SearchImg from '../../assets/icon_search.png';
 import { useIsmobileWidth } from '../../Helper';
 import { NavMenu } from '../NavMenu/NavMenu';
-export const Header = () => {
+import type { LocalStorageItemCategory } from '../../types';
+import type { FC } from 'react';
+interface IHeaderProps {
+  items: LocalStorageItemCategory;
+}
+export const Header: FC<IHeaderProps> = ({ items }) => {
   return (
     <HeaderContainer>
       <Logo src={LogoImg} alt="Logo" />
@@ -11,7 +16,7 @@ export const Header = () => {
         <SearchIcon src={SearchImg} />
         <SearcInput type="text" placeholder="Пошук" />
       </SearchContainer>
-      {!useIsmobileWidth() && <NavMenu />}
+      {!useIsmobileWidth() && <NavMenu items={items} />}
     </HeaderContainer>
   );
 };

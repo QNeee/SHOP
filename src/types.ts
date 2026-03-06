@@ -25,18 +25,14 @@ export type CarouselsRefs = {
 };
 export type LocalSorageObject = {
   id: string;
-  elemId: 'Watched' | 'Shares';
   type: 'favorites' | 'baket';
   itemType: keyof LocalStorageItemCategory;
 };
 export type LocalStorageItem = {
-  Shares: LocalStorageItemCategory;
-  Watched: LocalStorageItemCategory;
+  favorites: LocalStorageItemCategory;
+  baket: LocalStorageItemCategory;
 };
 export type LocalStorageItemCategory = {
   smart: Record<string, boolean>;
-};
-export type LocalStorageItems = {
-  favorites: LocalStorageItem;
-  baket: LocalStorageItem;
+  tv: Record<string, boolean>;
 };

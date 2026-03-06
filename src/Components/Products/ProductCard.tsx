@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FC } from 'react';
+import { useRef, useState, type FC } from 'react';
 import type {
   LocalSorageObject,
   LocalStorageItem,
@@ -7,7 +7,6 @@ import type {
 } from '../../types';
 import {
   ButtonsContainer,
-  ChangeList,
   CostContainer,
   DiscountContainer,
   FavoriteContainer,
@@ -20,6 +19,7 @@ import {
 import { Button } from '../GenericCarousel.styled';
 import { FavoriteIcon } from '../FavoriteIcon';
 import { discountCalculate, isDesktop, isMobile, useIsmobileWidth } from '../../Helper';
+import { ChangeColorList } from '../ChangeColorList';
 interface IProductCardProps {
   item: ProductItem;
   onClick: (obj: LocalSorageObject) => void;
@@ -39,34 +39,19 @@ export const ProductCard: FC<IProductCardProps> = ({ item, favorite, id, onClick
     id: item.id,
     elemId: id as keyof LocalStorageItem,
   };
-  const onClickCircle = (e: React.MouseEvent<HTMLUListElement>) => {
-    const target = e.target as HTMLLIElement;
-    if (pointer == parseInt(target.id) || target.id == 'list') return;
-    setPointer(parseInt(target.id));
-  };
-  useEffect(() => {
-    if (!listRef.current) return;
 
-    Array.from(listRef.current.children).forEach((li) => {
-      (li as HTMLElement).style.backgroundColor = li.id === pointer.toString() ? 'blue' : 'white';
-    });
-  }, [pointer]);
   return (
     <ProductCardContainer id={item.id}>
       <ImageContainer>
         <img src={itemPhotos[pointer]} alt={item.text} />
-        <ChangeList ref={listRef} onClick={onClickCircle} id="list">
-          <li id="0"></li>
-          <li id="1"></li>
-          <li id="2"></li>
-        </ChangeList>
+        <ChangeColorList listRef={listRef} setPointer={setPointer} pointer={pointer} id={'list'} />
         <DiscountContainer>{item.discount + '%'}</DiscountContainer>
       </ImageContainer>
       <TextContainer>
         <p>{item.text}</p>
         <CostContainer>
           <Price>{item.price + item.valute}</Price>
-          <OldPrice>{discountCalculate(item.price, item.discount, item.valute)}</OldPrice>
+          <OldPrice>{discountCalculate(item.price, item.discount) + item.valute}</OldPrice>
         </CostContainer>
       </TextContainer>
       <ButtonsContainer $available={item.available}>

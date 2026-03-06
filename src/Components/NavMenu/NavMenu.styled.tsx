@@ -35,3 +35,22 @@ export const IconsUrl = styled.a`
     stroke: blue;
   }
 `;
+export const BaketCountContainer = styled.div`
+  position: relative;
+`;
+export const CountContainer = styled.div`
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: purple;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+`;

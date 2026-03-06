@@ -1,9 +1,14 @@
+import type { FC } from 'react';
 import { NavMenu } from '../NavMenu/NavMenu';
+import type { LocalStorageItemCategory } from '../../types';
 
-export const Footer = () => {
+interface IHeaderProps {
+  items: LocalStorageItemCategory;
+}
+export const Footer: FC<IHeaderProps> = ({ items }) => {
   return (
     <footer>
-      <NavMenu />
+      <NavMenu items={items} />
     </footer>
   );
 };

@@ -28,7 +28,7 @@ export const useIsmobileWidth = (): boolean => {
 
   return width < isDesktop;
 };
-export const discountCalculate = (price: number, discount: number, valute: string) => {
-  return (price + (price * discount) / 100).toFixed() + valute;
+export const discountCalculate = (price: number, discount: number) => {
+  return (price + (price * discount) / 100).toFixed();
 };
 export const localStorageName = 'app';
