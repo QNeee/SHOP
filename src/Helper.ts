@@ -10,11 +10,13 @@ export const main = 'Головна';
 export const basket = 'Корзина';
 export const profile = 'Профіль';
 export const catalog = 'Каталог';
+export const order = 'Оформлення товару';
 export const Paths = {
   base: '/SHOP',
   basket: '/SHOP/basket',
   profile: '/SHOP/profile',
   catalog: '/SHOP/catalog',
+  order: '/SHOP/basket/order',
 };
 export const useIsmobileWidth = (): boolean => {
   const [width, setWidth] = useState(window.innerWidth);
@@ -26,3 +28,7 @@ export const useIsmobileWidth = (): boolean => {
 
   return width < isDesktop;
 };
+export const discountCalculate = (price: number, discount: number, valute: string) => {
+  return (price + (price * discount) / 100).toFixed() + valute;
+};
+export const localStorageName = 'app';

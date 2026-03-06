@@ -2,25 +2,27 @@ import type { FC } from 'react';
 import { ProductTextContainer, ProductSection, ProductText } from './Products.styled';
 import { ProductCard } from './ProductCard';
 import { GenericCarousel } from '../GenericCarousel';
-import type { FavoriteObject, ProductItem } from '../../types';
+import type { LocalSorageObject, LocalStorageItemCategory, ProductItem } from '../../types';
 interface IProductsProps {
-  onClickFavorite: (obj: FavoriteObject) => void;
-  favorite: Record<string, boolean>;
+  onClick: (obj: LocalSorageObject) => void;
+  favorite: LocalStorageItemCategory;
+  baket: LocalStorageItemCategory;
   carouselRef: React.RefObject<HTMLDivElement | null>;
-  onClick: (e: React.MouseEvent<SVGSVGElement>) => void;
+  onClickCarousel: (e: React.MouseEvent<SVGSVGElement>) => void;
   items: ProductItem[];
   headerTitle: string;
   id: string;
 }
 
 export const Products: FC<IProductsProps> = ({
-  onClickFavorite,
   favorite,
-  onClick,
+  onClickCarousel,
   carouselRef,
   items,
   headerTitle,
   id,
+  onClick,
+  baket,
 }) => {
   return (
     <>
@@ -28,15 +30,16 @@ export const Products: FC<IProductsProps> = ({
         <ProductTextContainer>
           <ProductText>{headerTitle}</ProductText>
         </ProductTextContainer>
-        <GenericCarousel id={id} carouselRef={carouselRef} onClick={onClick}>
+        <GenericCarousel id={id} carouselRef={carouselRef} onClick={onClickCarousel}>
           <>
             {items.map((item) => (
               <ProductCard
+                onClick={onClick}
                 id={id}
                 key={item.id}
                 item={item}
-                onClickFavorite={onClickFavorite}
                 favorite={favorite}
+                baket={baket}
               />
             ))}
           </>

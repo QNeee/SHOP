@@ -2,9 +2,9 @@ import { GenericRoute } from '../Components/GenericRoute/GenericRoute';
 import { main, profile } from '../Helper';
 
 export const ProfilePage = () => {
-  const path = main + ' ' + '/' + ' ' + profile;
+  const profilePath = `${main} / ${profile}`;
   return (
-    <GenericRoute path={path} title={profile}>
+    <GenericRoute path={profilePath} title={profile}>
       <></>
     </GenericRoute>
   );

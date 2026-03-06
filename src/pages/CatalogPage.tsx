@@ -2,9 +2,9 @@ import { GenericRoute } from '../Components/GenericRoute/GenericRoute';
 import { catalog, main } from '../Helper';
 
 export const CatalogPage = () => {
-  const path = main + ' ' + '/' + ' ' + catalog;
+  const catalogPath = `${main} / ${catalog}`;
   return (
-    <GenericRoute path={path} title={catalog}>
+    <GenericRoute path={catalogPath} title={catalog}>
       <></>
     </GenericRoute>
   );

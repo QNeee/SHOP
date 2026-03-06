@@ -1,6 +1,7 @@
 export const sharesPhoto = [
   {
     id: '1',
+    type: 'smart',
     photos: {
       320: [
         'https://i.postimg.cc/j2D5tqTb/1.png',
@@ -21,6 +22,7 @@ export const sharesPhoto = [
   },
   {
     id: '2',
+    type: 'smart',
     photos: {
       320: [
         'https://i.postimg.cc/j2D5tqTb/1.png',
@@ -41,6 +43,7 @@ export const sharesPhoto = [
   },
   {
     id: '3',
+    type: 'smart',
     photos: {
       320: [
         'https://i.postimg.cc/j2D5tqTb/1.png',
@@ -61,6 +64,7 @@ export const sharesPhoto = [
   },
   {
     id: '4',
+    type: 'smart',
     photos: {
       320: [
         'https://i.postimg.cc/j2D5tqTb/1.png',
@@ -81,6 +85,7 @@ export const sharesPhoto = [
   },
   {
     id: '5',
+    type: 'smart',
     photos: {
       320: [
         'https://i.postimg.cc/j2D5tqTb/1.png',
@@ -101,6 +106,7 @@ export const sharesPhoto = [
   },
   {
     id: '6',
+    type: 'smart',
     photos: {
       320: [
         'https://i.postimg.cc/j2D5tqTb/1.png',
@@ -121,6 +127,7 @@ export const sharesPhoto = [
   },
   {
     id: '7',
+    type: 'smart',
     photos: {
       320: [
         'https://i.postimg.cc/j2D5tqTb/1.png',
@@ -141,6 +148,7 @@ export const sharesPhoto = [
   },
   {
     id: '8',
+    type: 'smart',
     photos: {
       320: [
         'https://i.postimg.cc/j2D5tqTb/1.png',
@@ -161,6 +169,7 @@ export const sharesPhoto = [
   },
   {
     id: '9',
+    type: 'smart',
     photos: {
       320: [
         'https://i.postimg.cc/j2D5tqTb/1.png',
@@ -181,6 +190,7 @@ export const sharesPhoto = [
   },
   {
     id: '10',
+    type: 'smart',
     photos: {
       320: [
         'https://i.postimg.cc/j2D5tqTb/1.png',

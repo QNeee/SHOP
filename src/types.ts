@@ -8,6 +8,7 @@ type SharesPhotoItem = {
   1280: string | string[];
 };
 export type ProductItem = {
+  type: string;
   id: string;
   photos: SharesPhotoItem;
   discount: number;
@@ -22,11 +23,20 @@ export type CarouselsRefs = {
   Shares: React.RefObject<HTMLDivElement | null>;
   Watched: React.RefObject<HTMLDivElement | null>;
 };
-export type FavoriteObject = {
+export type LocalSorageObject = {
   id: string;
-  elemId: string;
+  elemId: 'Watched' | 'Shares';
+  type: 'favorites' | 'baket';
+  itemType: keyof LocalStorageItemCategory;
 };
-export type FavoriteLocalStorage = {
-  Shares: Record<string, boolean>;
-  Watched: Record<string, boolean>;
+export type LocalStorageItem = {
+  Shares: LocalStorageItemCategory;
+  Watched: LocalStorageItemCategory;
+};
+export type LocalStorageItemCategory = {
+  smart: Record<string, boolean>;
+};
+export type LocalStorageItems = {
+  favorites: LocalStorageItem;
+  baket: LocalStorageItem;
 };

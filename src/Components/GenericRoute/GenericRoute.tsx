@@ -14,8 +14,13 @@ export const GenericRoute: FC<IGenericRoute> = ({ path, title, children }) => {
   const { pathname } = useLocation();
   const onClick = () => {
     const pages = pathname.split('/');
-    const prevPage = pages[pages.length - 2];
-    navigate('/' + prevPage + '/');
+    const needPages = [...pages].filter(Boolean);
+    let backPath = '';
+    needPages.pop();
+    needPages.forEach((item) => {
+      backPath += '/' + item + '/';
+    });
+    navigate(backPath);
   };
 
   return (

@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState, type FC } from 'react';
-import type { FavoriteObject, ProductItem } from '../../types';
+import type {
+  LocalSorageObject,
+  LocalStorageItem,
+  LocalStorageItemCategory,
+  ProductItem,
+} from '../../types';
 import {
   ButtonsContainer,
   ChangeList,
@@ -14,30 +19,31 @@ import {
 } from './ProductCard.styled';
 import { Button } from '../GenericCarousel.styled';
 import { FavoriteIcon } from '../FavoriteIcon';
-import { isDesktop, isMobile, useIsmobileWidth } from '../../Helper';
+import { discountCalculate, isDesktop, isMobile, useIsmobileWidth } from '../../Helper';
 interface IProductCardProps {
   item: ProductItem;
-  onClickFavorite: (obj: FavoriteObject) => void;
-  favorite: Record<string, boolean>;
+  onClick: (obj: LocalSorageObject) => void;
+  favorite: LocalStorageItemCategory;
   id: string;
+  baket: LocalStorageItemCategory;
 }
 
-export const ProductCard: FC<IProductCardProps> = ({ item, onClickFavorite, favorite, id }) => {
+export const ProductCard: FC<IProductCardProps> = ({ item, favorite, id, onClick, baket }) => {
   const isMobileWidth = useIsmobileWidth();
   const itemPhotos = isMobileWidth ? item.photos[isMobile] : item.photos[isDesktop];
   const [pointer, setPointer] = useState(0);
   const availabletext = 'В навності';
   const noAvailabletext = 'Немає в наявності';
   const listRef = useRef<HTMLUListElement>(null);
-  const discountCalculate = () => {
-    return (item.price + (item.price * item.discount) / 100).toFixed() + item.valute;
+  const localStorageObj = {
+    id: item.id,
+    elemId: id as keyof LocalStorageItem,
   };
   const onClickCircle = (e: React.MouseEvent<HTMLUListElement>) => {
     const target = e.target as HTMLLIElement;
     if (pointer == parseInt(target.id) || target.id == 'list') return;
     setPointer(parseInt(target.id));
   };
-
   useEffect(() => {
     if (!listRef.current) return;
 
@@ -60,19 +66,40 @@ export const ProductCard: FC<IProductCardProps> = ({ item, onClickFavorite, favo
         <p>{item.text}</p>
         <CostContainer>
           <Price>{item.price + item.valute}</Price>
-          <OldPrice>{discountCalculate()}</OldPrice>
+          <OldPrice>{discountCalculate(item.price, item.discount, item.valute)}</OldPrice>
         </CostContainer>
       </TextContainer>
       <ButtonsContainer $available={item.available}>
         <p>{item.available ? availabletext : noAvailabletext}</p>
         <FavoriteContainer
-          onClick={() => onClickFavorite({ id: item.id, elemId: id })}
+          onClick={() =>
+            onClick({
+              ...localStorageObj,
+              type: 'favorites',
+              itemType: item.type as keyof LocalStorageItemCategory,
+            })
+          }
           id={item.id}
         >
-          <FavoriteIcon flag={favorite[item.id] || false} />
+          <FavoriteIcon
+            flag={favorite[item.type as keyof LocalStorageItemCategory][item.id] || false}
+          />
         </FavoriteContainer>
       </ButtonsContainer>
-      <Button type="button">В кошик</Button>
+      <Button
+        type="button"
+        onClick={() =>
+          onClick({
+            ...localStorageObj,
+            type: 'baket',
+            itemType: item.type as keyof LocalStorageItemCategory,
+          })
+        }
+      >
+        {baket[item.type as keyof LocalStorageItemCategory][item.id]
+          ? 'Видалити з кошику'
+          : 'В кошик'}
+      </Button>
     </ProductCardContainer>
   );
 };

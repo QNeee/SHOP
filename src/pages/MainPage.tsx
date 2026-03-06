@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { type FC } from 'react';
 
 import React from 'react';
 import { AdBannerId, CatalogId, SharesId, useIsmobileWidth, WatchedId } from '../Helper';
-import type { CarouselsRefs, FavoriteLocalStorage, FavoriteObject } from '../types';
+import type { CarouselsRefs, LocalSorageObject, LocalStorageItem } from '../types';
 import { AdBanner } from '../Components/AdBanner/AdBanner';
 import { Catalog } from '../Components/Catalog/Catalog';
-import { Products } from '../Components/Shares/Products';
+import { Products } from '../Components/Products/Products';
 import { sharesPhoto } from '../assets/Shares/Shares';
 
-export const MainPage = () => {
-  const localStorageShares = 'favorites';
+interface IMainPageProps {
+  favorite: LocalStorageItem;
+  baket: LocalStorageItem;
+  onClick: (obj: LocalSorageObject) => void;
+}
+export const MainPage: FC<IMainPageProps> = ({ onClick, favorite, baket }) => {
   const isMobile = useIsmobileWidth();
   const carouselsRefs: CarouselsRefs = {
     AdBanner: React.createRef<HTMLDivElement>(),
@@ -18,16 +22,6 @@ export const MainPage = () => {
     Watched: React.createRef<HTMLDivElement>(),
   };
 
-  const [favorite, setFavorite] = useState<FavoriteLocalStorage>(() => {
-    const data = localStorage.getItem(localStorageShares);
-
-    return data
-      ? JSON.parse(data)
-      : {
-          Shares: {},
-          Watched: {},
-        };
-  });
   const onClickCarouselButton = (e: React.MouseEvent<SVGSVGElement>) => {
     const id = e.currentTarget.id;
     const parentId = e.currentTarget.parentElement?.id as keyof CarouselsRefs | undefined;
@@ -41,48 +35,31 @@ export const MainPage = () => {
       });
     }
   };
-  const onClickFavorite = (obj: FavoriteObject) => {
-    const { id, elemId } = obj;
-
-    setFavorite((prev) => {
-      const needData = { ...prev[elemId as keyof FavoriteLocalStorage] };
-
-      if (needData[id]) delete needData[id];
-      else needData[id] = true;
-
-      const newData = {
-        ...prev,
-        [elemId]: needData,
-      };
-
-      localStorage.setItem(localStorageShares, JSON.stringify(newData));
-
-      return newData;
-    });
-  };
   return (
     <>
       <AdBanner carouselRef={carouselsRefs[AdBannerId]} onClick={onClickCarouselButton} />
       <Catalog carouselRef={carouselsRefs[CatalogId]} onClick={onClickCarouselButton} />
       {isMobile ? (
         <Products
-          onClickFavorite={onClickFavorite}
+          baket={baket[WatchedId]}
           favorite={favorite[WatchedId]}
           carouselRef={carouselsRefs[WatchedId]}
-          onClick={onClickCarouselButton}
+          onClickCarousel={onClickCarouselButton}
           items={sharesPhoto}
           headerTitle="Ви дивилися"
           id={WatchedId}
+          onClick={onClick}
         />
       ) : null}
       <Products
-        onClickFavorite={onClickFavorite}
+        baket={baket[SharesId]}
         favorite={favorite[SharesId]}
         carouselRef={carouselsRefs[SharesId]}
-        onClick={onClickCarouselButton}
+        onClickCarousel={onClickCarouselButton}
         items={sharesPhoto}
         headerTitle="Акції"
         id={SharesId}
+        onClick={onClick}
       />
     </>
   );
