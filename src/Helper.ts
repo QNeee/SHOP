@@ -6,6 +6,16 @@ export const SharesId = 'Shares';
 export const WatchedId = 'Watched';
 export const isMobile = 320;
 export const isDesktop = 1280;
+export const main = 'Головна';
+export const basket = 'Корзина';
+export const profile = 'Профіль';
+export const catalog = 'Каталог';
+export const Paths = {
+  base: '/SHOP',
+  basket: '/SHOP/basket',
+  profile: '/SHOP/profile',
+  catalog: '/SHOP/catalog',
+};
 export const useIsmobileWidth = (): boolean => {
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {

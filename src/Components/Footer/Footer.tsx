@@ -1,7 +1,9 @@
-import { NavMenu } from "../NavMenu/NavMenu"
+import { NavMenu } from '../NavMenu/NavMenu';
 
-export const Footer =()=>{
-return <div>
-    <NavMenu/>
-</div>
-}
+export const Footer = () => {
+  return (
+    <footer>
+      <NavMenu />
+    </footer>
+  );
+};

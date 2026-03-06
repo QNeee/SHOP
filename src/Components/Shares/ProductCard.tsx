@@ -18,7 +18,7 @@ import { isDesktop, isMobile, useIsmobileWidth } from '../../Helper';
 interface IProductCardProps {
   item: ProductItem;
   onClickFavorite: (obj: FavoriteObject) => void;
-  favorite: string[];
+  favorite: Record<string, boolean>;
   id: string;
 }
 
@@ -69,7 +69,7 @@ export const ProductCard: FC<IProductCardProps> = ({ item, onClickFavorite, favo
           onClick={() => onClickFavorite({ id: item.id, elemId: id })}
           id={item.id}
         >
-          <FavoriteIcon num={favorite.findIndex((it) => it === item.id)} />
+          <FavoriteIcon flag={favorite[item.id] || false} />
         </FavoriteContainer>
       </ButtonsContainer>
       <Button type="button">В кошик</Button>

@@ -5,6 +5,10 @@ export const CatalogCardWrapper = styled.div`
   flex-direction: column;
   flex: 0 0 98px;
   height: 163px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   p {
     @media screen and (min-width: 1280px) {
       font-size: x-large;
@@ -16,6 +20,9 @@ export const CatalogCardWrapper = styled.div`
   @media screen and (min-width: 1280px) {
     flex: 0 0 200px;
     height: 246px;
+  }
+  &:hover {
+    transform: scale(1.05);
   }
 `;
 export const ImageContainer = styled.div`

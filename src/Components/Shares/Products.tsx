@@ -5,7 +5,7 @@ import { GenericCarousel } from '../GenericCarousel';
 import type { FavoriteObject, ProductItem } from '../../types';
 interface IProductsProps {
   onClickFavorite: (obj: FavoriteObject) => void;
-  favorite: string[];
+  favorite: Record<string, boolean>;
   carouselRef: React.RefObject<HTMLDivElement | null>;
   onClick: (e: React.MouseEvent<SVGSVGElement>) => void;
   items: ProductItem[];

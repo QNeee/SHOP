@@ -27,6 +27,6 @@ export type FavoriteObject = {
   elemId: string;
 };
 export type FavoriteLocalStorage = {
-  Shares: string[];
-  Watched: string[];
+  Shares: Record<string, boolean>;
+  Watched: Record<string, boolean>;
 };

@@ -55,4 +55,20 @@ export const catalogPhotos = [
     },
     text: 'Мікрофони',
   },
+  {
+    id: 'pilososes',
+    item: {
+      320: 'https://i.postimg.cc/FRBZQ4yd/pilesos320.png',
+      1280: 'https://i.postimg.cc/hvm3yjkr/pilesos1280.png',
+    },
+    text: 'Пилососи',
+  },
+  {
+    id: 'charges',
+    item: {
+      320: 'https://i.postimg.cc/qvFyRLtY/charges320.png',
+      1280: 'https://i.postimg.cc/T1TWSNSD/charges1280.png',
+    },
+    text: 'Зарядки',
+  },
 ];

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const HeaderContainer = styled.div`
+export const HeaderContainer = styled.header`
   height: 189px;
   border-bottom: 1px solid gray;
   border-radius: 0 0 10px 10px;

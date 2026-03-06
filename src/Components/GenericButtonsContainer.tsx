@@ -18,9 +18,10 @@ export const GenericButtonsContainer: FC<IGenericButtonsContainerProps> = ({
 
   const checkScroll = () => {
     if (!carouselRef.current) return;
+    const EPS = 1;
     const carousel = carouselRef.current;
     setCanScrollPrev(carousel.scrollLeft > 0);
-    setCanScrollNext(carousel.scrollLeft < carousel.scrollWidth - carousel.clientWidth);
+    setCanScrollNext(carousel.scrollLeft < carousel.scrollWidth - carousel.clientWidth - EPS);
   };
 
   useEffect(() => {
