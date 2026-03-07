@@ -23,6 +23,7 @@ export type CarouselsRefs = {
   Catalog: React.RefObject<HTMLDivElement | null>;
   Shares: React.RefObject<HTMLDivElement | null>;
   Watched: React.RefObject<HTMLDivElement | null>;
+  CanLike: React.RefObject<HTMLDivElement | null>;
 };
 export type LocalSorageObject = {
   id: string;

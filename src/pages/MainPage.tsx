@@ -12,29 +12,18 @@ interface IMainPageProps {
   favorite: LocalStorageItemCategory;
   baket: LocalStorageItemCategory;
   onClick: (obj: LocalSorageObject) => void;
+  carouselsRefs: CarouselsRefs;
+  onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
 }
-export const MainPage: FC<IMainPageProps> = ({ onClick, favorite, baket }) => {
+export const MainPage: FC<IMainPageProps> = ({
+  onClick,
+  favorite,
+  baket,
+  carouselsRefs,
+  onClickCarouselButton,
+}) => {
   const isMobile = useIsmobileWidth();
-  const carouselsRefs: CarouselsRefs = {
-    AdBanner: React.createRef<HTMLDivElement>(),
-    Catalog: React.createRef<HTMLDivElement>(),
-    Shares: React.createRef<HTMLDivElement>(),
-    Watched: React.createRef<HTMLDivElement>(),
-  };
 
-  const onClickCarouselButton = (e: React.MouseEvent<SVGSVGElement>) => {
-    const id = e.currentTarget.id;
-    const parentId = e.currentTarget.parentElement?.id as keyof CarouselsRefs | undefined;
-    if (parentId && carouselsRefs[parentId]?.current) {
-      carouselsRefs[parentId].current.scrollBy({
-        left:
-          id === 'next'
-            ? carouselsRefs[parentId].current.offsetWidth
-            : -carouselsRefs[parentId].current.offsetWidth,
-        behavior: 'smooth',
-      });
-    }
-  };
   return (
     <>
       <AdBanner carouselRef={carouselsRefs[AdBannerId]} onClick={onClickCarouselButton} />

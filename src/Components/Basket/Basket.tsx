@@ -19,25 +19,38 @@ import { OldPrice, Price } from '../Products/ProductCard.styled';
 import type {
   CheckedItem,
   DeletedItemFromBaket,
+  LocalSorageObject,
   LocalStorageItemCategory,
   ProductItem,
 } from '../../types';
 import { sharesPhoto } from '../../assets/Shares/Shares';
 import { BasketCard } from './BasketCard';
+import { BasketEmpty } from './BaskerEmpty';
 interface IBasketProps {
   items: LocalStorageItemCategory;
   onClickDeleteAll: (data: CheckedItem[]) => void;
   onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
   setLocalStorageItems: Function;
+  onClick: (obj: LocalSorageObject) => void;
+  carouselsRefs: React.RefObject<HTMLDivElement | null>;
+  onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
+  favorite: LocalStorageItemCategory;
+  baket: LocalStorageItemCategory;
 }
 export const Basket: FC<IBasketProps> = ({
   items,
   onClickDeleteAll,
   onClickDeleteOne,
   setLocalStorageItems,
+  onClick,
+  onClickCarouselButton,
+  carouselsRefs,
+  favorite,
+  baket,
 }) => {
   const [renderItems, setRenderItems] = useState<ProductItem[]>([]);
   const [total, setTotal] = useState({ total: 0, totalWithDiscount: 0 });
+
   useEffect(() => {
     const data = Object.keys(items).flatMap((k) => {
       const itemKey = items[k as keyof LocalStorageItemCategory];
@@ -96,54 +109,67 @@ export const Basket: FC<IBasketProps> = ({
     }));
   };
   return (
-    <BasketWrapper>
-      <BasketContainer>
-        <BasketIconContainer
-          $checked={checkedAll}
-          onClick={() =>
-            onClickDeleteAll(
-              renderItems
-                .filter((item) => checkedItems[item.id])
-                .map((item) => ({
-                  smart: item.type === 'smart' ? item.id : undefined,
-                  tv: item.type === 'tv' ? item.id : undefined,
-                })),
-            )
-          }
-        >
-          <BasketIcon />
-          <BasketIconText>Видалити</BasketIconText>
-        </BasketIconContainer>
-        <InputContainer>
-          <StyledLabel htmlFor="deleteAll">
-            Вибрати все
-            <InputCheckbox
-              checked={checkedAll}
-              onChange={(e) => toggleAll(e.target.checked)}
-              type="checkbox"
-              id="deleteAll"
+    <>
+      {renderItems.length > 0 ? (
+        <BasketWrapper>
+          <BasketContainer>
+            <BasketIconContainer
+              $checked={checkedAll}
+              onClick={() =>
+                onClickDeleteAll(
+                  renderItems
+                    .filter((item) => checkedItems[item.id])
+                    .map((item) => ({
+                      smart: item.type === 'smart' ? item.id : undefined,
+                      tv: item.type === 'tv' ? item.id : undefined,
+                    })),
+                )
+              }
+            >
+              <BasketIcon />
+              <BasketIconText>Видалити</BasketIconText>
+            </BasketIconContainer>
+            <InputContainer>
+              <StyledLabel htmlFor="deleteAll">
+                Вибрати все
+                <InputCheckbox
+                  checked={checkedAll}
+                  onChange={(e) => toggleAll(e.target.checked)}
+                  type="checkbox"
+                  id="deleteAll"
+                />
+              </StyledLabel>
+            </InputContainer>
+          </BasketContainer>
+          {renderItems.map((item) => (
+            <BasketCard
+              setLocalStorageItems={setLocalStorageItems}
+              onClickDeleteOne={onClickDeleteOne}
+              item={item}
+              key={item.id}
+              checked={!!checkedItems[item.id]}
+              onChange={toggleItem}
             />
-          </StyledLabel>
-        </InputContainer>
-      </BasketContainer>
-      {renderItems.map((item) => (
-        <BasketCard
-          setLocalStorageItems={setLocalStorageItems}
-          onClickDeleteOne={onClickDeleteOne}
-          item={item}
-          key={item.id}
-          checked={!!checkedItems[item.id]}
-          onChange={toggleItem}
+          ))}
+          <TotalContainer>
+            <TotalText>Всього :</TotalText>
+            <TotalPrizeContainer>
+              <Price>{total.total}</Price>
+              <OldPrice>{total.totalWithDiscount}</OldPrice>
+            </TotalPrizeContainer>
+          </TotalContainer>
+          <BasketButton onClick={() => navigate(Paths.order)}>Оформити замовлення</BasketButton>
+        </BasketWrapper>
+      ) : (
+        <BasketEmpty
+          favorite={favorite}
+          baket={baket}
+          onClick={onClick}
+          carouselsRefs={carouselsRefs}
+          onClickCarouselButton={onClickCarouselButton}
+          navigate={navigate}
         />
-      ))}
-      <TotalContainer>
-        <TotalText>Всього :</TotalText>
-        <TotalPrizeContainer>
-          <Price>{total.total}</Price>
-          <OldPrice>{total.totalWithDiscount}</OldPrice>
-        </TotalPrizeContainer>
-      </TotalContainer>
-      <BasketButton onClick={() => navigate(Paths.order)}>Оформити замовлення</BasketButton>
-    </BasketWrapper>
+      )}
+    </>
   );
 };

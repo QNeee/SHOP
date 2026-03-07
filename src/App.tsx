@@ -4,18 +4,26 @@ import './App.css';
 import { Layout } from './Components/Layout/Layout';
 import { MainPage } from './pages/MainPage';
 import { BasketPage } from './pages/BasketPage';
-import { localStorageBaket, localStorageFavorite, localStorageName, Paths } from './Helper';
+import {
+  CanLikeId,
+  localStorageBaket,
+  localStorageFavorite,
+  localStorageName,
+  Paths,
+} from './Helper';
 import { ProfilePage } from './pages/ProfilePage';
 import { CatalogPage } from './pages/CatalogPage';
 import { OrderPage } from './pages/OrderPage';
 import { useState } from 'react';
 import type {
+  CarouselsRefs,
   CheckedItem,
   DeletedItemFromBaket,
   LocalSorageObject,
   LocalStorageItem,
   LocalStorageItemCategory,
 } from './types';
+import React from 'react';
 
 function App() {
   const onClickDeleteAll = (data: CheckedItem[]) => {
@@ -91,6 +99,27 @@ function App() {
           },
         };
   });
+  const carouselsRefs: CarouselsRefs = {
+    AdBanner: React.createRef<HTMLDivElement>(),
+    Catalog: React.createRef<HTMLDivElement>(),
+    Shares: React.createRef<HTMLDivElement>(),
+    Watched: React.createRef<HTMLDivElement>(),
+    CanLike: React.createRef<HTMLDivElement>(),
+  };
+
+  const onClickCarouselButton = (e: React.MouseEvent<SVGSVGElement>) => {
+    const id = e.currentTarget.id;
+    const parentId = e.currentTarget.parentElement?.id as keyof CarouselsRefs | undefined;
+    if (parentId && carouselsRefs[parentId]?.current) {
+      carouselsRefs[parentId].current.scrollBy({
+        left:
+          id === 'next'
+            ? carouselsRefs[parentId].current.offsetWidth
+            : -carouselsRefs[parentId].current.offsetWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
   return (
     <>
       <Routes>
@@ -99,6 +128,8 @@ function App() {
             index
             element={
               <MainPage
+                carouselsRefs={carouselsRefs}
+                onClickCarouselButton={onClickCarouselButton}
                 onClick={onClickAdd}
                 favorite={localStorageItems[localStorageFavorite]}
                 baket={localStorageItems[localStorageBaket]}
@@ -109,6 +140,11 @@ function App() {
             path={Paths.basket}
             element={
               <BasketPage
+                favorite={localStorageItems[localStorageFavorite]}
+                baket={localStorageItems[localStorageBaket]}
+                onClick={onClickAdd}
+                carouselsRefs={carouselsRefs[CanLikeId]}
+                onClickCarouselButton={onClickCarouselButton}
                 setLocalStorageItems={setLocalStorageItems}
                 onClickDeleteOne={onClickDeleteOne}
                 onClickDeleteAll={onClickDeleteAll}
