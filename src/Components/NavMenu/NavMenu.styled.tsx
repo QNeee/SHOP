@@ -40,6 +40,7 @@ export const BaketCountContainer = styled.div`
 `;
 export const CountContainer = styled.div`
   position: absolute;
+  opacity: 0;
   top: -8px;
   right: -8px;
   background-color: purple;

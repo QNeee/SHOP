@@ -2,15 +2,28 @@ import type { FC } from 'react';
 import { Basket } from '../Components/Basket/Basket';
 import { GenericRoute } from '../Components/GenericRoute/GenericRoute';
 import { basket, main } from '../Helper';
-import type { LocalStorageItemCategory } from '../types';
+import type { CheckedItem, DeletedItemFromBaket, LocalStorageItemCategory } from '../types';
 interface IBasketPageProps {
   items: LocalStorageItemCategory;
+  onClickDeleteAll: (data: CheckedItem[]) => void;
+  onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
+  setLocalStorageItems: Function;
 }
-export const BasketPage: FC<IBasketPageProps> = ({ items }) => {
+export const BasketPage: FC<IBasketPageProps> = ({
+  items,
+  onClickDeleteAll,
+  onClickDeleteOne,
+  setLocalStorageItems,
+}) => {
   const basketPath = `${main} / ${basket}`;
   return (
     <GenericRoute path={basketPath} title={basket}>
-      <Basket items={items}></Basket>
+      <Basket
+        setLocalStorageItems={setLocalStorageItems}
+        items={items}
+        onClickDeleteAll={onClickDeleteAll}
+        onClickDeleteOne={onClickDeleteOne}
+      ></Basket>
     </GenericRoute>
   );
 };

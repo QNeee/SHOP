@@ -67,7 +67,7 @@ export const ProductCard: FC<IProductCardProps> = ({ item, favorite, id, onClick
           id={item.id}
         >
           <FavoriteIcon
-            flag={favorite[item.type as keyof LocalStorageItemCategory][item.id] || false}
+            flag={favorite[item.type as keyof LocalStorageItemCategory][item.id] || 0}
           />
         </FavoriteContainer>
       </ButtonsContainer>

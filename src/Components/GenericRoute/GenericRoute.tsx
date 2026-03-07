@@ -1,5 +1,5 @@
 import { type FC, type ReactElement } from 'react';
-import { BackContainer, GenericRouteContainer } from './GenericRoute.styled';
+import { BackContainer, GenericRouteContainer, GenericRouterWrapper } from './GenericRoute.styled';
 import { ButtonBack } from './ButtonBack';
 import { PathText } from './PathText';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -25,13 +25,15 @@ export const GenericRoute: FC<IGenericRoute> = ({ path, title, children }) => {
 
   return (
     <GenericRouteContainer>
-      <div>
-        <PathText text={path} />
-      </div>
-      <BackContainer>
-        <ButtonBack onClick={onClick} />
-        <p>{title}</p>
-      </BackContainer>
+      <GenericRouterWrapper>
+        <div>
+          <PathText text={path} />
+        </div>
+        <BackContainer>
+          <ButtonBack onClick={onClick} />
+          <p>{title}</p>
+        </BackContainer>
+      </GenericRouterWrapper>
       {children}
     </GenericRouteContainer>
   );

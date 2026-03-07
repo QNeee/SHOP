@@ -3,6 +3,7 @@ export const BasketContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 16px;
 `;
 export const BasketButton = styled.div`
   width: 267px;
@@ -79,4 +80,9 @@ export const TotalPrizeContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+export const BasketWrapper = styled.div`
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 `;

@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 export const GenericRouteContainer = styled.div`
   margin-top: 60px;
-  outline: 1px solid tomato;
-  padding-left: 16px;
-  padding-right: 16px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const BackContainer = styled.div`
@@ -14,4 +14,7 @@ export const BackContainer = styled.div`
   p {
     margin-left: 20px;
   }
+`;
+export const GenericRouterWrapper = styled.div`
+  padding: 0 16px;
 `;

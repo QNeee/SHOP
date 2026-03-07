@@ -32,7 +32,7 @@ export const NavMenu: FC<INavMenuProps> = ({ items }) => {
       <IconsUl>
         {isMobile ? (
           <li>
-            <IconsUrl as={Link} to={Paths.base}>
+            <IconsUrl as={Link} to={Paths.base + '/'}>
               <HomeIcon />
               <UrlText>Головна</UrlText>
             </IconsUrl>

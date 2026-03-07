@@ -16,6 +16,7 @@ export type ProductItem = {
   price: number;
   valute: string;
   available: boolean;
+  count?: number;
 };
 export type CarouselsRefs = {
   AdBanner: React.RefObject<HTMLDivElement | null>;
@@ -33,6 +34,14 @@ export type LocalStorageItem = {
   baket: LocalStorageItemCategory;
 };
 export type LocalStorageItemCategory = {
-  smart: Record<string, boolean>;
-  tv: Record<string, boolean>;
+  smart: Record<string, number>;
+  tv: Record<string, number>;
+};
+export type CheckedItem = {
+  smart: string | undefined;
+  tv: string | undefined;
+};
+export type DeletedItemFromBaket = {
+  type: keyof CheckedItem;
+  id: string;
 };

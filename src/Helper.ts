@@ -32,3 +32,5 @@ export const discountCalculate = (price: number, discount: number) => {
   return (price + (price * discount) / 100).toFixed();
 };
 export const localStorageName = 'app';
+export const localStorageFavorite = 'favorites';
+export const localStorageBaket = 'baket';
