@@ -65,6 +65,7 @@ export const PriceContainer = styled.div`
 `;
 export const IconContainer = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 70px;
   margin-top: auto;

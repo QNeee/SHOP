@@ -14,7 +14,6 @@ import { InputCheckbox } from './Basket.styled';
 import { OldPrice, Price } from '../Products/ProductCard.styled';
 import { discountCalculate } from '../../Helper';
 import { BasketIcon } from './BasketIcon';
-import { FavoriteIcon } from '../FavoriteIcon';
 import { Counter } from './Counter';
 
 interface IBasketCardProps {
@@ -62,7 +61,6 @@ export const BasketCard: FC<IBasketCardProps> = ({
         </InfoPriceContainer>
         <IconAndCounterContainer>
           <IconContainer>
-            <FavoriteIcon flag={0} />
             <BasketIcon onClickDeleteOne={onClickDeleteOne} item={item} />
           </IconContainer>
           <Counter
