@@ -14,6 +14,18 @@ export const FormContainer = styled.div`
   }
 `;
 export const CourierAdressContainer = styled.div``;
+export const DeliveryDateContainer = styled.div``;
+export const DeliveryTimeContainer = styled.div``;
+export const DeliveryTimeSelect = styled.div``;
+export const DeliveryTimeSelectContainer = styled.div`
+  width: 160px;
+  height: 51px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  outline: 1px solid black;
+  border-radius: 8px;
+`;
 export const SectionTitle = styled.h3`
   font-size: 14px;
   font-weight: 600;
@@ -89,7 +101,7 @@ export const BankCardContainer = styled.div`
   gap: 8px;
   margin-bottom: 40px;
 `;
-
+export const PickUpDataContainer = styled.div``;
 export const AddCardContainer = styled.div<{ $active: boolean }>`
   width: 154px;
   height: 53px;

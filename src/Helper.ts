@@ -23,6 +23,7 @@ export const Courier = {
   key: 'courier',
   value: 'Курьер',
 };
+export const AvailableTimesPickup = ['13.00 - 16.00', '9.00 - 12.00', '17.00 - 20.00'];
 export const PickUp = {
   key: 'pickup',
   value: 'Самовивіз',
