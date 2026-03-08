@@ -19,7 +19,6 @@ import { OldPrice, Price } from '../Products/ProductCard.styled';
 import type {
   CheckedItem,
   DeletedItemFromBaket,
-  LocalSorageObject,
   LocalStorageItemCategory,
   ProductItem,
 } from '../../types';
