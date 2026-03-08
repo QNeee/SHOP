@@ -43,7 +43,7 @@ export const ProductCard: FC<IProductCardProps> = ({ item, favorite, id, onClick
   return (
     <ProductCardContainer id={item.id}>
       <ImageContainer>
-        <img src={itemPhotos[pointer]} alt={item.text} />
+        <img src={itemPhotos[pointer]} loading="lazy" alt={item.text} />
         <ChangeColorList listRef={listRef} setPointer={setPointer} pointer={pointer} id={'list'} />
         <DiscountContainer>{item.discount + '%'}</DiscountContainer>
       </ImageContainer>

@@ -1,6 +1,7 @@
 import { useEffect, useState, type FC } from 'react';
 import { ButtonIcon } from '../assets/ButtonIcon';
 import { GenericContainer } from './GenerucButtonsContainer.styled';
+import { useLocation } from 'react-router-dom';
 
 interface IGenericButtonsContainerProps {
   onClick: (e: React.MouseEvent<SVGSVGElement>) => void;
@@ -13,6 +14,7 @@ export const GenericButtonsContainer: FC<IGenericButtonsContainerProps> = ({
   id,
   carouselRef,
 }) => {
+  const { pathname } = useLocation();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
@@ -35,8 +37,8 @@ export const GenericButtonsContainer: FC<IGenericButtonsContainerProps> = ({
 
   return (
     <GenericContainer id={id}>
-      <ButtonIcon hidden={!canScrollPrev} onClick={onClick} />
-      <ButtonIcon hidden={!canScrollNext} direction="next" onClick={onClick} />
+      <ButtonIcon pathname={pathname} hidden={!canScrollPrev} onClick={onClick} />
+      <ButtonIcon pathname={pathname} hidden={!canScrollNext} direction="next" onClick={onClick} />
     </GenericContainer>
   );
 };

@@ -31,22 +31,12 @@ interface IBasketProps {
   onClickDeleteAll: (data: CheckedItem[]) => void;
   onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
   setLocalStorageItems: Function;
-  onClick: (obj: LocalSorageObject) => void;
-  carouselsRefs: React.RefObject<HTMLDivElement | null>;
-  onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
-  favorite: LocalStorageItemCategory;
-  baket: LocalStorageItemCategory;
 }
 export const Basket: FC<IBasketProps> = ({
   items,
   onClickDeleteAll,
   onClickDeleteOne,
   setLocalStorageItems,
-  onClick,
-  onClickCarouselButton,
-  carouselsRefs,
-  favorite,
-  baket,
 }) => {
   const [renderItems, setRenderItems] = useState<ProductItem[]>([]);
   const [total, setTotal] = useState({ total: 0, totalWithDiscount: 0 });
@@ -109,7 +99,7 @@ export const Basket: FC<IBasketProps> = ({
     }));
   };
   return (
-    <>
+    <div>
       {renderItems.length > 0 ? (
         <BasketWrapper>
           <BasketContainer>
@@ -161,15 +151,8 @@ export const Basket: FC<IBasketProps> = ({
           <BasketButton onClick={() => navigate(Paths.order)}>Оформити замовлення</BasketButton>
         </BasketWrapper>
       ) : (
-        <BasketEmpty
-          favorite={favorite}
-          baket={baket}
-          onClick={onClick}
-          carouselsRefs={carouselsRefs}
-          onClickCarouselButton={onClickCarouselButton}
-          navigate={navigate}
-        />
+        <BasketEmpty navigate={navigate} />
       )}
-    </>
+    </div>
   );
 };

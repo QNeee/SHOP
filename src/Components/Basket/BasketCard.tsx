@@ -40,7 +40,7 @@ export const BasketCard: FC<IBasketCardProps> = ({
   return (
     <BaskerCardContainer>
       <ImageContainer>
-        <img src={item.photos[320][pointer]} />
+        <img src={item.photos[320][pointer]} loading="lazy" alt={item.type} />
         <ChangeColorList listRef={listRef} pointer={pointer} setPointer={setPointer} id={'list'} />
       </ImageContainer>
       <InfoContainer>

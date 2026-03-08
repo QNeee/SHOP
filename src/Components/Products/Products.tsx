@@ -3,6 +3,7 @@ import { ProductTextContainer, ProductSection, ProductText } from './Products.st
 import { ProductCard } from './ProductCard';
 import { GenericCarousel } from '../GenericCarousel';
 import type { LocalSorageObject, LocalStorageItemCategory, ProductItem } from '../../types';
+import { useLocation } from 'react-router-dom';
 interface IProductsProps {
   onClick: (obj: LocalSorageObject) => void;
   favorite: LocalStorageItemCategory;
@@ -24,9 +25,10 @@ export const Products: FC<IProductsProps> = ({
   onClick,
   baket,
 }) => {
+  const { pathname } = useLocation();
   return (
     <>
-      <ProductSection>
+      <ProductSection $pathname={pathname}>
         <ProductTextContainer>
           <ProductText>{headerTitle}</ProductText>
         </ProductTextContainer>

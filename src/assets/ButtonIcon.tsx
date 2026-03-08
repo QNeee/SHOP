@@ -1,15 +1,23 @@
 import type { FC } from 'react';
 import { useState } from 'react';
+import { Paths } from '../Helper';
 
 interface IButtonIconcon {
   direction?: 'prev' | 'next';
   onClick?: (e: React.MouseEvent<SVGSVGElement>) => void;
   hidden?: boolean;
+  pathname?: string;
 }
 
-export const ButtonIcon: FC<IButtonIconcon> = ({ direction = 'prev', onClick, hidden }) => {
+export const ButtonIcon: FC<IButtonIconcon> = ({
+  direction = 'prev',
+  onClick,
+  hidden,
+  pathname = '',
+}) => {
   const [hover, setHover] = useState(false);
-
+  const isBase = pathname === Paths.base + '/';
+  const offset = !isBase ? (direction === 'prev' ? '-80px' : '80px') : '0';
   return (
     <svg
       width="60"
@@ -25,6 +33,8 @@ export const ButtonIcon: FC<IButtonIconcon> = ({ direction = 'prev', onClick, hi
         cursor: 'pointer',
         transformOrigin: 'center',
         scale: hover ? 1.1 : 1,
+        position: 'relative',
+        left: offset,
       }}
       onClick={onClick}
       onMouseEnter={() => setHover(true)}

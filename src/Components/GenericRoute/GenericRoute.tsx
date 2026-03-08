@@ -35,6 +35,7 @@ export const GenericRoute: FC<IGenericRoute> = ({ path, title, children }) => {
         </BackContainer>
       </GenericRouterWrapper>
       {children}
+      <GenericRouterWrapper></GenericRouterWrapper>
     </GenericRouteContainer>
   );
 };

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const GenericRouteContainer = styled.div`
   margin-top: 60px;
-  max-width: 1200px;
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
 `;

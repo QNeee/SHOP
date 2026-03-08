@@ -11,7 +11,7 @@ export const CatalogCard: FC<ICatalogCardProps> = ({ item }) => {
   return (
     <CatalogCardWrapper>
       <ImageContainer>
-        <img src={itemPhotos as string} alt={item.text} />
+        <img src={itemPhotos as string} loading="lazy" alt={item.text} />
       </ImageContainer>
       <p>{item.text}</p>
     </CatalogCardWrapper>

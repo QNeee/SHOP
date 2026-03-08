@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Paths } from '../../Helper';
 
-export const ProductSection = styled.section`
+export const ProductSection = styled.section<{ $pathname: string }>`
   position: relative;
   max-width: 1280px;
   margin-left: auto;
@@ -20,7 +21,7 @@ export const ProductSection = styled.section`
     bottom: 0;
   }
   @media screen and (min-width: 1280px) {
-    padding: 0 80px;
+    padding: ${(props) => (props.$pathname === Paths.base + '/' ? '0 80px' : '0')};
   }
 
   @media screen and (min-width: 1280px) {

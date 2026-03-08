@@ -123,7 +123,19 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={Paths.base} element={<Layout items={localStorageItems[localStorageBaket]} />}>
+        <Route
+          path={Paths.base}
+          element={
+            <Layout
+              favorite={localStorageItems[localStorageFavorite]}
+              baket={localStorageItems[localStorageBaket]}
+              onClickFavorite={onClickAdd}
+              carouselsRefs={carouselsRefs[CanLikeId]}
+              onClickCarouselButton={onClickCarouselButton}
+              items={localStorageItems[localStorageBaket]}
+            />
+          }
+        >
           <Route
             index
             element={
@@ -140,11 +152,6 @@ function App() {
             path={Paths.basket}
             element={
               <BasketPage
-                favorite={localStorageItems[localStorageFavorite]}
-                baket={localStorageItems[localStorageBaket]}
-                onClick={onClickAdd}
-                carouselsRefs={carouselsRefs[CanLikeId]}
-                onClickCarouselButton={onClickCarouselButton}
                 setLocalStorageItems={setLocalStorageItems}
                 onClickDeleteOne={onClickDeleteOne}
                 onClickDeleteAll={onClickDeleteAll}
