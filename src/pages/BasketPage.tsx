@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { Basket } from '../Components/Basket/Basket';
-import { GenericRoute } from '../Components/GenericRoute/GenericRoute';
+import { GenericRoute } from '../Components/Generic/GenericRoute/GenericRoute';
 import { basket, main } from '../Helper';
 import type { CheckedItem, DeletedItemFromBaket, LocalStorageItemCategory } from '../types';
 interface IBasketPageProps {

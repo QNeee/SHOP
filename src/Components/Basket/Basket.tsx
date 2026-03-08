@@ -13,7 +13,7 @@ import {
   TotalPrizeContainer,
   TotalText,
 } from './Basket.styled';
-import { BasketIcon } from './BasketIcon';
+import { BasketIcon } from '../Generic/Icons/BasketIcon';
 import { useEffect, useState, type FC } from 'react';
 import { OldPrice, Price } from '../Products/ProductCard.styled';
 import type {

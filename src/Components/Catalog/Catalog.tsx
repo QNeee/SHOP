@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { catalogPhotos } from '../../assets/Catalog/Catalog';
 import { CatalogSection, CatalogText } from './Catalog.styled';
 import { CatalogCard } from './CatalogCard';
-import { GenericCarousel } from '../GenericCarousel';
+import { GenericCarousel } from '../Generic/GenericCarousel/GenericCarousel';
 import { CatalogId } from '../../Helper';
 interface ICatalogProps {
   carouselRef: React.RefObject<HTMLDivElement | null>;

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-import { Paths } from '../Helper';
+import { Paths } from '../../../Helper';
 
 interface IButtonIconcon {
   direction?: 'prev' | 'next';

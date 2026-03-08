@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { GenericRoute } from '../Components/GenericRoute/GenericRoute';
+import { GenericRoute } from '../Components/Generic/GenericRoute/GenericRoute';
 import { basket, main, order } from '../Helper';
 import { Order } from '../Components/Order/Order';
 

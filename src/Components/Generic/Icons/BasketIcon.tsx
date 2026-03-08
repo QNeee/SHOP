@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { CheckedItem, DeletedItemFromBaket, ProductItem } from '../../types';
+import type { CheckedItem, DeletedItemFromBaket, ProductItem } from '../../../types';
 
 interface IBasketIconProps {
   onClickDeleteOne?: (obj: DeletedItemFromBaket) => void | undefined;

@@ -1,18 +1,23 @@
-import type { FC } from 'react';
+import { useState, type FC } from 'react';
 import {
+  AddCardContainer,
+  BankCardContainer,
   CourierAdressContainer,
   FormContainer,
   Input,
-  PaymentButton,
+  PaymentContainer,
   Row,
   SectionTitle,
   TextArea,
 } from './OrderForm.styled';
 import { Courier } from '../../Helper';
+import { AddIcon, ExclamationMark } from '../Generic/Icons/OrderFormsIcons';
+import { AddPaymentCardForm } from './AddPaymentCardForm';
 interface IOrderFormProps {
   selected: string;
 }
 export const OrderForm: FC<IOrderFormProps> = ({ selected }) => {
+  const [active, setActive] = useState(false);
   return (
     <FormContainer>
       <SectionTitle>Контактні дані</SectionTitle>
@@ -39,7 +44,17 @@ export const OrderForm: FC<IOrderFormProps> = ({ selected }) => {
 
       <SectionTitle>Оплата</SectionTitle>
 
-      <PaymentButton>Оплата тільки онлайн</PaymentButton>
+      <PaymentContainer>
+        <p>Оплата тільки онлайн</p>
+        <ExclamationMark />
+      </PaymentContainer>
+      <BankCardContainer>
+        <AddCardContainer $active={active} onClick={() => setActive((prev) => !prev)}>
+          <p>Нова картка</p>
+          <AddIcon />
+        </AddCardContainer>
+      </BankCardContainer>
+      {active ? <AddPaymentCardForm setActive={() => setActive((prev) => !prev)} /> : null}
     </FormContainer>
   );
 };

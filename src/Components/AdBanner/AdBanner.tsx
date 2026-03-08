@@ -1,8 +1,8 @@
 import { AdSection } from './AdBanner.styled';
 import { ADPhotos } from '../../assets/AD/AD';
-import { Slide } from '../GenericCarousel.styled';
+import { Slide } from '../Generic/GenericCarousel/GenericCarousel.styled';
 import type { FC } from 'react';
-import { GenericCarousel } from '../GenericCarousel';
+import { GenericCarousel } from '../Generic/GenericCarousel/GenericCarousel';
 import { AdBannerId, isDesktop, isMobile, useIsmobileWidth } from '../../Helper';
 interface IAdBannerProps {
   carouselRef: React.RefObject<HTMLDivElement | null>;

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { ProductTextContainer, ProductSection, ProductText } from './Products.styled';
 import { ProductCard } from './ProductCard';
-import { GenericCarousel } from '../GenericCarousel';
+import { GenericCarousel } from '../Generic/GenericCarousel/GenericCarousel';
 import type { LocalSorageObject, LocalStorageItemCategory, ProductItem } from '../../types';
 import { useLocation } from 'react-router-dom';
 interface IProductsProps {

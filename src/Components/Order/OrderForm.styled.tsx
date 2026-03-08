@@ -7,7 +7,6 @@ export const FormContainer = styled.div`
   padding: 20px;
   background: #f4f4f4;
   border-radius: 12px;
-
   box-sizing: border-box;
 
   @media (min-width: 768px) {
@@ -55,7 +54,6 @@ export const Input = styled.input`
 export const Row = styled.div`
   display: flex;
   gap: 10px;
-  margin-top: 10px;
   width: 100%;
 
   > * {
@@ -84,34 +82,55 @@ export const TextArea = styled.textarea`
     box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
   }
 `;
+export const BankCardContainer = styled.div`
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 40px;
+`;
 
-export const PaymentButton = styled.div`
-  width: 100%;
-  margin-top: 12px;
+export const AddCardContainer = styled.div<{ $active: boolean }>`
+  width: 154px;
+  height: 53px;
+  border-radius: 8px;
+  border: 1px solid ${({ $active }) => ($active ? '#2563eb' : 'black')};
+  background-color: ${({ $active }) => ($active ? 'orange' : 'white')};
 
   display: flex;
-  align-items: center;
   justify-content: space-between;
-
-  padding: 10px 14px;
-
-  border-radius: 8px;
-  border: 1px solid #4caf50;
-
-  background: #e8f5e9;
-  color: #2e7d32;
-
-  font-size: 14px;
+  align-items: center;
+  padding: 0 12px;
   cursor: pointer;
-
-  box-sizing: border-box;
 
   transition: all 0.2s ease;
 
-  &:hover {
-    background: #dff1e1;
-    transform: translateY(-1px);
+  svg rect,
+  svg path {
+    transition: stroke 0.2s ease;
+    stroke: ${({ $active }) => ($active ? '#2563eb' : '#454545')};
   }
+
+  &:hover {
+    border: 1px solid #2563eb;
+  }
+
+  &:hover svg rect,
+  &:hover svg path {
+    stroke: #2563eb;
+  }
+`;
+export const BankCard = styled.div``;
+export const PaymentContainer = styled.div`
+  padding: 0 12px;
+  width: 233px;
+  height: 48px;
+  border: 1px solid green;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
 `;
 
 export const PaymentRow = styled.div`

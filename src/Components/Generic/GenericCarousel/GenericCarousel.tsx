@@ -1,7 +1,7 @@
 import { type FC, type ReactElement } from 'react';
 import { Carousel } from './GenericCarousel.styled';
-import { GenericButtonsContainer } from './GenericButtonsContainer';
-import { useIsmobileWidth } from '../Helper';
+import { GenericButtonsContainer } from '../GenericButtonsContainer/GenericButtonsContainer';
+import { useIsmobileWidth } from '../../../Helper';
 interface IGenericCarouselProps {
   children: ReactElement;
   carouselRef: React.RefObject<HTMLDivElement | null>;

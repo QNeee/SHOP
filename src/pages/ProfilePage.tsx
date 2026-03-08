@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { GenericRoute } from '../Components/GenericRoute/GenericRoute';
+import { GenericRoute } from '../Components/Generic/GenericRoute/GenericRoute';
 import { main, profile } from '../Helper';
 interface IProfilePageProps {}
 export const ProfilePage: FC<IProfilePageProps> = ({}) => {

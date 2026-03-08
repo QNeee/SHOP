@@ -1,4 +1,4 @@
-import { SvgIcon } from "../../Components/NavMenu/NavMenu.styled";
+import { SvgIcon } from '../../NavMenu/NavMenu.styled';
 
 export const HomeIcon = () => (
   <SvgIcon viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -16,10 +16,10 @@ import {
   ProductCardContainer,
   TextContainer,
 } from './ProductCard.styled';
-import { Button } from '../GenericCarousel.styled';
-import { FavoriteIcon } from '../FavoriteIcon';
+import { Button } from '../Generic/GenericCarousel/GenericCarousel.styled';
+import { FavoriteIcon } from '../Generic/Icons/FavoriteIcon';
 import { discountCalculate, isDesktop, isMobile, useIsmobileWidth } from '../../Helper';
-import { ChangeColorList } from '../ChangeColorList';
+import { ChangeColorList } from '../Generic/ChangeColorList/ChangeColorList';
 interface IProductCardProps {
   item: ProductItem;
   onClick: (obj: LocalSorageObject) => void;

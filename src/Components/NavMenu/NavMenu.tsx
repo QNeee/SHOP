@@ -1,5 +1,4 @@
 import { useEffect, type FC } from 'react';
-import { BasketIcon, CatalogIcon, HomeIcon, ProfileIcon } from '../../assets/NavMenu/NavMenu';
 import { Paths, useIsmobileWidth } from '../../Helper';
 import {
   BaketCountContainer,
@@ -11,6 +10,7 @@ import {
 } from './NavMenu.styled';
 import { Link } from 'react-router-dom';
 import type { LocalStorageItemCategory } from '../../types';
+import { BasketIcon, CatalogIcon, HomeIcon, ProfileIcon } from '../Generic/Icons/NavMenuIcons';
 interface INavMenuProps {
   items: LocalStorageItemCategory;
 }

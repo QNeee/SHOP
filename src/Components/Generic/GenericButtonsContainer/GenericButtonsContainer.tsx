@@ -1,5 +1,5 @@
 import { useEffect, useState, type FC } from 'react';
-import { ButtonIcon } from '../assets/ButtonIcon';
+import { ButtonIcon } from '../Icons/ButtonIcon';
 import { GenericContainer } from './GenerucButtonsContainer.styled';
 import { useLocation } from 'react-router-dom';
 

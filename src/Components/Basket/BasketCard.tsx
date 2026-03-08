@@ -9,11 +9,11 @@ import {
   InfoPriceContainer,
   PriceContainer,
 } from './BasketCard.styled';
-import { ChangeColorList } from '../ChangeColorList';
+import { ChangeColorList } from '../Generic/ChangeColorList/ChangeColorList';
 import { InputCheckbox } from './Basket.styled';
 import { OldPrice, Price } from '../Products/ProductCard.styled';
 import { discountCalculate } from '../../Helper';
-import { BasketIcon } from './BasketIcon';
+import { BasketIcon } from '../Generic/Icons/BasketIcon';
 import { Counter } from './Counter';
 
 interface IBasketCardProps {
