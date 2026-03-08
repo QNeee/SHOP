@@ -82,6 +82,7 @@ export const OldPrice = styled.p`
   position: relative;
   font-size: 14px;
   color: gray;
+
   &::after {
     content: '';
     position: absolute;

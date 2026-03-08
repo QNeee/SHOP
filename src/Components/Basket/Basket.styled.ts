@@ -5,17 +5,39 @@ export const BasketContainer = styled.div`
   align-items: center;
   padding: 0 16px;
 `;
-export const BasketButton = styled.div`
+export const BasketButton = styled.button`
   width: 267px;
   height: 49px;
   color: white;
-  background-color: blue;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    transform: translateY(-3px) scale(1.02);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    box-shadow:
+      0 10px 20px rgba(0, 0, 0, 0.25),
+      0 0 10px rgba(37, 99, 235, 0.6);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  }
 `;
 export const BasketIconContainer = styled.div<{ $checked: boolean }>`
   display: flex;

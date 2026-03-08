@@ -39,7 +39,7 @@ export const Basket: FC<IBasketProps> = ({
 }) => {
   const [renderItems, setRenderItems] = useState<ProductItem[]>([]);
   const [total, setTotal] = useState({ total: 0, totalWithDiscount: 0 });
-
+  const valute = '₴';
   useEffect(() => {
     const data = Object.keys(items).flatMap((k) => {
       const itemKey = items[k as keyof LocalStorageItemCategory];
@@ -143,11 +143,18 @@ export const Basket: FC<IBasketProps> = ({
           <TotalContainer>
             <TotalText>Всього :</TotalText>
             <TotalPrizeContainer>
-              <Price>{total.total}</Price>
-              <OldPrice>{total.totalWithDiscount}</OldPrice>
+              <Price>{total.total + valute}</Price>
+              <OldPrice style={{ marginLeft: '8px' }}>{total.totalWithDiscount + valute}</OldPrice>
             </TotalPrizeContainer>
           </TotalContainer>
-          <BasketButton onClick={() => navigate(Paths.order)}>Оформити замовлення</BasketButton>
+          <BasketButton
+            onClick={() => {
+              navigate(Paths.order);
+              window.scrollTo(0, 0);
+            }}
+          >
+            Оформити замовлення
+          </BasketButton>
         </BasketWrapper>
       ) : (
         <BasketEmpty navigate={navigate} />

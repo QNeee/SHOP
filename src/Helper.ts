@@ -19,6 +19,14 @@ export const Paths = {
   catalog: '/SHOP/catalog',
   order: '/SHOP/basket/order',
 };
+export const Courier = {
+  key: 'courier',
+  value: 'Курьер',
+};
+export const PickUp = {
+  key: 'pickup',
+  value: 'Самовивіз',
+};
 export const useIsmobileWidth = (): boolean => {
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {

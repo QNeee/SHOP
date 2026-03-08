@@ -7,7 +7,14 @@ export const BasketEmptyContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
   img {
     width: 100%;
+    @media screen and (min-width: 768px) {
+      width: 383px;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;

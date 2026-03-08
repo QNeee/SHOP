@@ -1,11 +1,19 @@
-import type { FC } from 'react';
+import { useState, type FC } from 'react';
 
 interface IButtonBackProps {
   onClick: () => void;
 }
 export const ButtonBack: FC<IButtonBackProps> = ({ onClick }) => {
+  const [hover, setHover] = useState(false);
   return (
     <svg
+      style={{
+        cursor: 'pointer',
+        transform: hover ? 'translateX(-4px) scale(1.1)' : 'translateX(0)',
+        transition: 'all 0.25s ease',
+      }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       onClick={onClick}
       width="10"
       height="18"
