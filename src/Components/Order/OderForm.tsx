@@ -16,21 +16,16 @@ import {
   SectionTitle,
   TextArea,
 } from './OrderForm.styled';
-import { AvailableTimesPickup, Courier, initialTotalObj } from '../../Helper';
+import { AvailableTimesPickup, Courier } from '../../Helper';
 import { AddIcon, ExclamationMark } from '../Generic/Icons/OrderFormsIcons';
 import { AddPaymentCardForm } from './AddPaymentCardForm';
 import { TimeSelect } from './DeliveryTimeSelector';
-import type { TotalObj } from '../../types';
-import { Total } from '../Generic/Total/Total';
-import { BasketButton } from '../Basket/Basket.styled';
 
 interface IOrderFormProps {
   selected: string;
-  setTotalObj: React.Dispatch<React.SetStateAction<TotalObj>>;
-  totalObj: TotalObj;
 }
 
-export const OrderForm: FC<IOrderFormProps> = ({ selected, totalObj, setTotalObj }) => {
+export const OrderForm: FC<IOrderFormProps> = ({ selected }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(false);
   const [scrollYPos, setScrollYPos] = useState(0);
@@ -116,14 +111,7 @@ export const OrderForm: FC<IOrderFormProps> = ({ selected, totalObj, setTotalObj
       </FormContainer>
       <BorderDown> </BorderDown>
       <div style={{ marginTop: '30px', height: '1px' }}></div>
-      <Total total={totalObj} />
-      <BasketButton
-        onClick={() => {
-          setTotalObj(initialTotalObj);
-        }}
-      >
-        Оформити замовлення
-      </BasketButton>
+
       <></>
     </>
   );

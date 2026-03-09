@@ -7,7 +7,7 @@ import { Main } from '../Main/Main';
 import { useLocation } from 'react-router-dom';
 import { Products } from '../Products/Products';
 import { sharesPhoto } from '../../assets/Shares/Shares';
-interface ILayoutProps {
+interface IMainLayoutProps {
   items: LocalStorageItemCategory;
   carouselsRefs: React.RefObject<HTMLDivElement | null>;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
@@ -15,7 +15,7 @@ interface ILayoutProps {
   baket: LocalStorageItemCategory;
   onClickFavorite: (obj: LocalSorageObject) => void;
 }
-export const Layout: FC<ILayoutProps> = ({
+export const MainLayout: FC<IMainLayoutProps> = ({
   items,
   carouselsRefs,
   onClickCarouselButton,

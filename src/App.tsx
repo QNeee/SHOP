@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
-import { Layout } from './Components/Layout/Layout';
+import { MainLayout } from './Components/Layouts/MainLayout';
 import { MainPage } from './pages/MainPage';
-import { BasketPage } from './pages/BasketPage';
 import {
   CanLikeId,
+  discountCalculate,
   initialTotalObj,
   localStorageBaket,
   localStorageFavorite,
@@ -14,8 +14,7 @@ import {
 } from './Helper';
 import { ProfilePage } from './pages/ProfilePage';
 import { CatalogPage } from './pages/CatalogPage';
-import { OrderPage } from './pages/OrderPage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type {
   CarouselsRefs,
   CheckedItem,
@@ -23,12 +22,70 @@ import type {
   LocalSorageObject,
   LocalStorageItem,
   LocalStorageItemCategory,
+  ProductItem,
   TotalObj,
 } from './types';
 import React from 'react';
+import { BasketLayout } from './Components/Layouts/BasketLayout';
+import { BasketPage } from './pages/BasketPage';
+import { sharesPhoto } from './assets/Shares/Shares';
+import { OrderPage } from './pages/OrderPage';
 
 function App() {
-  const [totalObj, setTotalObj] = useState<TotalObj>(initialTotalObj);
+  const [renderItemsBaket, setRenderItemsBaket] = useState<ProductItem[]>([]);
+  const [total, setTotal] = useState<TotalObj>(initialTotalObj);
+  const valute = '₴';
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
+  const [localStorageItems, setLocalStorageItems] = useState<LocalStorageItem>(() => {
+    const data = localStorage.getItem(localStorageName);
+    return data
+      ? JSON.parse(data)
+      : {
+          favorites: {
+            smart: {},
+          },
+          baket: {
+            smart: {},
+          },
+        };
+  });
+  useEffect(() => {
+    const data = Object.keys(localStorageItems[localStorageBaket]).flatMap((k) => {
+      const itemKey = localStorageItems[localStorageBaket][k as keyof LocalStorageItemCategory];
+
+      return sharesPhoto
+        .filter((item) => item.id in itemKey)
+        .map((item) => ({
+          ...item,
+          count: itemKey[item.id],
+        }));
+    });
+    setRenderItemsBaket(data);
+    const initialChecked: Record<string, boolean> = {};
+    data.forEach((item) => {
+      initialChecked[item.id] = false;
+    });
+    setCheckedItems(initialChecked);
+    if (data.length === 0) {
+      setCheckedItems({});
+    }
+  }, [localStorageItems[localStorageBaket]]);
+  useEffect(() => {
+    const totalPrice = renderItemsBaket.reduce((acc, item) => {
+      const count = item.count ?? 1;
+      return acc + item.price * count;
+    }, 0);
+    const totalPriceWithDiscount = renderItemsBaket.reduce((acc, item) => {
+      const count = item.count ?? 1;
+      return acc + Number(discountCalculate(item.price, item.discount)) * count;
+    }, 0);
+    const totalObj = {
+      total: totalPrice,
+      totalWithDiscount: totalPriceWithDiscount,
+      valute,
+    };
+    setTotal(totalObj);
+  }, [renderItemsBaket]);
   const onClickDeleteAll = (data: CheckedItem[]) => {
     setLocalStorageItems((prev) => {
       const needData = { ...prev[localStorageBaket] };
@@ -89,19 +146,6 @@ function App() {
       return newData;
     });
   };
-  const [localStorageItems, setLocalStorageItems] = useState<LocalStorageItem>(() => {
-    const data = localStorage.getItem(localStorageName);
-    return data
-      ? JSON.parse(data)
-      : {
-          favorites: {
-            smart: {},
-          },
-          baket: {
-            smart: {},
-          },
-        };
-  });
   const carouselsRefs: CarouselsRefs = {
     AdBanner: React.createRef<HTMLDivElement>(),
     Catalog: React.createRef<HTMLDivElement>(),
@@ -129,7 +173,7 @@ function App() {
         <Route
           path={Paths.base}
           element={
-            <Layout
+            <MainLayout
               favorite={localStorageItems[localStorageFavorite]}
               baket={localStorageItems[localStorageBaket]}
               onClickFavorite={onClickAdd}
@@ -151,24 +195,25 @@ function App() {
               />
             }
           />
-          <Route
-            path={Paths.basket}
-            element={
-              <BasketPage
-                setTotalObj={setTotalObj}
-                setLocalStorageItems={setLocalStorageItems}
-                onClickDeleteOne={onClickDeleteOne}
-                onClickDeleteAll={onClickDeleteAll}
-                items={localStorageItems[localStorageBaket]}
-              />
-            }
-          />
+
+          <Route path={Paths.basket} element={<BasketLayout setTotal={setTotal} total={total} />}>
+            <Route
+              path={Paths.basket}
+              element={
+                <BasketPage
+                  setLocalStorageItems={setLocalStorageItems}
+                  onClickDeleteOne={onClickDeleteOne}
+                  onClickDeleteAll={onClickDeleteAll}
+                  items={renderItemsBaket}
+                  checkedItems={checkedItems}
+                  setCheckedItems={setCheckedItems}
+                />
+              }
+            />
+            <Route path={Paths.order} element={<OrderPage />} />
+          </Route>
           <Route path={Paths.profile} element={<ProfilePage />} />
           <Route path={Paths.catalog} element={<CatalogPage />} />
-          <Route
-            path={Paths.order}
-            element={<OrderPage totalObj={totalObj} setTotalObj={setTotalObj} />}
-          />
         </Route>
       </Routes>
     </>

@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { discountCalculate, Paths } from '../../Helper';
+
 import {
-  BasketButton,
   BasketContainer,
   BasketIconContainer,
   BasketIconText,
@@ -11,73 +10,27 @@ import {
   StyledLabel,
 } from './Basket.styled';
 import { BasketIcon } from '../Generic/Icons/BasketIcon';
-import { useEffect, useState, type FC } from 'react';
-import type {
-  CheckedItem,
-  DeletedItemFromBaket,
-  LocalStorageItemCategory,
-  ProductItem,
-  TotalObj,
-} from '../../types';
-import { sharesPhoto } from '../../assets/Shares/Shares';
+import { type FC } from 'react';
+import type { CheckedItem, DeletedItemFromBaket, ProductItem } from '../../types';
 import { BasketCard } from './BasketCard';
 import { BasketEmpty } from './BaskerEmpty';
-import { Total } from '../Generic/Total/Total';
 interface IBasketProps {
-  items: LocalStorageItemCategory;
+  items: ProductItem[];
   onClickDeleteAll: (data: CheckedItem[]) => void;
   onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
   setLocalStorageItems: Function;
-  setTotalObj: React.Dispatch<React.SetStateAction<TotalObj>>;
+  checkedItems: Record<string, boolean>;
+  setCheckedItems: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
 }
 export const Basket: FC<IBasketProps> = ({
   items,
   onClickDeleteAll,
   onClickDeleteOne,
   setLocalStorageItems,
-  setTotalObj,
+  checkedItems,
+  setCheckedItems,
 }) => {
-  const [renderItems, setRenderItems] = useState<ProductItem[]>([]);
-  const [total, setTotal] = useState({ total: 0, totalWithDiscount: 0 });
-  const valute = '₴';
-  useEffect(() => {
-    const data = Object.keys(items).flatMap((k) => {
-      const itemKey = items[k as keyof LocalStorageItemCategory];
-
-      return sharesPhoto
-        .filter((item) => item.id in itemKey)
-        .map((item) => ({
-          ...item,
-          count: itemKey[item.id],
-        }));
-    });
-    setRenderItems(data);
-    const initialChecked: Record<string, boolean> = {};
-    data.forEach((item) => {
-      initialChecked[item.id] = false;
-    });
-    setCheckedItems(initialChecked);
-    if (data.length === 0) {
-      setCheckedItems({});
-    }
-  }, [items]);
-  useEffect(() => {
-    const totalPrice = renderItems.reduce((acc, item) => {
-      const count = item.count ?? 1;
-      return acc + item.price * count;
-    }, 0);
-    const totalPriceWithDiscount = renderItems.reduce((acc, item) => {
-      const count = item.count ?? 1;
-      return acc + Number(discountCalculate(item.price, item.discount)) * count;
-    }, 0);
-    const totalObj = {
-      total: totalPrice,
-      totalWithDiscount: totalPriceWithDiscount,
-    };
-    setTotal(totalObj);
-  }, [renderItems]);
   const navigate = useNavigate();
-  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
 
   const checkedAll =
     Object.keys(checkedItems).length > 0 && Object.values(checkedItems).every(Boolean);
@@ -85,7 +38,7 @@ export const Basket: FC<IBasketProps> = ({
   const toggleAll = (value: boolean) => {
     const newState: Record<string, boolean> = {};
 
-    renderItems.forEach((item) => {
+    items.forEach((item) => {
       newState[item.id] = value;
     });
 
@@ -99,14 +52,14 @@ export const Basket: FC<IBasketProps> = ({
   };
   return (
     <div>
-      {renderItems.length > 0 ? (
+      {items.length > 0 ? (
         <BasketWrapper>
           <BasketContainer>
             <BasketIconContainer
               $checked={checkedAll}
               onClick={() =>
                 onClickDeleteAll(
-                  renderItems
+                  items
                     .filter((item) => checkedItems[item.id])
                     .map((item) => ({
                       smart: item.type === 'smart' ? item.id : undefined,
@@ -130,7 +83,7 @@ export const Basket: FC<IBasketProps> = ({
               </StyledLabel>
             </InputContainer>
           </BasketContainer>
-          {renderItems.map((item) => (
+          {items.map((item) => (
             <BasketCard
               setLocalStorageItems={setLocalStorageItems}
               onClickDeleteOne={onClickDeleteOne}
@@ -140,23 +93,6 @@ export const Basket: FC<IBasketProps> = ({
               onChange={toggleItem}
             />
           ))}
-          <Total
-            total={{ total: total.total, totalWithDiscount: total.totalWithDiscount, valute }}
-          />
-          <BasketButton
-            onClick={() => {
-              const totalObj = {
-                total: total.total,
-                totalWithDiscount: total.totalWithDiscount,
-                valute: valute,
-              };
-              setTotalObj(totalObj);
-              navigate(Paths.order);
-              window.scrollTo(0, 0);
-            }}
-          >
-            Оформити замовлення
-          </BasketButton>
         </BasketWrapper>
       ) : (
         <BasketEmpty navigate={navigate} />

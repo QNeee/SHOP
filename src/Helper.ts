@@ -49,3 +49,5 @@ export const initialTotalObj = {
   totalWithDiscount: 0,
   valute: '',
 };
+const basketPath = `${main} / ${basket}`;
+export const initialGenericRouteOptions = { path: basketPath, title: basket };
