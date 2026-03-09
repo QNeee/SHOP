@@ -44,3 +44,8 @@ export const discountCalculate = (price: number, discount: number) => {
 export const localStorageName = 'app';
 export const localStorageFavorite = 'favorites';
 export const localStorageBaket = 'baket';
+export const initialTotalObj = {
+  total: 0,
+  totalWithDiscount: 0,
+  valute: '',
+};

@@ -8,7 +8,7 @@ export const FormContainer = styled.div`
   background: #f4f4f4;
   border-radius: 12px;
   box-sizing: border-box;
-
+  background: linear-gradient(135deg, #f8f6f1 0%, #f1ede5 40%, #eae6dc 100%);
   @media (min-width: 768px) {
     max-width: 600px;
   }
@@ -25,6 +25,7 @@ export const DeliveryTimeSelectContainer = styled.div`
   align-items: center;
   outline: 1px solid black;
   border-radius: 8px;
+  background-color: white;
 `;
 export const SectionTitle = styled.h3`
   font-size: 14px;
@@ -99,7 +100,6 @@ export const BankCardContainer = styled.div`
   justify-content: left;
   align-items: center;
   gap: 8px;
-  margin-bottom: 40px;
 `;
 export const PickUpDataContainer = styled.div``;
 export const AddCardContainer = styled.div<{ $active: boolean }>`
@@ -114,7 +114,6 @@ export const AddCardContainer = styled.div<{ $active: boolean }>`
   align-items: center;
   padding: 0 12px;
   cursor: pointer;
-
   transition: all 0.2s ease;
 
   svg rect,
@@ -143,6 +142,7 @@ export const PaymentContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 28px;
+  background-color: white;
 `;
 
 export const PaymentRow = styled.div`
@@ -173,5 +173,18 @@ export const PaymentOption = styled.div`
   &:hover {
     border-color: #888;
     transform: translateY(-1px);
+  }
+`;
+export const BorderDown = styled.div`
+  position: relative;
+  margin-top: 20px;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
   }
 `;

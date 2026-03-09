@@ -34,6 +34,9 @@ export const TextContainer = styled.div`
 export const CostContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  @media screen and (min-width: 768px) {
+    justify-content: center;
+  }
   align-items: center;
   width: 100%;
 `;
@@ -82,7 +85,9 @@ export const OldPrice = styled.p`
   position: relative;
   font-size: 14px;
   color: gray;
-
+  @media screen and (min-width: 768px) {
+    margin-left: 8px;
+  }
   &::after {
     content: '';
     position: absolute;

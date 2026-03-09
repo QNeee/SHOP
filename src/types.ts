@@ -46,3 +46,8 @@ export type DeletedItemFromBaket = {
   type: keyof CheckedItem;
   id: string;
 };
+export type TotalObj = {
+  total: number;
+  totalWithDiscount: number;
+  valute: string;
+};

@@ -6,6 +6,7 @@ import { MainPage } from './pages/MainPage';
 import { BasketPage } from './pages/BasketPage';
 import {
   CanLikeId,
+  initialTotalObj,
   localStorageBaket,
   localStorageFavorite,
   localStorageName,
@@ -22,10 +23,12 @@ import type {
   LocalSorageObject,
   LocalStorageItem,
   LocalStorageItemCategory,
+  TotalObj,
 } from './types';
 import React from 'react';
 
 function App() {
+  const [totalObj, setTotalObj] = useState<TotalObj>(initialTotalObj);
   const onClickDeleteAll = (data: CheckedItem[]) => {
     setLocalStorageItems((prev) => {
       const needData = { ...prev[localStorageBaket] };
@@ -152,6 +155,7 @@ function App() {
             path={Paths.basket}
             element={
               <BasketPage
+                setTotalObj={setTotalObj}
                 setLocalStorageItems={setLocalStorageItems}
                 onClickDeleteOne={onClickDeleteOne}
                 onClickDeleteAll={onClickDeleteAll}
@@ -161,7 +165,10 @@ function App() {
           />
           <Route path={Paths.profile} element={<ProfilePage />} />
           <Route path={Paths.catalog} element={<CatalogPage />} />
-          <Route path={Paths.order} element={<OrderPage />} />
+          <Route
+            path={Paths.order}
+            element={<OrderPage totalObj={totalObj} setTotalObj={setTotalObj} />}
+          />
         </Route>
       </Routes>
     </>

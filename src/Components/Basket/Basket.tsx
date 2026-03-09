@@ -9,33 +9,33 @@ import {
   InputCheckbox,
   InputContainer,
   StyledLabel,
-  TotalContainer,
-  TotalPrizeContainer,
-  TotalText,
 } from './Basket.styled';
 import { BasketIcon } from '../Generic/Icons/BasketIcon';
 import { useEffect, useState, type FC } from 'react';
-import { OldPrice, Price } from '../Products/ProductCard.styled';
 import type {
   CheckedItem,
   DeletedItemFromBaket,
   LocalStorageItemCategory,
   ProductItem,
+  TotalObj,
 } from '../../types';
 import { sharesPhoto } from '../../assets/Shares/Shares';
 import { BasketCard } from './BasketCard';
 import { BasketEmpty } from './BaskerEmpty';
+import { Total } from '../Generic/Total/Total';
 interface IBasketProps {
   items: LocalStorageItemCategory;
   onClickDeleteAll: (data: CheckedItem[]) => void;
   onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
   setLocalStorageItems: Function;
+  setTotalObj: React.Dispatch<React.SetStateAction<TotalObj>>;
 }
 export const Basket: FC<IBasketProps> = ({
   items,
   onClickDeleteAll,
   onClickDeleteOne,
   setLocalStorageItems,
+  setTotalObj,
 }) => {
   const [renderItems, setRenderItems] = useState<ProductItem[]>([]);
   const [total, setTotal] = useState({ total: 0, totalWithDiscount: 0 });
@@ -140,15 +140,17 @@ export const Basket: FC<IBasketProps> = ({
               onChange={toggleItem}
             />
           ))}
-          <TotalContainer>
-            <TotalText>Всього :</TotalText>
-            <TotalPrizeContainer>
-              <Price>{total.total + valute}</Price>
-              <OldPrice style={{ marginLeft: '8px' }}>{total.totalWithDiscount + valute}</OldPrice>
-            </TotalPrizeContainer>
-          </TotalContainer>
+          <Total
+            total={{ total: total.total, totalWithDiscount: total.totalWithDiscount, valute }}
+          />
           <BasketButton
             onClick={() => {
+              const totalObj = {
+                total: total.total,
+                totalWithDiscount: total.totalWithDiscount,
+                valute: valute,
+              };
+              setTotalObj(totalObj);
               navigate(Paths.order);
               window.scrollTo(0, 0);
             }}

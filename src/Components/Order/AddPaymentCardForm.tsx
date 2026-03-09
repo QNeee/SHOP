@@ -7,11 +7,12 @@ import {
   SaveButton,
 } from './AddPaymentCardForm.styled';
 import { FormContainer, Input, Row } from './OrderForm.styled';
+
 interface IAddPaymentCardForm {
-  setActive: Function;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  scrollYPos: number;
 }
-export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({ setActive }) => {
-  const onClickAdd = () => {};
+export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({ setActive, scrollYPos }) => {
   return (
     <FormContainer>
       <FormTitle>Додати картку</FormTitle>
@@ -35,8 +36,21 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({ setActive }) => {
         <Input placeholder="IVAN IVANOV" />
       </FormGroup>
       <ButtonsContainer>
-        <SaveButton onClick={onClickAdd}>Зберегти картку</SaveButton>
-        <SaveButton onClick={() => setActive()}>Закрити</SaveButton>
+        <SaveButton type="button" onClick={() => console.log('save')}>
+          Зберегти картку
+        </SaveButton>
+        <SaveButton
+          onClick={() => {
+            window.scrollTo({
+              top: scrollYPos,
+              behavior: 'smooth',
+            });
+
+            setActive(false);
+          }}
+        >
+          Закрити
+        </SaveButton>
       </ButtonsContainer>
     </FormContainer>
   );

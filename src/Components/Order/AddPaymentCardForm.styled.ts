@@ -16,6 +16,7 @@ export const FormContainer = styled.form`
 export const FormTitle = styled.h2`
   font-size: 20px;
   font-weight: 600;
+  text-align: center;
 `;
 
 export const FormGroup = styled.div`
