@@ -83,3 +83,27 @@ export const initialFormData = {
     message: '',
   },
 };
+export const initialAddCardForm = {
+  name: '',
+  cardNumber: '',
+  cvv: '',
+  durationTime: '',
+};
+export const formatCardDuration = (value: string) => {
+  let digits = value.replace(/\D/g, '');
+  if (digits.length > 4) digits = digits.slice(0, 4);
+
+  let month = digits.slice(0, 2);
+  let year = digits.slice(2, 4);
+
+  if (month.length === 2) {
+    let m = parseInt(month, 10);
+    if (m < 1) m = 1;
+    if (m > 12) m = 12;
+    month = m.toString().padStart(2, '0');
+  }
+
+  const formatted = year ? `${month} / ${year}` : month;
+
+  return formatted;
+};

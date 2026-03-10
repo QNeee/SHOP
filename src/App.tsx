@@ -35,7 +35,7 @@ import { formReducer } from './Components/Order/formReducer';
 
 function App() {
   const [form, dispatch] = useReducer(formReducer, initialFormData);
-
+  const [submit, setSubmit] = useState(false);
   const navigate = useNavigate();
   const [renderItemsBaket, setRenderItemsBaket] = useState<ProductItem[]>([]);
   const [total, setTotal] = useState<TotalObj>(initialTotalObj);
@@ -184,6 +184,7 @@ function App() {
   };
   const onSubmitOrderForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    setSubmit(true);
     console.log(form);
   };
   return (
@@ -238,7 +239,10 @@ function App() {
                 />
               }
             />
-            <Route path={Paths.order} element={<OrderPage dispatch={dispatch} form={form} />} />
+            <Route
+              path={Paths.order}
+              element={<OrderPage submit={submit} dispatch={dispatch} form={form} />}
+            />
           </Route>
           <Route path={Paths.profile} element={<ProfilePage />} />
           <Route path={Paths.catalog} element={<CatalogPage />} />

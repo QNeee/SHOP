@@ -10,8 +10,9 @@ import type { FormAction } from './formReducer';
 interface IOrderProps {
   form: DataForm;
   dispatch: (action: FormAction) => void;
+  submit: boolean;
 }
-export const Order: FC<IOrderProps> = ({ form, dispatch }) => {
+export const Order: FC<IOrderProps> = ({ form, dispatch, submit }) => {
   const [delivery, setDelivery] = useState(Courier.key);
 
   const [selected, setSelected] = useState(OrderSelectTitle.courier);
@@ -31,7 +32,7 @@ export const Order: FC<IOrderProps> = ({ form, dispatch }) => {
         selected={selected}
         setSelected={setSelected}
       />
-      <OrderForm selected={delivery} dispatch={dispatch} form={form} />
+      <OrderForm submit={submit} selected={delivery} dispatch={dispatch} form={form} />
     </OrderContainer>
   );
 };

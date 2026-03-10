@@ -16,8 +16,7 @@ interface ITimeSelectProps {
   dispatch: (action: FormAction) => void;
 }
 export const TimeSelect: FC<ITimeSelectProps> = ({ options, open, dispatch, setOpen }) => {
-  const choseTime = 'Оберіть час';
-  const [selected, setSelected] = useState(choseTime);
+  const [selected, setSelected] = useState(options[0]);
   return (
     <SelectContainer>
       <SelectHeader>

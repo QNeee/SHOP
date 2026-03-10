@@ -6,7 +6,8 @@ import type { FormAction } from '../Components/Order/formReducer';
 interface IOrderPageProps {
   form: DataForm;
   dispatch: (action: FormAction) => void;
+  submit: boolean;
 }
-export const OrderPage: FC<IOrderPageProps> = ({ form, dispatch }) => {
-  return <Order dispatch={dispatch} form={form} />;
+export const OrderPage: FC<IOrderPageProps> = ({ submit, form, dispatch }) => {
+  return <Order submit={submit} dispatch={dispatch} form={form} />;
 };

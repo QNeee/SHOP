@@ -8,7 +8,6 @@ import {
   DeliveryDateItem,
   DeliveryTimeSelectContainer,
   FormContainer,
-  Input,
   PaymentContainer,
   PickUpDataContainer,
   Row,
@@ -22,14 +21,16 @@ import { TimeSelect } from '../DeliveryTimeSelector/DeliveryTimeSelector';
 import { PhoneInput } from '../PhoneInput/PhoneInput';
 import type { DataForm } from '../../../types';
 import type { FormAction } from '../formReducer';
+import { ValidatedInput } from '../ValidatedInput/ValidatedInput';
 
 interface IOrderFormProps {
   selected: string;
   dispatch: (action: FormAction) => void;
   form: DataForm;
+  submit: boolean;
 }
 
-export const OrderForm: FC<IOrderFormProps> = ({ selected, dispatch, form }) => {
+export const OrderForm: FC<IOrderFormProps> = ({ submit, selected, dispatch, form }) => {
   const phoneRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -49,12 +50,10 @@ export const OrderForm: FC<IOrderFormProps> = ({ selected, dispatch, form }) => 
     }
   }, [active]);
 
-  // універсальний onChange для input/textarea
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const section = e.currentTarget.id as keyof DataForm;
-    const field = e.currentTarget.name;
     const value = e.currentTarget.value;
-
+    const [sectionStr, field] = e.currentTarget.name.split(',');
+    const section = sectionStr as keyof DataForm;
     dispatch({ type: 'SET_FIELD', section, field, value });
   };
 
@@ -62,62 +61,83 @@ export const OrderForm: FC<IOrderFormProps> = ({ selected, dispatch, form }) => 
     <>
       <FormContainer>
         <SectionTitle>Контактні дані</SectionTitle>
-        <Input
-          placeholder="Ім'я *"
-          name="name"
-          id="contactData"
+        <ValidatedInput
+          submit={submit}
           value={form.contactData.name}
           onChange={onChangeInput}
+          placeholder="Іван"
+          name="contactData,name"
+          isValid={form.contactData.name.length === 0 ? null : form.contactData.name.length > 3}
         />
-
         <PhoneInput
           value={form.contactData.phone}
           inputRef={phoneRef}
-          placeholder="+38 (___) ___-__-__ *"
+          placeholder="+38 (___) ___-__-__"
           dispatch={dispatch}
+          isValid={
+            form.contactData.phone.length === 0 ? null : form.contactData.phone.length === 10
+          }
+          submit={submit}
         />
-
-        <Input
-          placeholder="Email"
-          name="email"
-          id="contactData"
+        <ValidatedInput
+          submit={submit}
+          placeholder="Ivan@gmail.com"
+          name="contactData,email"
           value={form.contactData.email}
           onChange={onChangeInput}
+          isValid={form.contactData.email.length === 0 ? null : form.contactData.email.length > 3}
         />
 
         {selected === Courier.key && (
           <PickUpDataContainer>
             <CourierAdressContainer>
               <SectionTitle>Адреса доставки</SectionTitle>
-
-              <Input
-                placeholder="Місто *"
-                name="city"
-                id="deliveryAdress"
+              <ValidatedInput
+                submit={submit}
+                placeholder="Київ"
+                name="deliveryAdress,city"
                 value={form.deliveryAdress.city}
                 onChange={onChangeInput}
+                isValid={
+                  form.deliveryAdress.city.length === 0 ? null : form.deliveryAdress.city.length > 3
+                }
               />
-              <Input
-                placeholder="Вулиця *"
-                name="street"
-                id="deliveryAdress"
+              <ValidatedInput
+                submit={submit}
+                placeholder="пр.переулка 12"
+                name="deliveryAdress,street"
                 value={form.deliveryAdress.street}
                 onChange={onChangeInput}
+                isValid={
+                  form.deliveryAdress.street.length === 0
+                    ? null
+                    : form.deliveryAdress.street.length > 3
+                }
               />
               <Row>
-                <Input
-                  placeholder="Дім *"
-                  name="house"
-                  id="deliveryAdress"
+                <ValidatedInput
+                  submit={submit}
+                  placeholder="12"
+                  name="deliveryAdress,house"
                   value={form.deliveryAdress.house}
                   onChange={onChangeInput}
+                  isValid={
+                    form.deliveryAdress.house.length === 0
+                      ? null
+                      : form.deliveryAdress.house.length > 3
+                  }
                 />
-                <Input
-                  placeholder="Квартира *"
-                  name="flat"
-                  id="deliveryAdress"
+                <ValidatedInput
+                  submit={submit}
+                  placeholder="6"
+                  name="deliveryAdress,flat"
                   value={form.deliveryAdress.flat}
                   onChange={onChangeInput}
+                  isValid={
+                    form.deliveryAdress.flat.length === 0
+                      ? null
+                      : form.deliveryAdress.flat.length > 3
+                  }
                 />
               </Row>
             </CourierAdressContainer>
@@ -147,8 +167,7 @@ export const OrderForm: FC<IOrderFormProps> = ({ selected, dispatch, form }) => 
 
         <SectionTitle>Побажання</SectionTitle>
         <TextArea
-          name="message"
-          id="deliveryData"
+          name="deliveryData,message"
           placeholder="Повідомлення ..."
           value={form.deliveryData.message}
           onChange={onChangeInput}
