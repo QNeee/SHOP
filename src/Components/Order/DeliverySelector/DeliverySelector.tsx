@@ -1,6 +1,6 @@
 import { type FC } from 'react';
 import { DeliverySelectorContainer, HiddenRadio, RadioCard } from './DeliverySelector.styled';
-import { Courier, OrderSelectTitle, PickUp } from '../../Helper';
+import { Courier, OrderSelectTitle, PickUp } from '../../../Helper';
 interface IDeliverySelector {
   setDelivery: Function;
   delivery: string;

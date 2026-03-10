@@ -6,7 +6,7 @@ import {
   Label,
   SaveButton,
 } from './AddPaymentCardForm.styled';
-import { FormContainer, Input, Row } from './OrderForm.styled';
+import { FormContainer, Input, Row } from '../OderForm/OrderForm.styled';
 
 interface IAddPaymentCardForm {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;

@@ -7,7 +7,7 @@ import {
   Option,
   Arrow,
 } from './DeliveryTimeSelector.styled';
-import type { FormAction } from './formReducer';
+import type { FormAction } from '../formReducer';
 
 interface ITimeSelectProps {
   options: string[];

@@ -1,9 +1,9 @@
 import { useState, type FC } from 'react';
-import { DeliverySelector } from './DeliverySelector';
-import { OrderForm } from './OderForm';
+import { DeliverySelector } from './DeliverySelector/DeliverySelector';
+import { OrderForm } from './OderForm/OderForm';
 import { Courier, OrderSelectTitle } from '../../Helper';
-import { DeliverySelect } from './DeliverySelect';
-import { OrderContainer } from './OrderForm.styled';
+import { DeliverySelect } from './DeliverySelect/DeliverySelect';
+import { OrderContainer } from './OderForm/OrderForm.styled';
 import type { DataForm } from '../../types';
 import type { FormAction } from './formReducer';
 

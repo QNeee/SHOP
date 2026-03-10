@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { StyledIMaskInput } from './PhoneInput.styled';
-import type { FormAction } from './formReducer';
+import type { FormAction } from '../formReducer';
 
 interface PhoneInputProps {
   value: string;

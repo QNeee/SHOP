@@ -15,13 +15,13 @@ import {
   SectionTitle,
   TextArea,
 } from './OrderForm.styled';
-import { AvailableTimesPickup, Courier, formatDate } from '../../Helper';
-import { AddIcon, ExclamationMark } from '../Generic/Icons/OrderFormsIcons';
-import { AddPaymentCardForm } from './AddPaymentCardForm';
-import { TimeSelect } from './DeliveryTimeSelector';
-import { PhoneInput } from './PhonInput';
-import type { DataForm } from '../../types';
-import type { FormAction } from './formReducer';
+import { AvailableTimesPickup, Courier, formatDate } from '../../../Helper';
+import { AddIcon, ExclamationMark } from '../../Generic/Icons/OrderFormsIcons';
+import { AddPaymentCardForm } from '../AddPaymentCardForm/AddPaymentCardForm';
+import { TimeSelect } from '../DeliveryTimeSelector/DeliveryTimeSelector';
+import { PhoneInput } from '../PhoneInput/PhoneInput';
+import type { DataForm } from '../../../types';
+import type { FormAction } from '../formReducer';
 
 interface IOrderFormProps {
   selected: string;
@@ -62,7 +62,6 @@ export const OrderForm: FC<IOrderFormProps> = ({ selected, dispatch, form }) => 
     <>
       <FormContainer>
         <SectionTitle>Контактні дані</SectionTitle>
-
         <Input
           placeholder="Ім'я *"
           name="name"

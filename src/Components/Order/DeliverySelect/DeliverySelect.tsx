@@ -7,10 +7,10 @@ import {
   Options,
   Option,
 } from './DeliverySelect.styled';
-import type { NPBranch } from '../../types';
-import { getBranches, getNovaPoshtaCities, getUserCity } from '../fetch';
-import { PickUp } from '../../Helper';
-import { Loader } from '../Generic/Loader/Loader';
+import type { NPBranch } from '../../../types';
+import { getBranches, getNovaPoshtaCities, getUserCity } from '../../fetch';
+import { PickUp } from '../../../Helper';
+import { Loader } from '../../Generic/Loader/Loader';
 
 interface IDeliverySelectProps {
   selected: string;
