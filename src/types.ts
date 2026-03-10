@@ -51,3 +51,39 @@ export type TotalObj = {
   totalWithDiscount: number;
   valute: string;
 };
+export interface NPWarehouse {
+  Description: string;
+  Ref: string;
+  Number: string;
+  CityRef: string;
+  WarehouseType: string;
+}
+export interface NPBranch {
+  Description: string;
+  Ref: string;
+  Number: string;
+  CityRef: string;
+  WarehouseType: string;
+}
+type ContactData = {
+  name: string;
+  phone: string;
+  email: string;
+};
+type DeliveryAdress = {
+  city: string;
+  street: string;
+  house: string;
+  flat: string;
+};
+type DeliveryData = {
+  deliveryDateStart: Date;
+  deliveryDateEnd: Date;
+  deliveryTime: string;
+  message: string;
+};
+export type DataForm = {
+  contactData: ContactData;
+  deliveryAdress: DeliveryAdress;
+  deliveryData: DeliveryData;
+};

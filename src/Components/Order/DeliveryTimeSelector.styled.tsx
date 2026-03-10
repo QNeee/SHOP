@@ -12,7 +12,6 @@ export const SelectHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
-  cursor: pointer;
   transition: all 0.2s;
 
   &:hover {

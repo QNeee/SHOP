@@ -51,3 +51,35 @@ export const initialTotalObj = {
 };
 const basketPath = `${main} / ${basket}`;
 export const initialGenericRouteOptions = { path: basketPath, title: basket };
+export const OrderSelectTitle = {
+  courier: 'Виберіть Курьера',
+  pickup: 'Виберіть відділення',
+};
+export const formatDate = (date: Date) => {
+  const days = ['нд', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const weekDay = days[date.getDay()];
+
+  return `${day}.${month}, ${weekDay}`;
+};
+export const initialFormData = {
+  contactData: {
+    name: '',
+    phone: '',
+    email: '',
+  },
+  deliveryAdress: {
+    city: '',
+    street: '',
+    house: '',
+    flat: '',
+  },
+  deliveryData: {
+    deliveryDateStart: new Date(),
+    deliveryDateEnd: new Date(),
+    deliveryTime: '',
+    message: '',
+  },
+};

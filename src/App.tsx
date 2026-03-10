@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 
 import { MainLayout } from './Components/Layouts/MainLayout';
@@ -6,6 +6,7 @@ import { MainPage } from './pages/MainPage';
 import {
   CanLikeId,
   discountCalculate,
+  initialFormData,
   initialTotalObj,
   localStorageBaket,
   localStorageFavorite,
@@ -18,6 +19,7 @@ import { useEffect, useState } from 'react';
 import type {
   CarouselsRefs,
   CheckedItem,
+  DataForm,
   DeletedItemFromBaket,
   LocalSorageObject,
   LocalStorageItem,
@@ -32,6 +34,8 @@ import { sharesPhoto } from './assets/Shares/Shares';
 import { OrderPage } from './pages/OrderPage';
 
 function App() {
+  const [form, setForm] = useState<DataForm>(initialFormData);
+  const navigate = useNavigate();
   const [renderItemsBaket, setRenderItemsBaket] = useState<ProductItem[]>([]);
   const [total, setTotal] = useState<TotalObj>(initialTotalObj);
   const valute = '₴';
@@ -167,6 +171,20 @@ function App() {
       });
     }
   };
+  const onClickToOrder = () => {
+    const totalObj = {
+      total: total.total,
+      totalWithDiscount: total.totalWithDiscount,
+      valute: total.valute,
+    };
+    navigate(Paths.order);
+    setTotal(totalObj);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  const onSubmitOrderForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    console.log(form);
+  };
   return (
     <>
       <Routes>
@@ -196,7 +214,16 @@ function App() {
             }
           />
 
-          <Route path={Paths.basket} element={<BasketLayout setTotal={setTotal} total={total} />}>
+          <Route
+            path={Paths.basket}
+            element={
+              <BasketLayout
+                onClickToOrder={onClickToOrder}
+                onSubmitOrderForm={onSubmitOrderForm}
+                total={total}
+              />
+            }
+          >
             <Route
               path={Paths.basket}
               element={
@@ -210,7 +237,7 @@ function App() {
                 />
               }
             />
-            <Route path={Paths.order} element={<OrderPage />} />
+            <Route path={Paths.order} element={<OrderPage setForm={setForm} form={form} />} />
           </Route>
           <Route path={Paths.profile} element={<ProfilePage />} />
           <Route path={Paths.catalog} element={<CatalogPage />} />

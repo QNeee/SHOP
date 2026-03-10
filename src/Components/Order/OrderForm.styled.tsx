@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 export const FormContainer = styled.div`
   width: 100%;
   max-width: 300px;
@@ -14,9 +13,23 @@ export const FormContainer = styled.div`
   }
 `;
 export const CourierAdressContainer = styled.div``;
-export const DeliveryDateContainer = styled.div``;
-export const DeliveryTimeContainer = styled.div``;
-export const DeliveryTimeSelect = styled.div``;
+export const DeliveryDateContainer = styled.div`
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 23px;
+`;
+export const DeliveryDateItem = styled.div`
+  width: 99px;
+  height: 51px;
+  outline: 1px solid black;
+  border-radius: 8px;
+  text-align: center;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 export const DeliveryTimeSelectContainer = styled.div`
   width: 160px;
   height: 51px;
@@ -26,6 +39,7 @@ export const DeliveryTimeSelectContainer = styled.div`
   outline: 1px solid black;
   border-radius: 8px;
   background-color: white;
+  cursor: pointer;
 `;
 export const SectionTitle = styled.h3`
   font-size: 14px;
@@ -187,4 +201,7 @@ export const BorderDown = styled.div`
     height: 1px;
     background-color: #ccc;
   }
+`;
+export const OrderContainer = styled.div`
+  padding: 0 16;
 `;

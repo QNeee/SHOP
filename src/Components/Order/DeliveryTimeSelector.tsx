@@ -7,25 +7,22 @@ import {
   Option,
   Arrow,
 } from './DeliveryTimeSelector.styled';
+import type { DataForm } from '../../types';
 
 interface ITimeSelectProps {
   options: string[];
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setForm: React.Dispatch<React.SetStateAction<DataForm>>;
 }
-
-export const TimeSelect: FC<ITimeSelectProps> = ({ options }) => {
-  const [open, setOpen] = useState(false);
+export const TimeSelect: FC<ITimeSelectProps> = ({ options, open, setForm, setOpen }) => {
   const choseTime = 'Оберіть час';
-  const [selected, setSelected] = useState(options[0]);
+  const [selected, setSelected] = useState(choseTime);
   return (
     <SelectContainer>
-      <SelectHeader onClick={() => setOpen((prev) => !prev)}>
+      <SelectHeader>
         <SelectedText>{selected}</SelectedText>
-        <Arrow
-          onClick={() => setSelected(choseTime)}
-          style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}
-        >
-          {'>'}
-        </Arrow>
+        <Arrow style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>{'>'}</Arrow>
       </SelectHeader>
 
       {open && (
@@ -33,8 +30,18 @@ export const TimeSelect: FC<ITimeSelectProps> = ({ options }) => {
           {options.map((option) => (
             <Option
               key={option}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 setSelected(option);
+                setForm((prev) => {
+                  return {
+                    ...prev,
+                    deliveryData: {
+                      ...prev.deliveryData,
+                      deliveryTime: option,
+                    },
+                  };
+                });
                 setOpen(false);
               }}
             >
