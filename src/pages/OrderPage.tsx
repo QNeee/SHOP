@@ -1,11 +1,12 @@
 import type { FC } from 'react';
 import { Order } from '../Components/Order/Order';
 import type { DataForm } from '../types';
+import type { FormAction } from '../Components/Order/formReducer';
 
 interface IOrderPageProps {
   form: DataForm;
-  setForm: React.Dispatch<React.SetStateAction<DataForm>>;
+  dispatch: (action: FormAction) => void;
 }
-export const OrderPage: FC<IOrderPageProps> = ({ form, setForm }) => {
-  return <Order setForm={setForm} form={form} />;
+export const OrderPage: FC<IOrderPageProps> = ({ form, dispatch }) => {
+  return <Order dispatch={dispatch} form={form} />;
 };

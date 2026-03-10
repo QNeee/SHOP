@@ -7,15 +7,15 @@ import {
   Option,
   Arrow,
 } from './DeliveryTimeSelector.styled';
-import type { DataForm } from '../../types';
+import type { FormAction } from './formReducer';
 
 interface ITimeSelectProps {
   options: string[];
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setForm: React.Dispatch<React.SetStateAction<DataForm>>;
+  dispatch: (action: FormAction) => void;
 }
-export const TimeSelect: FC<ITimeSelectProps> = ({ options, open, setForm, setOpen }) => {
+export const TimeSelect: FC<ITimeSelectProps> = ({ options, open, dispatch, setOpen }) => {
   const choseTime = 'Оберіть час';
   const [selected, setSelected] = useState(choseTime);
   return (
@@ -33,15 +33,7 @@ export const TimeSelect: FC<ITimeSelectProps> = ({ options, open, setForm, setOp
               onClick={(e) => {
                 e.stopPropagation();
                 setSelected(option);
-                setForm((prev) => {
-                  return {
-                    ...prev,
-                    deliveryData: {
-                      ...prev.deliveryData,
-                      deliveryTime: option,
-                    },
-                  };
-                });
+                dispatch({ type: 'SET_TIME', time: option });
                 setOpen(false);
               }}
             >

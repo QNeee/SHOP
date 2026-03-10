@@ -21,63 +21,48 @@ import { AddPaymentCardForm } from './AddPaymentCardForm';
 import { TimeSelect } from './DeliveryTimeSelector';
 import { PhoneInput } from './PhonInput';
 import type { DataForm } from '../../types';
+import type { FormAction } from './formReducer';
 
 interface IOrderFormProps {
   selected: string;
+  dispatch: (action: FormAction) => void;
   form: DataForm;
-  setForm: React.Dispatch<React.SetStateAction<DataForm>>;
 }
 
-export const OrderForm: FC<IOrderFormProps> = ({ form, setForm, selected }) => {
+export const OrderForm: FC<IOrderFormProps> = ({ selected, dispatch, form }) => {
   const phoneRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(false);
   const [scrollYPos, setScrollYPos] = useState(0);
-  const today = new Date();
-  const weekLater = new Date();
-  weekLater.setDate(today.getDate() + 7);
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const id = e.currentTarget.id as keyof DataForm;
-    const name = e.currentTarget.name;
-    const value = e.currentTarget.value;
-
-    setForm((prev) => ({
-      ...prev,
-      [id]: {
-        ...prev[id],
-        [name]: value,
-      },
-    }));
-  };
 
   useEffect(() => {
     const today = new Date();
-
     const weekLater = new Date();
     weekLater.setDate(today.getDate() + 7);
-
-    setForm((prev) => ({
-      ...prev,
-      deliveryData: {
-        ...prev.deliveryData,
-        deliveryDateStart: today,
-        deliveryDateEnd: weekLater,
-      },
-    }));
+    dispatch({ type: 'SET_DATES', start: today, end: weekLater });
   }, []);
+
   useEffect(() => {
     if (active) {
-      ref.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'end',
-      });
+      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }, [active]);
+
+  // універсальний onChange для input/textarea
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const section = e.currentTarget.id as keyof DataForm;
+    const field = e.currentTarget.name;
+    const value = e.currentTarget.value;
+
+    dispatch({ type: 'SET_FIELD', section, field, value });
+  };
+
   return (
     <>
       <FormContainer>
         <SectionTitle>Контактні дані</SectionTitle>
+
         <Input
           placeholder="Ім'я *"
           name="name"
@@ -85,12 +70,14 @@ export const OrderForm: FC<IOrderFormProps> = ({ form, setForm, selected }) => {
           value={form.contactData.name}
           onChange={onChangeInput}
         />
+
         <PhoneInput
           value={form.contactData.phone}
-          setForm={setForm}
-          placeholder="+38 (___) ___-__-__ *"
           inputRef={phoneRef}
+          placeholder="+38 (___) ___-__-__ *"
+          dispatch={dispatch}
         />
+
         <Input
           placeholder="Email"
           name="email"
@@ -98,7 +85,8 @@ export const OrderForm: FC<IOrderFormProps> = ({ form, setForm, selected }) => {
           value={form.contactData.email}
           onChange={onChangeInput}
         />
-        {selected === Courier.key ? (
+
+        {selected === Courier.key && (
           <PickUpDataContainer>
             <CourierAdressContainer>
               <SectionTitle>Адреса доставки</SectionTitle>
@@ -117,7 +105,6 @@ export const OrderForm: FC<IOrderFormProps> = ({ form, setForm, selected }) => {
                 value={form.deliveryAdress.street}
                 onChange={onChangeInput}
               />
-
               <Row>
                 <Input
                   placeholder="Дім *"
@@ -135,60 +122,45 @@ export const OrderForm: FC<IOrderFormProps> = ({ form, setForm, selected }) => {
                 />
               </Row>
             </CourierAdressContainer>
+
             <div>
               <SectionTitle>Дані по доставці</SectionTitle>
-              <div>
-                <p>Дата доставки</p>
-                <DeliveryDateContainer>
-                  <DeliveryDateItem>
-                    {formatDate(form.deliveryData.deliveryDateStart)}
-                  </DeliveryDateItem>
-                  <DeliveryDateItem>
-                    {formatDate(form.deliveryData.deliveryDateEnd)}
-                  </DeliveryDateItem>
-                </DeliveryDateContainer>
-              </div>
-              <div>
-                <p>Час</p>
-                <DeliveryTimeSelectContainer
-                  onClick={() => {
-                    setOpen((prev) => !prev);
-                  }}
-                >
-                  <TimeSelect
-                    setForm={setForm}
-                    open={open}
-                    setOpen={setOpen}
-                    options={AvailableTimesPickup}
-                  />
-                </DeliveryTimeSelectContainer>
-              </div>
+              <p>Дата доставки</p>
+              <DeliveryDateContainer>
+                <DeliveryDateItem>
+                  {formatDate(form.deliveryData.deliveryDateStart)}
+                </DeliveryDateItem>
+                <DeliveryDateItem>{formatDate(form.deliveryData.deliveryDateEnd)}</DeliveryDateItem>
+              </DeliveryDateContainer>
+
+              <p>Час</p>
+              <DeliveryTimeSelectContainer onClick={() => setOpen((prev) => !prev)}>
+                <TimeSelect
+                  open={open}
+                  setOpen={setOpen}
+                  options={AvailableTimesPickup}
+                  dispatch={dispatch}
+                />
+              </DeliveryTimeSelectContainer>
             </div>
           </PickUpDataContainer>
-        ) : null}
-        <SectionTitle>Побажання</SectionTitle>
+        )}
 
+        <SectionTitle>Побажання</SectionTitle>
         <TextArea
-          name="msg"
+          name="message"
           id="deliveryData"
           placeholder="Повідомлення ..."
-          onChange={(e) =>
-            setForm((prev) => ({
-              ...prev,
-              deliveryData: {
-                ...prev.deliveryData,
-                message: e.target.value,
-              },
-            }))
-          }
+          value={form.deliveryData.message}
+          onChange={onChangeInput}
         />
 
         <SectionTitle>Оплата</SectionTitle>
-
         <PaymentContainer>
           <p>Оплата тільки онлайн</p>
           <ExclamationMark />
         </PaymentContainer>
+
         <BankCardContainer>
           <AddCardContainer
             $active={active}
@@ -201,16 +173,16 @@ export const OrderForm: FC<IOrderFormProps> = ({ form, setForm, selected }) => {
             <AddIcon />
           </AddCardContainer>
         </BankCardContainer>
-        {active ? (
+
+        {active && (
           <div ref={ref}>
             <AddPaymentCardForm setActive={setActive} scrollYPos={scrollYPos} />
           </div>
-        ) : null}
+        )}
       </FormContainer>
-      <BorderDown> </BorderDown>
-      <div style={{ marginTop: '30px', height: '1px' }}></div>
 
-      <></>
+      <BorderDown />
+      <div style={{ marginTop: '30px', height: '1px' }} />
     </>
   );
 };

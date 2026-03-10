@@ -5,12 +5,13 @@ import { Courier, OrderSelectTitle } from '../../Helper';
 import { DeliverySelect } from './DeliverySelect';
 import { OrderContainer } from './OrderForm.styled';
 import type { DataForm } from '../../types';
+import type { FormAction } from './formReducer';
 
 interface IOrderProps {
   form: DataForm;
-  setForm: React.Dispatch<React.SetStateAction<DataForm>>;
+  dispatch: (action: FormAction) => void;
 }
-export const Order: FC<IOrderProps> = ({ form, setForm }) => {
+export const Order: FC<IOrderProps> = ({ form, dispatch }) => {
   const [delivery, setDelivery] = useState(Courier.key);
 
   const [selected, setSelected] = useState(OrderSelectTitle.courier);
@@ -30,7 +31,7 @@ export const Order: FC<IOrderProps> = ({ form, setForm }) => {
         selected={selected}
         setSelected={setSelected}
       />
-      <OrderForm selected={delivery} setForm={setForm} form={form} />
+      <OrderForm selected={delivery} dispatch={dispatch} form={form} />
     </OrderContainer>
   );
 };

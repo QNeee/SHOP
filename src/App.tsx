@@ -15,11 +15,10 @@ import {
 } from './Helper';
 import { ProfilePage } from './pages/ProfilePage';
 import { CatalogPage } from './pages/CatalogPage';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import type {
   CarouselsRefs,
   CheckedItem,
-  DataForm,
   DeletedItemFromBaket,
   LocalSorageObject,
   LocalStorageItem,
@@ -32,9 +31,11 @@ import { BasketLayout } from './Components/Layouts/BasketLayout';
 import { BasketPage } from './pages/BasketPage';
 import { sharesPhoto } from './assets/Shares/Shares';
 import { OrderPage } from './pages/OrderPage';
+import { formReducer } from './Components/Order/formReducer';
 
 function App() {
-  const [form, setForm] = useState<DataForm>(initialFormData);
+  const [form, dispatch] = useReducer(formReducer, initialFormData);
+
   const navigate = useNavigate();
   const [renderItemsBaket, setRenderItemsBaket] = useState<ProductItem[]>([]);
   const [total, setTotal] = useState<TotalObj>(initialTotalObj);
@@ -237,7 +238,7 @@ function App() {
                 />
               }
             />
-            <Route path={Paths.order} element={<OrderPage setForm={setForm} form={form} />} />
+            <Route path={Paths.order} element={<OrderPage dispatch={dispatch} form={form} />} />
           </Route>
           <Route path={Paths.profile} element={<ProfilePage />} />
           <Route path={Paths.catalog} element={<CatalogPage />} />
