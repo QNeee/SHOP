@@ -1,7 +1,8 @@
-import { type FC, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { StyledIMaskInput } from './PhoneInput.styled';
 import { Error, Ok } from '../../Generic/Icons/ValidateIcons';
 import { Container, Icon } from '../ValidatedInput/ValidatedInput.styled';
+import type { CheckFormOrder } from '../../../types';
 
 interface PhoneInputProps {
   value: string;
@@ -10,6 +11,8 @@ interface PhoneInputProps {
   inputRef?: React.Ref<HTMLInputElement>;
   isValid: boolean | null;
   submit: boolean;
+  name: string;
+  setCheckFormOrdr: React.Dispatch<React.SetStateAction<CheckFormOrder>>;
 }
 
 export const PhoneInput: FC<PhoneInputProps> = ({
@@ -18,12 +21,25 @@ export const PhoneInput: FC<PhoneInputProps> = ({
   placeholder,
   inputRef,
   isValid,
+  name,
   submit,
+  setCheckFormOrdr,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const showIcon = isFocused || isValid !== null || submit;
-
+  useEffect(() => {
+    const [id, field] = name.split(',');
+    setCheckFormOrdr((prev: any) => {
+      return {
+        ...prev,
+        [id]: {
+          ...prev[id],
+          [field]: isValid,
+        },
+      };
+    });
+  }, [isValid]);
   return (
     <Container>
       <StyledIMaskInput

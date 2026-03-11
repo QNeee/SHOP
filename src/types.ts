@@ -87,3 +87,8 @@ export type DataForm = {
   deliveryAdress: DeliveryAdress;
   deliveryData: DeliveryData;
 };
+export type CheckFormOrder = {
+  contactData: { [key: string]: boolean | null };
+  deliveryAdress: { [key: string]: boolean | null };
+  deliveryData: { [key: string]: boolean | null };
+};

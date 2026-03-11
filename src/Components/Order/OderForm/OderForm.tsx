@@ -19,18 +19,25 @@ import { AddIcon, ExclamationMark } from '../../Generic/Icons/OrderFormsIcons';
 import { AddPaymentCardForm } from '../AddPaymentCardForm/AddPaymentCardForm';
 import { TimeSelect } from '../DeliveryTimeSelector/DeliveryTimeSelector';
 import { PhoneInput } from '../PhoneInput/PhoneInput';
-import type { DataForm } from '../../../types';
-import type { FormAction } from '../formReducer';
+import type { CheckFormOrder, DataForm } from '../../../types';
 import { ValidatedInput } from '../ValidatedInput/ValidatedInput';
+import type { FormAction } from '../formReducer';
 
 interface IOrderFormProps {
   selected: string;
-  dispatch: (action: FormAction) => void;
-  form: DataForm;
   submit: boolean;
+  form: DataForm;
+  dispatch: React.ActionDispatch<[action: FormAction]>;
+  setCheckFormOrdr: React.Dispatch<React.SetStateAction<CheckFormOrder>>;
 }
 
-export const OrderForm: FC<IOrderFormProps> = ({ submit, selected, dispatch, form }) => {
+export const OrderForm: FC<IOrderFormProps> = ({
+  selected,
+  submit,
+  form,
+  dispatch,
+  setCheckFormOrdr,
+}) => {
   const phoneRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -62,6 +69,7 @@ export const OrderForm: FC<IOrderFormProps> = ({ submit, selected, dispatch, for
       <FormContainer>
         <SectionTitle>Контактні дані</SectionTitle>
         <ValidatedInput
+          setFormChecked={setCheckFormOrdr}
           submit={submit}
           value={form.contactData.name}
           onChange={onChangeInput}
@@ -70,6 +78,8 @@ export const OrderForm: FC<IOrderFormProps> = ({ submit, selected, dispatch, for
           isValid={form.contactData.name.length === 0 ? null : form.contactData.name.length > 3}
         />
         <PhoneInput
+          name={'contactData,phone'}
+          setCheckFormOrdr={setCheckFormOrdr}
           value={form.contactData.phone}
           inputRef={phoneRef}
           placeholder="+38 (___) ___-__-__"
@@ -80,6 +90,7 @@ export const OrderForm: FC<IOrderFormProps> = ({ submit, selected, dispatch, for
           submit={submit}
         />
         <ValidatedInput
+          setFormChecked={setCheckFormOrdr}
           submit={submit}
           placeholder="Ivan@gmail.com"
           name="contactData,email"
@@ -93,6 +104,7 @@ export const OrderForm: FC<IOrderFormProps> = ({ submit, selected, dispatch, for
             <CourierAdressContainer>
               <SectionTitle>Адреса доставки</SectionTitle>
               <ValidatedInput
+                setFormChecked={setCheckFormOrdr}
                 submit={submit}
                 placeholder="Київ"
                 name="deliveryAdress,city"
@@ -103,6 +115,7 @@ export const OrderForm: FC<IOrderFormProps> = ({ submit, selected, dispatch, for
                 }
               />
               <ValidatedInput
+                setFormChecked={setCheckFormOrdr}
                 submit={submit}
                 placeholder="пр.переулка 12"
                 name="deliveryAdress,street"
@@ -116,6 +129,7 @@ export const OrderForm: FC<IOrderFormProps> = ({ submit, selected, dispatch, for
               />
               <Row>
                 <ValidatedInput
+                  setFormChecked={setCheckFormOrdr}
                   submit={submit}
                   placeholder="12"
                   name="deliveryAdress,house"
@@ -128,6 +142,7 @@ export const OrderForm: FC<IOrderFormProps> = ({ submit, selected, dispatch, for
                   }
                 />
                 <ValidatedInput
+                  setFormChecked={setCheckFormOrdr}
                   submit={submit}
                   placeholder="6"
                   name="deliveryAdress,flat"

@@ -6,6 +6,7 @@ import { MainPage } from './pages/MainPage';
 import {
   CanLikeId,
   discountCalculate,
+  initialCheckFormOrder,
   initialFormData,
   initialTotalObj,
   localStorageBaket,
@@ -19,6 +20,7 @@ import { useEffect, useReducer, useState } from 'react';
 import type {
   CarouselsRefs,
   CheckedItem,
+  CheckFormOrder,
   DeletedItemFromBaket,
   LocalSorageObject,
   LocalStorageItem,
@@ -34,11 +36,12 @@ import { OrderPage } from './pages/OrderPage';
 import { formReducer } from './Components/Order/formReducer';
 
 function App() {
-  const [form, dispatch] = useReducer(formReducer, initialFormData);
-  const [submit, setSubmit] = useState(false);
   const navigate = useNavigate();
   const [renderItemsBaket, setRenderItemsBaket] = useState<ProductItem[]>([]);
   const [total, setTotal] = useState<TotalObj>(initialTotalObj);
+  const [submit, setSubmit] = useState(false);
+  const [form, dispatch] = useReducer(formReducer, initialFormData);
+  const [checkFormOrder, setCheckFormOrdr] = useState<CheckFormOrder>(initialCheckFormOrder);
   const valute = '₴';
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const [localStorageItems, setLocalStorageItems] = useState<LocalStorageItem>(() => {
@@ -185,7 +188,13 @@ function App() {
   const onSubmitOrderForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setSubmit(true);
+    const hasInvalid = Object.values(checkFormOrder).some((section) =>
+      Object.values(section).some((field) => !field),
+    );
+    console.log(checkFormOrder);
+    if (hasInvalid) return;
     console.log(form);
+    console.log(checkFormOrder);
   };
   return (
     <>
@@ -241,7 +250,14 @@ function App() {
             />
             <Route
               path={Paths.order}
-              element={<OrderPage submit={submit} dispatch={dispatch} form={form} />}
+              element={
+                <OrderPage
+                  setCheckFormOrdr={setCheckFormOrdr}
+                  form={form}
+                  dispatch={dispatch}
+                  submit={submit}
+                />
+              }
             />
           </Route>
           <Route path={Paths.profile} element={<ProfilePage />} />

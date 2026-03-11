@@ -107,3 +107,25 @@ export const formatCardDuration = (value: string) => {
 
   return formatted;
 };
+export const initialCheckFormCard = {
+  cardNumber: false,
+  durationTime: false,
+  cvv: false,
+  name: false,
+};
+export const initialCheckFormOrder = {
+  contactData: {
+    name: false,
+    phone: false,
+    email: false,
+  },
+  deliveryAdress: {
+    city: false,
+    street: false,
+    house: false,
+    flat: false,
+  },
+  deliveryData: {
+    deliveryTime: true,
+  },
+};
