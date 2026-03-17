@@ -3,6 +3,7 @@ import {
   AddCardContainer,
   BankCardContainer,
   BorderDown,
+  CardContainer,
   CourierAdressContainer,
   DeliveryDateContainer,
   DeliveryDateItem,
@@ -14,14 +15,15 @@ import {
   SectionTitle,
   TextArea,
 } from './OrderForm.styled';
-import { AvailableTimesPickup, Courier, formatDate } from '../../../Helper';
+import { AvailableTimesPickup, Courier, formatDate, localStorageItemsKeys } from '../../../Helper';
 import { AddIcon, ExclamationMark } from '../../Generic/Icons/OrderFormsIcons';
 import { AddPaymentCardForm } from '../AddPaymentCardForm/AddPaymentCardForm';
 import { TimeSelect } from '../DeliveryTimeSelector/DeliveryTimeSelector';
 import { PhoneInput } from '../PhoneInput/PhoneInput';
-import type { CheckFormOrder, DataForm } from '../../../types';
+import type { Card, CheckFormOrder, DataForm } from '../../../types';
 import { ValidatedInput } from '../ValidatedInput/ValidatedInput';
 import type { FormAction } from '../formReducer';
+import { getRandomBankIcon } from '../../Generic/Icons/BankCardIcons';
 
 interface IOrderFormProps {
   selected: string;
@@ -43,7 +45,10 @@ export const OrderForm: FC<IOrderFormProps> = ({
   const ref = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(false);
   const [scrollYPos, setScrollYPos] = useState(0);
-
+  const [cards, setCards] = useState<Card[]>(() => {
+    const data = localStorage.getItem(localStorageItemsKeys.cards);
+    return JSON.parse(data || '') || [];
+  });
   useEffect(() => {
     const today = new Date();
     const weekLater = new Date();
@@ -63,7 +68,6 @@ export const OrderForm: FC<IOrderFormProps> = ({
     const section = sectionStr as keyof DataForm;
     dispatch({ type: 'SET_FIELD', section, field, value });
   };
-
   return (
     <>
       <FormContainer>
@@ -195,6 +199,12 @@ export const OrderForm: FC<IOrderFormProps> = ({
         </PaymentContainer>
 
         <BankCardContainer>
+          {cards.map((items) => (
+            <CardContainer key={items.cardNumber}>
+              <div>{getRandomBankIcon()}</div>
+              <div>{items.cardNumber}</div>
+            </CardContainer>
+          ))}
           <AddCardContainer
             $active={active}
             onClick={() => {
@@ -209,7 +219,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
 
         {active && (
           <div ref={ref}>
-            <AddPaymentCardForm setActive={setActive} scrollYPos={scrollYPos} />
+            <AddPaymentCardForm setCards={setCards} setActive={setActive} scrollYPos={scrollYPos} />
           </div>
         )}
       </FormContainer>

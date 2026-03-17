@@ -8,14 +8,30 @@ import {
 } from './AddPaymentCardForm.styled';
 import { FormContainer, Row } from '../OderForm/OrderForm.styled';
 import { ValidatedInput } from '../ValidatedInput/ValidatedInput';
-import { formatCardDuration, initialAddCardForm, initialCheckFormCard } from '../../../Helper';
+import {
+  formatCardDuration,
+  initialAddCardForm,
+  initialCheckFormCard,
+  localStorageItemsKeys,
+} from '../../../Helper';
+import type { Card } from '../../../types';
 
 interface IAddPaymentCardForm {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
   scrollYPos: number;
+  setCards: React.Dispatch<React.SetStateAction<Card[]>>;
 }
-export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({ setActive, scrollYPos }) => {
-  const [form, setForm] = useState(initialAddCardForm);
+export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
+  setCards,
+  setActive,
+  scrollYPos,
+}) => {
+  const [form, setForm] = useState(() => {
+    let data = initialAddCardForm;
+    const local = localStorage.getItem(localStorageItemsKeys.cardForm);
+    if (local) data = JSON.parse(local);
+    return data;
+  });
   const [submit, setSubmit] = useState(false);
   const [checkFormCard, setCheckFormCard] = useState(initialCheckFormCard);
   const maxCardNumberLength = 16;
@@ -25,27 +41,43 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({ setActive, scrollY
   const onChange = (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
     const name = e.currentTarget.name;
     const value = e.currentTarget.value;
+    let setValue = '';
     if (name === 'cardNumber') {
       const digitsOnly = e.target.value.replace(/\D/g, '');
       if (digitsOnly.length > maxCardNumberLength) return;
       const formatted = digitsOnly.replace(/(.{4})/g, '$1 ').trim();
-      setForm({
-        ...form,
-        cardNumber: formatted,
-      });
-    } else if (name === 'durationTime') {
-      setForm({ ...form, durationTime: formatCardDuration(value) });
-    } else if (name === 'name') {
-      setForm((prev) => ({ ...prev, [name]: value.replace(/\d/g, '') }));
-    } else
-      setForm((prev) => {
-        return { ...prev, [name]: value };
-      });
+      setValue = formatted;
+    } else if (name === 'durationTime') setValue = formatCardDuration(value);
+    else if (name === 'name') setValue = value.replace(/\d/g, '');
+    setForm((prev) => {
+      const newData = { ...prev, [name]: !setValue ? value : setValue };
+      localStorage.setItem(localStorageItemsKeys.cardForm, JSON.stringify(newData));
+      return newData;
+    });
+  };
+  const clearForm = () => {
+    setSubmit(false);
+    localStorage.removeItem(localStorageItemsKeys.cardForm);
+    setForm(initialAddCardForm);
+    setCheckFormCard(initialCheckFormCard);
+    setActive(false);
   };
   const onClickSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setSubmit(true);
-    console.log(checkFormCard);
+    const isValid = Object.values(checkFormCard).some((item) => !item);
+
+    const cardNumber = form.cardNumber.split(' ');
+    if (isValid) return;
+    const cardObj = {
+      cardNumber: cardNumber[cardNumber.length - 1],
+    };
+    setCards((prev) => {
+      const newData = [...prev, cardObj];
+      localStorage.setItem(localStorageItemsKeys.cards, JSON.stringify(newData));
+      return newData;
+    });
+    clearForm();
   };
   return (
     <FormContainer>

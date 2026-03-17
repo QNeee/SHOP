@@ -9,8 +9,14 @@ interface IBasketLayout {
   total: TotalObj;
   onClickToOrder: () => void;
   onSubmitOrderForm: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  basketLength: number;
 }
-export const BasketLayout: FC<IBasketLayout> = ({ total, onClickToOrder, onSubmitOrderForm }) => {
+export const BasketLayout: FC<IBasketLayout> = ({
+  basketLength,
+  total,
+  onClickToOrder,
+  onSubmitOrderForm,
+}) => {
   const { pathname } = useLocation();
   const basketPath = `${main} / ${basket}`;
   const orderPath = `${main} / ${basket} / ${order}`;
@@ -24,9 +30,11 @@ export const BasketLayout: FC<IBasketLayout> = ({ total, onClickToOrder, onSubmi
         <Outlet />
         <Total total={total}></Total>
 
-        <BasketButton type="submit" onClick={isBasket ? onClickToOrder : onSubmitOrderForm}>
-          Оформити замовлення
-        </BasketButton>
+        {basketLength ? (
+          <BasketButton type="submit" onClick={isBasket ? onClickToOrder : onSubmitOrderForm}>
+            Оформити замовлення
+          </BasketButton>
+        ) : null}
       </>
     </GenericRoute>
   );

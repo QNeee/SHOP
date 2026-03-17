@@ -1,7 +1,9 @@
+import { initialFormData } from '../../Helper';
 import type { DataForm } from '../../types';
 
 export type FormAction =
   | { type: 'SET_FIELD'; section: keyof DataForm; field: string; value: string }
+  | { type: 'RESET' }
   | { type: 'SET_DATES'; start: Date; end: Date }
   | { type: 'SET_TIME'; time: string };
 
@@ -32,6 +34,9 @@ export const formReducer = (state: DataForm, action: FormAction): DataForm => {
           deliveryTime: action.time,
         },
       };
+    case 'RESET':
+      return initialFormData;
+
     default:
       return state;
   }

@@ -2,15 +2,15 @@ import { type FC } from 'react';
 
 import React from 'react';
 import { AdBannerId, CatalogId, SharesId, useIsmobileWidth, WatchedId } from '../Helper';
-import type { CarouselsRefs, LocalSorageObject, LocalStorageItemCategory } from '../types';
+import type { CarouselsRefs, LocalSorageObject, LocalStorageItemShopCategory } from '../types';
 import { AdBanner } from '../Components/AdBanner/AdBanner';
 import { Catalog } from '../Components/Catalog/Catalog';
 import { Products } from '../Components/Products/Products';
 import { sharesPhoto } from '../assets/Shares/Shares';
 
 interface IMainPageProps {
-  favorite: LocalStorageItemCategory;
-  baket: LocalStorageItemCategory;
+  favorite: LocalStorageItemShopCategory;
+  baket: LocalStorageItemShopCategory;
   onClick: (obj: LocalSorageObject) => void;
   carouselsRefs: CarouselsRefs;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;

@@ -1,7 +1,7 @@
 import { useEffect, useState, type FC } from 'react';
 import { CounterButton, CounterContainer, CounterValue } from './Counter.styled';
-import type { LocalStorageItem, LocalStorageItemCategory } from '../../types';
-import { localStorageBaket, localStorageName } from '../../Helper';
+import { localStorageItemsKeys } from '../../Helper';
+import type { LocalStorageItemShop, LocalStorageItemShopCategory } from '../../types';
 
 interface ICounterProps {
   initial?: number;
@@ -21,7 +21,7 @@ export const Counter: FC<ICounterProps> = ({
   setLocalStorageItems,
 }) => {
   const [value, setValue] = useState(initial);
-
+  const { shopItems, baket } = localStorageItemsKeys;
   const increase = () => {
     setValue((prev) => Math.min(prev + 1, max));
   };
@@ -29,21 +29,21 @@ export const Counter: FC<ICounterProps> = ({
     setValue((prev) => Math.max(prev - 1, min));
   };
   useEffect(() => {
-    setLocalStorageItems((prev: LocalStorageItem) => {
+    setLocalStorageItems((prev: LocalStorageItemShop) => {
       const items = {
-        ...prev[localStorageBaket][itemType as keyof LocalStorageItemCategory],
+        ...prev[baket][itemType as keyof LocalStorageItemShopCategory],
         [itemId]: value,
       };
 
       const newData = {
         ...prev,
-        [localStorageBaket]: {
-          ...prev[localStorageBaket],
+        [baket]: {
+          ...prev[baket],
           [itemType]: items,
         },
       };
 
-      localStorage.setItem(localStorageName, JSON.stringify(newData));
+      localStorage.setItem(shopItems, JSON.stringify(newData));
       return newData;
     });
   }, [value]);

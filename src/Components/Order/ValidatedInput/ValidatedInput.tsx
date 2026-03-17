@@ -25,23 +25,27 @@ export const ValidatedInput: FC<ValidatedInputProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const showIcon = isFocused || isValid !== null || submit;
   useEffect(() => {
-    const splitedName = name.split(',');
-    if (splitedName.length === 1) {
-      setFormChecked((prev: any) => {
-        return { ...prev, [splitedName[0]]: isValid };
-      });
-    } else {
-      setFormChecked((prev: any) => {
+    const [section, field] = name.split(',');
+
+    setFormChecked((prev: any) => {
+      if (!field) {
         return {
           ...prev,
-          [splitedName[0]]: {
-            ...prev[splitedName[0]],
-            [splitedName[1]]: isValid,
-          },
+          [section]: isValid,
         };
-      });
-    }
-  }, [isValid]);
+      }
+
+      return {
+        ...prev,
+        [section]: {
+          ...prev[section],
+          [field]: isValid,
+        },
+      };
+    });
+
+    if (isValid === null) setIsFocused(false);
+  }, [isValid, name, setFormChecked]);
 
   return (
     <Container>

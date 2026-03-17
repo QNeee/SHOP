@@ -109,6 +109,9 @@ export const TextArea = styled.textarea`
     box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
   }
 `;
+export const CardContainer = styled.div`
+  display: flex;
+`;
 export const BankCardContainer = styled.div`
   display: flex;
   justify-content: left;

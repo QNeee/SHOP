@@ -39,7 +39,8 @@ export const PhoneInput: FC<PhoneInputProps> = ({
         },
       };
     });
-  }, [isValid]);
+    if (isValid === null) setIsFocused(false);
+  }, [isValid, name, setCheckFormOrdr]);
   return (
     <Container>
       <StyledIMaskInput

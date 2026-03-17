@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { CanLikeId, Paths, useIsmobileWidth } from '../../Helper';
-import type { LocalSorageObject, LocalStorageItemCategory } from '../../types';
+import type { LocalSorageObject, LocalStorageItemShopCategory } from '../../types';
 import { Footer } from '../Footer/Footer';
 import { Header } from '../Header/Header';
 import { Main } from '../Main/Main';
@@ -8,15 +8,13 @@ import { useLocation } from 'react-router-dom';
 import { Products } from '../Products/Products';
 import { sharesPhoto } from '../../assets/Shares/Shares';
 interface IMainLayoutProps {
-  items: LocalStorageItemCategory;
   carouselsRefs: React.RefObject<HTMLDivElement | null>;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
-  favorite: LocalStorageItemCategory;
-  baket: LocalStorageItemCategory;
+  favorite: LocalStorageItemShopCategory;
+  baket: LocalStorageItemShopCategory;
   onClickFavorite: (obj: LocalSorageObject) => void;
 }
 export const MainLayout: FC<IMainLayoutProps> = ({
-  items,
   carouselsRefs,
   onClickCarouselButton,
   onClickFavorite,
@@ -27,7 +25,7 @@ export const MainLayout: FC<IMainLayoutProps> = ({
   const base = Paths.base + '/';
   return (
     <>
-      {pathname === base ? <Header items={items} /> : null}
+      {pathname === base ? <Header items={baket} /> : null}
       <Main />
       {pathname !== base ? (
         <Products
@@ -41,7 +39,7 @@ export const MainLayout: FC<IMainLayoutProps> = ({
           onClick={onClickFavorite}
         />
       ) : null}
-      {useIsmobileWidth() ? <Footer items={items} /> : null}
+      {useIsmobileWidth() ? <Footer items={baket} /> : null}
     </>
   );
 };

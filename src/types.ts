@@ -28,13 +28,13 @@ export type CarouselsRefs = {
 export type LocalSorageObject = {
   id: string;
   type: 'favorites' | 'baket';
-  itemType: keyof LocalStorageItemCategory;
+  itemType: keyof LocalStorageItemShopCategory;
 };
-export type LocalStorageItem = {
-  favorites: LocalStorageItemCategory;
-  baket: LocalStorageItemCategory;
+export type LocalStorageItemShop = {
+  favorites: LocalStorageItemShopCategory;
+  baket: LocalStorageItemShopCategory;
 };
-export type LocalStorageItemCategory = {
+export type LocalStorageItemShopCategory = {
   smart: Record<string, number>;
   tv: Record<string, number>;
 };
@@ -82,13 +82,22 @@ type DeliveryData = {
   deliveryTime: string;
   message: string;
 };
+type Delivery = {
+  data: string;
+  name: string;
+};
 export type DataForm = {
   contactData: ContactData;
   deliveryAdress: DeliveryAdress;
   deliveryData: DeliveryData;
+  deliveryType: Delivery;
 };
 export type CheckFormOrder = {
   contactData: { [key: string]: boolean | null };
   deliveryAdress: { [key: string]: boolean | null };
   deliveryData: { [key: string]: boolean | null };
+  deliveryDest: boolean | null;
+};
+export type Card = {
+  cardNumber: string;
 };

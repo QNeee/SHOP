@@ -5,13 +5,12 @@ import { MainLayout } from './Components/Layouts/MainLayout';
 import { MainPage } from './pages/MainPage';
 import {
   CanLikeId,
+  Courier,
   discountCalculate,
   initialCheckFormOrder,
   initialFormData,
   initialTotalObj,
-  localStorageBaket,
-  localStorageFavorite,
-  localStorageName,
+  localStorageItemsKeys,
   Paths,
 } from './Helper';
 import { ProfilePage } from './pages/ProfilePage';
@@ -23,8 +22,8 @@ import type {
   CheckFormOrder,
   DeletedItemFromBaket,
   LocalSorageObject,
-  LocalStorageItem,
-  LocalStorageItemCategory,
+  LocalStorageItemShop,
+  LocalStorageItemShopCategory,
   ProductItem,
   TotalObj,
 } from './types';
@@ -41,11 +40,12 @@ function App() {
   const [total, setTotal] = useState<TotalObj>(initialTotalObj);
   const [submit, setSubmit] = useState(false);
   const [form, dispatch] = useReducer(formReducer, initialFormData);
+  const { baket, shopItems, favorite, orderForm } = localStorageItemsKeys;
   const [checkFormOrder, setCheckFormOrdr] = useState<CheckFormOrder>(initialCheckFormOrder);
   const valute = '₴';
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
-  const [localStorageItems, setLocalStorageItems] = useState<LocalStorageItem>(() => {
-    const data = localStorage.getItem(localStorageName);
+  const [localStorageItems, setLocalStorageItems] = useState<LocalStorageItemShop>(() => {
+    const data = localStorage.getItem(shopItems);
     return data
       ? JSON.parse(data)
       : {
@@ -58,8 +58,8 @@ function App() {
         };
   });
   useEffect(() => {
-    const data = Object.keys(localStorageItems[localStorageBaket]).flatMap((k) => {
-      const itemKey = localStorageItems[localStorageBaket][k as keyof LocalStorageItemCategory];
+    const data = Object.keys(localStorageItems[baket]).flatMap((k) => {
+      const itemKey = localStorageItems[baket][k as keyof LocalStorageItemShopCategory];
 
       return sharesPhoto
         .filter((item) => item.id in itemKey)
@@ -77,7 +77,7 @@ function App() {
     if (data.length === 0) {
       setCheckedItems({});
     }
-  }, [localStorageItems[localStorageBaket]]);
+  }, [localStorageItems[baket as keyof LocalStorageItemShop]]);
   useEffect(() => {
     const totalPrice = renderItemsBaket.reduce((acc, item) => {
       const count = item.count ?? 1;
@@ -96,17 +96,17 @@ function App() {
   }, [renderItemsBaket]);
   const onClickDeleteAll = (data: CheckedItem[]) => {
     setLocalStorageItems((prev) => {
-      const needData = { ...prev[localStorageBaket] };
+      const needData = { ...prev[baket] };
 
       data.forEach((item) => {
         Object.entries(item).forEach(([key, id]) => {
           if (id) {
-            delete needData[key as keyof LocalStorageItemCategory][id];
+            delete needData[key as keyof LocalStorageItemShopCategory][id];
           }
         });
       });
-      const newData = { ...prev, [localStorageBaket]: needData };
-      localStorage.setItem(localStorageName, JSON.stringify(newData));
+      const newData = { ...prev, [baket]: needData };
+      localStorage.setItem(shopItems, JSON.stringify(newData));
       return newData;
     });
   };
@@ -114,19 +114,19 @@ function App() {
     const { type, id } = obj;
 
     setLocalStorageItems((prev) => {
-      const needData = { ...prev[localStorageBaket] };
+      const needData = { ...prev[baket] };
       const typeData = { ...(needData[type] || {}) };
       if (typeData[id]) delete typeData[id];
 
       const newData = {
         ...prev,
-        [localStorageBaket]: {
+        [baket]: {
           ...needData,
           [type]: typeData,
         },
       };
 
-      localStorage.setItem(localStorageName, JSON.stringify(newData));
+      localStorage.setItem(shopItems, JSON.stringify(newData));
 
       return newData;
     });
@@ -149,7 +149,7 @@ function App() {
         },
       };
 
-      localStorage.setItem(localStorageName, JSON.stringify(newData));
+      localStorage.setItem(shopItems, JSON.stringify(newData));
 
       return newData;
     });
@@ -185,16 +185,29 @@ function App() {
     setTotal(totalObj);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+  const clearForm = () => {
+    localStorage.removeItem(orderForm);
+    setSubmit(false);
+    setCheckFormOrdr(initialCheckFormOrder);
+    dispatch({ type: 'RESET' });
+  };
   const onSubmitOrderForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setSubmit(true);
-    const hasInvalid = Object.values(checkFormOrder).some((section) =>
-      Object.values(section).some((field) => !field),
+
+    const sectionToCheck =
+      form.deliveryType.name === Courier.key
+        ? checkFormOrder
+        : { contactData: checkFormOrder.contactData };
+    const hasInvalid = Object.values(sectionToCheck).some((section) =>
+      section && typeof section === 'object'
+        ? Object.values(section).some((field) => !field)
+        : false,
     );
-    console.log(checkFormOrder);
+
     if (hasInvalid) return;
-    console.log(form);
-    console.log(checkFormOrder);
+
+    clearForm();
   };
   return (
     <>
@@ -203,12 +216,11 @@ function App() {
           path={Paths.base}
           element={
             <MainLayout
-              favorite={localStorageItems[localStorageFavorite]}
-              baket={localStorageItems[localStorageBaket]}
+              favorite={localStorageItems[favorite]}
+              baket={localStorageItems[baket]}
               onClickFavorite={onClickAdd}
               carouselsRefs={carouselsRefs[CanLikeId]}
               onClickCarouselButton={onClickCarouselButton}
-              items={localStorageItems[localStorageBaket]}
             />
           }
         >
@@ -219,8 +231,8 @@ function App() {
                 carouselsRefs={carouselsRefs}
                 onClickCarouselButton={onClickCarouselButton}
                 onClick={onClickAdd}
-                favorite={localStorageItems[localStorageFavorite]}
-                baket={localStorageItems[localStorageBaket]}
+                favorite={localStorageItems[favorite]}
+                baket={localStorageItems[baket]}
               />
             }
           />
@@ -229,6 +241,7 @@ function App() {
             path={Paths.basket}
             element={
               <BasketLayout
+                basketLength={renderItemsBaket.length}
                 onClickToOrder={onClickToOrder}
                 onSubmitOrderForm={onSubmitOrderForm}
                 total={total}

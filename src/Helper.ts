@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import type { LocalStorageItemShop } from './types';
 
 export const AdBannerId = 'AdBanner';
 export const CatalogId = 'Catalog';
@@ -41,14 +42,20 @@ export const useIsmobileWidth = (): boolean => {
 export const discountCalculate = (price: number, discount: number) => {
   return (price + (price * discount) / 100).toFixed();
 };
-export const localStorageName = 'app';
-export const localStorageFavorite = 'favorites';
-export const localStorageBaket = 'baket';
+export const localStorageItemsKeys = {
+  shopItems: 'items',
+  favorite: 'favorites' as keyof LocalStorageItemShop,
+  baket: 'baket' as keyof LocalStorageItemShop,
+  cardForm: 'cardForm',
+  orderForm: 'orderForm',
+  cards: 'cards',
+};
 export const initialTotalObj = {
   total: 0,
   totalWithDiscount: 0,
   valute: '',
 };
+
 const basketPath = `${main} / ${basket}`;
 export const initialGenericRouteOptions = { path: basketPath, title: basket };
 export const OrderSelectTitle = {
@@ -82,6 +89,10 @@ export const initialFormData = {
     deliveryTime: '',
     message: '',
   },
+  deliveryType: {
+    name: '',
+    data: '',
+  },
 };
 export const initialAddCardForm = {
   name: '',
@@ -108,24 +119,25 @@ export const formatCardDuration = (value: string) => {
   return formatted;
 };
 export const initialCheckFormCard = {
-  cardNumber: false,
-  durationTime: false,
-  cvv: false,
-  name: false,
+  cardNumber: null,
+  durationTime: null,
+  cvv: null,
+  name: null,
 };
 export const initialCheckFormOrder = {
   contactData: {
-    name: false,
-    phone: false,
-    email: false,
+    name: null,
+    phone: null,
+    email: null,
   },
   deliveryAdress: {
-    city: false,
-    street: false,
-    house: false,
-    flat: false,
+    city: null,
+    street: null,
+    house: null,
+    flat: null,
   },
   deliveryData: {
     deliveryTime: true,
   },
+  deliveryDest: null,
 };
