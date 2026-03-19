@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, type FC } from 'react';
 import {
-  AddCardContainer,
   BankCardContainer,
   BorderDown,
   CardContainer,
+  CardNumberTextContainer,
   CourierAdressContainer,
   DeliveryDateContainer,
   DeliveryDateItem,
@@ -16,14 +16,14 @@ import {
   TextArea,
 } from './OrderForm.styled';
 import { AvailableTimesPickup, Courier, formatDate, localStorageItemsKeys } from '../../../Helper';
-import { AddIcon, ExclamationMark } from '../../Generic/Icons/OrderFormsIcons';
+import { ExclamationMark } from '../../Generic/Icons/OrderFormsIcons';
 import { AddPaymentCardForm } from '../AddPaymentCardForm/AddPaymentCardForm';
 import { TimeSelect } from '../DeliveryTimeSelector/DeliveryTimeSelector';
 import { PhoneInput } from '../PhoneInput/PhoneInput';
-import type { Card, CheckFormOrder, DataForm } from '../../../types';
+import type { Card, CheckFormOrder, DataForm, PayData } from '../../../types';
 import { ValidatedInput } from '../ValidatedInput/ValidatedInput';
 import type { FormAction } from '../formReducer';
-import { getRandomBankIcon } from '../../Generic/Icons/BankCardIcons';
+import { ValidatedCardContainer } from '../ValidatedCardContainer/ValidatedCardContainer';
 
 interface IOrderFormProps {
   selected: string;
@@ -43,31 +43,46 @@ export const OrderForm: FC<IOrderFormProps> = ({
   const phoneRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
-  const [active, setActive] = useState(false);
   const [scrollYPos, setScrollYPos] = useState(0);
+  const bankCardId = 'bankCardContainer';
+  const addCardContainerId = 'addCardContainer';
   const [cards, setCards] = useState<Card[]>(() => {
-    const data = localStorage.getItem(localStorageItemsKeys.cards);
-    return JSON.parse(data || '') || [];
+    let data = [];
+    const localData = localStorage.getItem(localStorageItemsKeys.cards);
+    if (localData) data = JSON.parse(localData);
+    else data = [];
+    return data;
   });
+  const [active, setActive] = useState(cards[0]?.cardNumber || '');
   useEffect(() => {
     const today = new Date();
     const weekLater = new Date();
     weekLater.setDate(today.getDate() + 7);
     dispatch({ type: 'SET_DATES', start: today, end: weekLater });
   }, []);
-
+  useEffect(() => {
+    if (cards.length > 0) {
+      const card = cards[cards.length - 1];
+      const payData: PayData = {
+        cardNumber: card.cardNumber,
+        date: card.image,
+      };
+      setActive(card.cardNumber);
+      dispatch({ type: 'SET_PAY', payData });
+    }
+  }, [cards]);
   useEffect(() => {
     if (active) {
       ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }, [active]);
-
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = e.currentTarget.value;
     const [sectionStr, field] = e.currentTarget.name.split(',');
     const section = sectionStr as keyof DataForm;
     dispatch({ type: 'SET_FIELD', section, field, value });
   };
+
   return (
     <>
       <FormContainer>
@@ -198,30 +213,36 @@ export const OrderForm: FC<IOrderFormProps> = ({
           <ExclamationMark />
         </PaymentContainer>
 
-        <BankCardContainer>
+        <BankCardContainer id={bankCardId}>
           {cards.map((items) => (
-            <CardContainer key={items.cardNumber}>
-              <div>{getRandomBankIcon()}</div>
-              <div>{items.cardNumber}</div>
+            <CardContainer
+              onClick={() => setActive(items.cardNumber)}
+              key={items.cardNumber}
+              $active={active === items.cardNumber}
+            >
+              <img src={items.image} alt={items.image} />
+              <CardNumberTextContainer>
+                <p>**{items.cardNumber}</p>
+              </CardNumberTextContainer>
             </CardContainer>
           ))}
-          <AddCardContainer
-            $active={active}
-            onClick={() => {
-              setActive((prev) => !prev);
-              setScrollYPos(window.scrollY);
-            }}
-          >
-            <p>Нова картка</p>
-            <AddIcon />
-          </AddCardContainer>
+          <ValidatedCardContainer
+            name="payData"
+            setFormChecked={setCheckFormOrdr}
+            submit={submit}
+            id={addCardContainerId}
+            setActive={setActive}
+            setScrollYPos={setScrollYPos}
+            active={active}
+            isValid={!active ? null : cards.length > 0}
+          />
         </BankCardContainer>
 
-        {active && (
+        {active === addCardContainerId ? (
           <div ref={ref}>
             <AddPaymentCardForm setCards={setCards} setActive={setActive} scrollYPos={scrollYPos} />
           </div>
-        )}
+        ) : null}
       </FormContainer>
 
       <BorderDown />

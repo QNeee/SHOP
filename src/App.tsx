@@ -194,7 +194,7 @@ function App() {
   const onSubmitOrderForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setSubmit(true);
-
+    console.log(checkFormOrder);
     const sectionToCheck =
       form.deliveryType.name === Courier.key
         ? checkFormOrder
@@ -204,8 +204,7 @@ function App() {
         ? Object.values(section).some((field) => !field)
         : false,
     );
-
-    if (hasInvalid) return;
+    if (hasInvalid || !checkFormOrder.payData) return;
 
     clearForm();
   };

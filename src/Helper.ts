@@ -93,6 +93,10 @@ export const initialFormData = {
     name: '',
     data: '',
   },
+  payData: {
+    cardNumber: '',
+    date: '',
+  },
 };
 export const initialAddCardForm = {
   name: '',
@@ -140,4 +144,5 @@ export const initialCheckFormOrder = {
     deliveryTime: true,
   },
   deliveryDest: null,
+  payData: null,
 };

@@ -26,7 +26,6 @@ export const ValidatedInput: FC<ValidatedInputProps> = ({
   const showIcon = isFocused || isValid !== null || submit;
   useEffect(() => {
     const [section, field] = name.split(',');
-
     setFormChecked((prev: any) => {
       if (!field) {
         return {

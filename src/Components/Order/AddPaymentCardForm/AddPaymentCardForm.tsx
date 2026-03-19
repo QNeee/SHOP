@@ -15,9 +15,10 @@ import {
   localStorageItemsKeys,
 } from '../../../Helper';
 import type { Card } from '../../../types';
+import { cardsImages } from './CardsImages';
 
 interface IAddPaymentCardForm {
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  setActive: React.Dispatch<React.SetStateAction<string>>;
   scrollYPos: number;
   setCards: React.Dispatch<React.SetStateAction<Card[]>>;
 }
@@ -60,7 +61,7 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
     localStorage.removeItem(localStorageItemsKeys.cardForm);
     setForm(initialAddCardForm);
     setCheckFormCard(initialCheckFormCard);
-    setActive(false);
+    setActive('');
   };
   const onClickSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -71,6 +72,7 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
     if (isValid) return;
     const cardObj = {
       cardNumber: cardNumber[cardNumber.length - 1],
+      image: cardsImages[0],
     };
     setCards((prev) => {
       const newData = [...prev, cardObj];
@@ -166,7 +168,7 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
               top: scrollYPos,
               behavior: 'smooth',
             });
-            setActive(false);
+            setActive('');
           }}
         >
           Закрити

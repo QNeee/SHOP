@@ -109,8 +109,26 @@ export const TextArea = styled.textarea`
     box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
   }
 `;
-export const CardContainer = styled.div`
+export const CardContainer = styled.div<{ $active: boolean }>`
+  height: 53px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid black;
+  background-color: ${(props) => (props.$active ? 'orange' : 'white')};
+  gap: 5px;
+  cursor: pointer;
+  img {
+    padding: 7px;
+    width: 30px;
+    height: 28px;
+  }
+`;
+export const CardNumberTextContainer = styled.div`
+  padding: 7px;
+  width: 44px;
+  height: 16px;
 `;
 export const BankCardContainer = styled.div`
   display: flex;
@@ -119,35 +137,7 @@ export const BankCardContainer = styled.div`
   gap: 8px;
 `;
 export const PickUpDataContainer = styled.div``;
-export const AddCardContainer = styled.div<{ $active: boolean }>`
-  width: 154px;
-  height: 53px;
-  border-radius: 8px;
-  border: 1px solid ${({ $active }) => ($active ? '#2563eb' : 'black')};
-  background-color: ${({ $active }) => ($active ? 'orange' : 'white')};
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  svg rect,
-  svg path {
-    transition: stroke 0.2s ease;
-    stroke: ${({ $active }) => ($active ? '#2563eb' : '#454545')};
-  }
-
-  &:hover {
-    border: 1px solid #2563eb;
-  }
-
-  &:hover svg rect,
-  &:hover svg path {
-    stroke: #2563eb;
-  }
-`;
 export const BankCard = styled.div``;
 export const PaymentContainer = styled.div`
   padding: 0 12px;

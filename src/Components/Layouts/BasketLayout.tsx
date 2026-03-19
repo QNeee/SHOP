@@ -23,12 +23,11 @@ export const BasketLayout: FC<IBasketLayout> = ({
   const isBasket = pathname.replace(/\/$/, '') === Paths.basket;
   const path = isBasket ? basketPath : orderPath;
   const title = isBasket ? basket : order;
-
   return (
     <GenericRoute path={path} title={title}>
       <>
         <Outlet />
-        <Total total={total}></Total>
+        {basketLength ? <Total total={total}></Total> : null}
 
         {basketLength ? (
           <BasketButton type="submit" onClick={isBasket ? onClickToOrder : onSubmitOrderForm}>

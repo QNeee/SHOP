@@ -1,11 +1,12 @@
 import { initialFormData } from '../../Helper';
-import type { DataForm } from '../../types';
+import type { DataForm, PayData } from '../../types';
 
 export type FormAction =
   | { type: 'SET_FIELD'; section: keyof DataForm; field: string; value: string }
   | { type: 'RESET' }
   | { type: 'SET_DATES'; start: Date; end: Date }
-  | { type: 'SET_TIME'; time: string };
+  | { type: 'SET_TIME'; time: string }
+  | { type: 'SET_PAY'; payData: PayData };
 
 export const formReducer = (state: DataForm, action: FormAction): DataForm => {
   switch (action.type) {
@@ -32,6 +33,13 @@ export const formReducer = (state: DataForm, action: FormAction): DataForm => {
         deliveryData: {
           ...state.deliveryData,
           deliveryTime: action.time,
+        },
+      };
+    case 'SET_PAY':
+      return {
+        ...state,
+        payData: {
+          ...action.payData,
         },
       };
     case 'RESET':

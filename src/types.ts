@@ -86,18 +86,25 @@ type Delivery = {
   data: string;
   name: string;
 };
+export type PayData = {
+  cardNumber: string;
+  date: string;
+};
 export type DataForm = {
   contactData: ContactData;
   deliveryAdress: DeliveryAdress;
   deliveryData: DeliveryData;
   deliveryType: Delivery;
+  payData: PayData;
 };
 export type CheckFormOrder = {
   contactData: { [key: string]: boolean | null };
   deliveryAdress: { [key: string]: boolean | null };
   deliveryData: { [key: string]: boolean | null };
   deliveryDest: boolean | null;
+  payData: boolean | null;
 };
 export type Card = {
   cardNumber: string;
+  image: string;
 };
