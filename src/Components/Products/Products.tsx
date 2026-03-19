@@ -2,12 +2,12 @@ import type { FC } from 'react';
 import { ProductTextContainer, ProductSection, ProductText } from './Products.styled';
 import { ProductCard } from './ProductCard';
 import { GenericCarousel } from '../Generic/GenericCarousel/GenericCarousel';
-import type { LocalSorageObject, LocalStorageItemCategory, ProductItem } from '../../types';
+import type { LocalSorageObject, LocalStorageItemShopCategory, ProductItem } from '../../types';
 import { useLocation } from 'react-router-dom';
 interface IProductsProps {
   onClick: (obj: LocalSorageObject) => void;
-  favorite: LocalStorageItemCategory;
-  baket: LocalStorageItemCategory;
+  favorite: LocalStorageItemShopCategory;
+  baket: LocalStorageItemShopCategory;
   carouselRef: React.RefObject<HTMLDivElement | null>;
   onClickCarousel: (e: React.MouseEvent<SVGSVGElement>) => void;
   items: ProductItem[];
