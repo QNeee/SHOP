@@ -9,16 +9,16 @@ import {
   UrlText,
 } from './NavMenu.styled';
 import { Link } from 'react-router-dom';
-import type { LocalStorageItemCategory } from '../../types';
+import type { LocalStorageItemShopCategory } from '../../types';
 import { BasketIcon, CatalogIcon, HomeIcon, ProfileIcon } from '../Generic/Icons/NavMenuIcons';
 interface INavMenuProps {
-  items: LocalStorageItemCategory;
+  items: LocalStorageItemShopCategory;
 }
 export const NavMenu: FC<INavMenuProps> = ({ items }) => {
   const isMobile = useIsmobileWidth();
   useEffect(() => {
     for (const obj in items) {
-      const item = items[obj as keyof LocalStorageItemCategory];
+      const item = items[obj as keyof LocalStorageItemShopCategory];
       const count = Object.values(item).length;
       const el = document.getElementById('count');
       if (el) {

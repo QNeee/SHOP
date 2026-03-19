@@ -3,10 +3,10 @@ import LogoImg from '../../assets/glance.png';
 import SearchImg from '../../assets/icon_search.png';
 import { useIsmobileWidth } from '../../Helper';
 import { NavMenu } from '../NavMenu/NavMenu';
-import type { LocalStorageItemCategory } from '../../types';
+import type { LocalStorageItemShopCategory } from '../../types';
 import type { FC } from 'react';
 interface IHeaderProps {
-  items: LocalStorageItemCategory;
+  items: LocalStorageItemShopCategory;
 }
 export const Header: FC<IHeaderProps> = ({ items }) => {
   return (

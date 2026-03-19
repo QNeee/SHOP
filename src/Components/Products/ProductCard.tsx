@@ -1,8 +1,8 @@
 import { useRef, useState, type FC } from 'react';
 import type {
   LocalSorageObject,
-  LocalStorageItem,
-  LocalStorageItemCategory,
+  LocalStorageItemShop,
+  LocalStorageItemShopCategory,
   ProductItem,
 } from '../../types';
 import {
@@ -23,9 +23,9 @@ import { ChangeColorList } from '../Generic/ChangeColorList/ChangeColorList';
 interface IProductCardProps {
   item: ProductItem;
   onClick: (obj: LocalSorageObject) => void;
-  favorite: LocalStorageItemCategory;
+  favorite: LocalStorageItemShopCategory;
   id: string;
-  baket: LocalStorageItemCategory;
+  baket: LocalStorageItemShopCategory;
 }
 
 export const ProductCard: FC<IProductCardProps> = ({ item, favorite, id, onClick, baket }) => {
@@ -37,7 +37,7 @@ export const ProductCard: FC<IProductCardProps> = ({ item, favorite, id, onClick
   const listRef = useRef<HTMLUListElement>(null);
   const localStorageObj = {
     id: item.id,
-    elemId: id as keyof LocalStorageItem,
+    elemId: id as keyof LocalStorageItemShop,
   };
 
   return (
@@ -61,13 +61,13 @@ export const ProductCard: FC<IProductCardProps> = ({ item, favorite, id, onClick
             onClick({
               ...localStorageObj,
               type: 'favorites',
-              itemType: item.type as keyof LocalStorageItemCategory,
+              itemType: item.type as keyof LocalStorageItemShopCategory,
             })
           }
           id={item.id}
         >
           <FavoriteIcon
-            flag={favorite[item.type as keyof LocalStorageItemCategory][item.id] || 0}
+            flag={favorite[item.type as keyof LocalStorageItemShopCategory][item.id] || 0}
           />
         </FavoriteContainer>
       </ButtonsContainer>
@@ -77,11 +77,11 @@ export const ProductCard: FC<IProductCardProps> = ({ item, favorite, id, onClick
           onClick({
             ...localStorageObj,
             type: 'baket',
-            itemType: item.type as keyof LocalStorageItemCategory,
+            itemType: item.type as keyof LocalStorageItemShopCategory,
           })
         }
       >
-        {baket[item.type as keyof LocalStorageItemCategory][item.id]
+        {baket[item.type as keyof LocalStorageItemShopCategory][item.id]
           ? 'Видалити з кошику'
           : 'В кошик'}
       </Button>

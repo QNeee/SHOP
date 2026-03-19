@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 import { NavMenu } from '../NavMenu/NavMenu';
-import type { LocalStorageItemCategory } from '../../types';
+import type { LocalStorageItemShopCategory } from '../../types';
 
 interface IHeaderProps {
-  items: LocalStorageItemCategory;
+  items: LocalStorageItemShopCategory;
 }
 export const Footer: FC<IHeaderProps> = ({ items }) => {
   return (
