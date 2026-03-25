@@ -13,6 +13,7 @@ interface IMainLayoutProps {
   favorite: LocalStorageItemShopCategory;
   baket: LocalStorageItemShopCategory;
   onClickFavorite: (obj: LocalSorageObject) => void;
+  ordered: string;
 }
 export const MainLayout: FC<IMainLayoutProps> = ({
   carouselsRefs,
@@ -20,6 +21,7 @@ export const MainLayout: FC<IMainLayoutProps> = ({
   onClickFavorite,
   baket,
   favorite,
+  ordered,
 }) => {
   const { pathname } = useLocation();
   const base = Paths.base + '/';
@@ -27,7 +29,7 @@ export const MainLayout: FC<IMainLayoutProps> = ({
     <>
       {pathname === base ? <Header items={baket} /> : null}
       <Main />
-      {pathname !== base ? (
+      {pathname !== base && !ordered ? (
         <Products
           baket={baket}
           favorite={favorite}

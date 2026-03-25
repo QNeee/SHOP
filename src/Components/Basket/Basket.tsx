@@ -11,7 +11,7 @@ import {
 } from './Basket.styled';
 import { BasketIcon } from '../Generic/Icons/BasketIcon';
 import { type FC } from 'react';
-import type { CheckedItem, DeletedItemFromBaket, ProductItem } from '../../types';
+import type { CheckedItem, DeletedItemFromBaket, Ordered, ProductItem } from '../../types';
 import { BasketCard } from './BasketCard';
 import { BasketEmpty } from './BaskerEmpty';
 interface IBasketProps {
@@ -21,6 +21,7 @@ interface IBasketProps {
   setLocalStorageItems: Function;
   checkedItems: Record<string, boolean>;
   setCheckedItems: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
+  setOrdered: React.Dispatch<React.SetStateAction<Ordered>>;
 }
 export const Basket: FC<IBasketProps> = ({
   items,
@@ -29,6 +30,7 @@ export const Basket: FC<IBasketProps> = ({
   setLocalStorageItems,
   checkedItems,
   setCheckedItems,
+  setOrdered,
 }) => {
   const navigate = useNavigate();
 
@@ -95,7 +97,7 @@ export const Basket: FC<IBasketProps> = ({
           ))}
         </BasketWrapper>
       ) : (
-        <BasketEmpty navigate={navigate} />
+        <BasketEmpty setOrdered={setOrdered} navigate={navigate} />
       )}
     </div>
   );

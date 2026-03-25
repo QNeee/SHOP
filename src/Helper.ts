@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { LocalStorageItemShop } from './types';
+import type { LocalStorageItemShop, Ordered } from './types';
 
 export const AdBannerId = 'AdBanner';
 export const CatalogId = 'Catalog';
@@ -146,3 +146,15 @@ export const initialCheckFormOrder = {
   deliveryDest: null,
   payData: null,
 };
+export const initialOrdered: Ordered = {
+  dateDelivery: '',
+  timeDelivery: '',
+  flag: 'courier',
+};
+
+export function formatDateString(date: Date): string {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}.${month}.${year}`;
+}

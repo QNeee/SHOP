@@ -108,3 +108,8 @@ export type Card = {
   cardNumber: string;
   image: string;
 };
+export type Ordered = {
+  dateDelivery: string;
+  timeDelivery: string | null;
+  flag: 'courier' | 'pickup';
+};

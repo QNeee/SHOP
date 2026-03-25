@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import {
   OptionsList,
   SelectContainer,
@@ -17,6 +17,9 @@ interface ITimeSelectProps {
 }
 export const TimeSelect: FC<ITimeSelectProps> = ({ options, open, dispatch, setOpen }) => {
   const [selected, setSelected] = useState(options[0]);
+  useEffect(() => {
+    dispatch({ type: 'SET_TIME', time: selected });
+  }, []);
   return (
     <SelectContainer>
       <SelectHeader>

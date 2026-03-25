@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { Basket } from '../Components/Basket/Basket';
-import type { CheckedItem, DeletedItemFromBaket, ProductItem } from '../types';
+import type { CheckedItem, DeletedItemFromBaket, Ordered, ProductItem } from '../types';
 interface IBasketPageProps {
   items: ProductItem[];
   onClickDeleteAll: (data: CheckedItem[]) => void;
@@ -8,6 +8,7 @@ interface IBasketPageProps {
   setLocalStorageItems: Function;
   checkedItems: Record<string, boolean>;
   setCheckedItems: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
+  setOrdered: React.Dispatch<React.SetStateAction<Ordered>>;
 }
 export const BasketPage: FC<IBasketPageProps> = ({
   items,
@@ -16,9 +17,11 @@ export const BasketPage: FC<IBasketPageProps> = ({
   setLocalStorageItems,
   checkedItems,
   setCheckedItems,
+  setOrdered,
 }) => {
   return (
     <Basket
+      setOrdered={setOrdered}
       setLocalStorageItems={setLocalStorageItems}
       items={items}
       onClickDeleteAll={onClickDeleteAll}

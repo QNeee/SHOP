@@ -7,8 +7,10 @@ import {
   CanLikeId,
   Courier,
   discountCalculate,
+  formatDateString,
   initialCheckFormOrder,
   initialFormData,
+  initialOrdered,
   initialTotalObj,
   localStorageItemsKeys,
   Paths,
@@ -24,6 +26,7 @@ import type {
   LocalSorageObject,
   LocalStorageItemShop,
   LocalStorageItemShopCategory,
+  Ordered,
   ProductItem,
   TotalObj,
 } from './types';
@@ -43,6 +46,7 @@ function App() {
   const { baket, shopItems, favorite, orderForm } = localStorageItemsKeys;
   const [checkFormOrder, setCheckFormOrdr] = useState<CheckFormOrder>(initialCheckFormOrder);
   const valute = '₴';
+  const [ordered, setOrdered] = useState<Ordered>(initialOrdered);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const [localStorageItems, setLocalStorageItems] = useState<LocalStorageItemShop>(() => {
     const data = localStorage.getItem(shopItems);
@@ -189,12 +193,18 @@ function App() {
     localStorage.removeItem(orderForm);
     setSubmit(false);
     setCheckFormOrdr(initialCheckFormOrder);
+    const arrayToDelete = renderItemsBaket.map((item) => {
+      const obj: CheckedItem = { smart: undefined, tv: undefined };
+      obj[item.type as keyof CheckedItem] = item.id;
+      return obj;
+    });
+    onClickDeleteAll(arrayToDelete);
+    setTotal(initialTotalObj);
     dispatch({ type: 'RESET' });
   };
   const onSubmitOrderForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setSubmit(true);
-    console.log(checkFormOrder);
     const sectionToCheck =
       form.deliveryType.name === Courier.key
         ? checkFormOrder
@@ -205,7 +215,15 @@ function App() {
         : false,
     );
     if (hasInvalid || !checkFormOrder.payData) return;
-
+    const orderedObj: Ordered = {
+      dateDelivery:
+        formatDateString(form.deliveryData.deliveryDateStart) +
+        '-' +
+        formatDateString(form.deliveryData.deliveryDateEnd),
+      timeDelivery: form.deliveryType.name === Courier.key ? form.deliveryData.deliveryTime : null,
+      flag: form.deliveryType.name as 'courier' | 'pickup',
+    };
+    setOrdered(orderedObj);
     clearForm();
   };
   return (
@@ -215,6 +233,7 @@ function App() {
           path={Paths.base}
           element={
             <MainLayout
+              ordered={ordered.dateDelivery}
               favorite={localStorageItems[favorite]}
               baket={localStorageItems[baket]}
               onClickFavorite={onClickAdd}
@@ -251,6 +270,7 @@ function App() {
               path={Paths.basket}
               element={
                 <BasketPage
+                  setOrdered={setOrdered}
                   setLocalStorageItems={setLocalStorageItems}
                   onClickDeleteOne={onClickDeleteOne}
                   onClickDeleteAll={onClickDeleteAll}
