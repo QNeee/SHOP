@@ -2,7 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { basket, main, order, orderedMesages, Paths } from '../../Helper';
 import { GenericRoute } from '../Generic/GenericRoute/GenericRoute';
 import type { Ordered, TotalObj } from '../../types';
-import { useState, type FC } from 'react';
+import { type FC } from 'react';
 import { Total } from '../Generic/Total/Total';
 import { BasketButton } from '../Basket/Basket.styled';
 import { OrderAccept } from '../Order/OrderAccept/OrderAccept';
