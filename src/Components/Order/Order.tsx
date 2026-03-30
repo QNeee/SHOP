@@ -29,7 +29,7 @@ export const Order: FC<IOrderProps> = ({ submit, form, dispatch, setCheckFormOrd
     });
   }, [delivery]);
 
-  useEffect(() => {});
+  useEffect(() => { });
   return (
     <OrderContainer>
       <DeliverySelector

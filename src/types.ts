@@ -112,4 +112,5 @@ export type Ordered = {
   dateDelivery: string;
   timeDelivery: string | null;
   flag: 'courier' | 'pickup';
+  accepted: boolean;
 };

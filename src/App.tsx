@@ -53,13 +53,13 @@ function App() {
     return data
       ? JSON.parse(data)
       : {
-          favorites: {
-            smart: {},
-          },
-          baket: {
-            smart: {},
-          },
-        };
+        favorites: {
+          smart: {},
+        },
+        baket: {
+          smart: {},
+        },
+      };
   });
   useEffect(() => {
     const data = Object.keys(localStorageItems[baket]).flatMap((k) => {
@@ -222,6 +222,7 @@ function App() {
         formatDateString(form.deliveryData.deliveryDateEnd),
       timeDelivery: form.deliveryType.name === Courier.key ? form.deliveryData.deliveryTime : null,
       flag: form.deliveryType.name as 'courier' | 'pickup',
+      accepted: true,
     };
     setOrdered(orderedObj);
     clearForm();
@@ -233,7 +234,7 @@ function App() {
           path={Paths.base}
           element={
             <MainLayout
-              ordered={ordered.dateDelivery}
+              ordered={ordered.accepted}
               favorite={localStorageItems[favorite]}
               baket={localStorageItems[baket]}
               onClickFavorite={onClickAdd}
@@ -259,6 +260,8 @@ function App() {
             path={Paths.basket}
             element={
               <BasketLayout
+                ordered={ordered}
+                setOrdered={setOrdered}
                 basketLength={renderItemsBaket.length}
                 onClickToOrder={onClickToOrder}
                 onSubmitOrderForm={onSubmitOrderForm}

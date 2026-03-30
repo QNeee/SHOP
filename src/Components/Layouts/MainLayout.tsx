@@ -13,7 +13,7 @@ interface IMainLayoutProps {
   favorite: LocalStorageItemShopCategory;
   baket: LocalStorageItemShopCategory;
   onClickFavorite: (obj: LocalSorageObject) => void;
-  ordered: string;
+  ordered: boolean;
 }
 export const MainLayout: FC<IMainLayoutProps> = ({
   carouselsRefs,
