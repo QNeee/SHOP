@@ -1,16 +1,10 @@
 import { useEffect, useState, type FC } from 'react';
-import {
-  SelectBox,
-  SelectHeader,
-  SelectTitle,
-  Arrow,
-  Options,
-  Option,
-} from './DeliverySelect.styled';
 import type { NPBranch } from '../../../types';
-import { getBranches, getNovaPoshtaCities, getUserCity } from '../../fetch';
+import { getBranches, getNovaPoshtaCities } from '../../fetch';
 import { PickUp } from '../../../Helper';
 import { Loader } from '../../Generic/Loader/Loader';
+import { LocationIcon } from '../../Generic/Icons/LocationIcon';
+import { DeliveryCityContainer, DeliverySelectContainer, DelivrySelectWerehouse, PasButton } from './DeliverySelect.styled';
 
 interface IDeliverySelectProps {
   selected: string;
@@ -29,12 +23,12 @@ export const DeliverySelect: FC<IDeliverySelectProps> = ({
 }) => {
   const [dataBranch, setDataBranch] = useState<NPBranch[]>([]);
   const [loading, setLoading] = useState(false);
+  const [city, setCity] = useState("Київ")
 
   const fetchBranches = async () => {
     try {
       setLoading(true);
-      const userCity = await getUserCity();
-      const cityRefArr = await getNovaPoshtaCities(userCity);
+      const cityRefArr = await getNovaPoshtaCities(city);
       const cityRef = cityRefArr[0].Ref;
       const data = await getBranches(cityRef);
       setDataBranch(data);
@@ -45,41 +39,53 @@ export const DeliverySelect: FC<IDeliverySelectProps> = ({
       setLoading(false);
     }
   };
-
+  console.log(dataBranch);
   useEffect(() => {
-    if (delivery === PickUp.key && open) fetchBranches();
+    if (delivery === PickUp.key) fetchBranches();
     else setDataBranch([]);
-  }, [open]);
+  }, [city, delivery]);
 
   return (
-    <SelectBox>
-      {delivery === PickUp.key ? (
-        <SelectHeader onClick={() => setOpen((prev) => !prev)}>
-          <SelectTitle>{selected}</SelectTitle>
-          <Arrow $open={open}>{'>'}</Arrow>
-        </SelectHeader>
-      ) : null}
+    <>
+      {delivery === PickUp.key ? <DeliverySelectContainer>
+        <DeliveryCityContainer>
+          <LocationIcon />
+          <h3 style={{ color: "white" }}>Київ</h3>
+        </DeliveryCityContainer>
+        <PasButton>Змінити</PasButton>
+      </DeliverySelectContainer> : null}
+      <DelivrySelectWerehouse>
+        <h3>Самовивіз з поштоматів Нової Пошти</h3>
+      </DelivrySelectWerehouse>
+    </>
+    // <SelectBox>
+    //   {delivery === PickUp.key ? (
+    //     <SelectHeader onClick={() => setOpen((prev) => !prev)}>
+    //       <SelectTitle>{selected}</SelectTitle>
+    //       <Arrow $open={open}>{'>'}</Arrow>
+    //     </SelectHeader>
+    //   ) : null}
 
-      {open && (
-        <Options>
-          {loading ? (
-            <Loader />
-          ) : (
-            dataBranch.map((option, index) => (
-              <Option
-                key={index}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelected(option.Description);
-                  setOpen(false);
-                }}
-              >
-                {option.Description}
-              </Option>
-            ))
-          )}
-        </Options>
-      )}
-    </SelectBox>
+    //   {open && (
+    //     <Options>
+    //       {loading ? (
+    //         <Loader />
+    //       ) : (
+    //         dataBranch.map((option, index) => (
+    //           <Option
+    //             key={index}
+    //             onClick={(e) => {
+    //               e.stopPropagation();
+    //               setSelected(option.Description);
+    //               setOpen(false);
+    //             }}
+    //           >
+    //             {option.Description}
+    //           </Option>
+    //         ))
+    //       )}
+    //     </Options>
+    //   )}
+    // </SelectBox>
   );
 };

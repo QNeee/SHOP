@@ -19,41 +19,6 @@ export const getUserLocation = (): Promise<{ latitude: number; longitude: number
     );
   });
 };
-export const getUserCity = (): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    if (!navigator.geolocation) {
-      reject(new Error('Геолокація не підтримується цим браузером'));
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
-
-        try {
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
-          );
-          const data = await response.json();
-
-          const city =
-            data.address.city ||
-            data.address.town ||
-            data.address.village ||
-            data.address.county ||
-            'Невідоме місто';
-
-          resolve(city);
-        } catch (err) {
-          console.error('Помилка геокодування:', err);
-          resolve('Невідоме місто');
-        }
-      },
-      (error) => reject(error),
-      { enableHighAccuracy: true },
-    );
-  });
-};
 const API_KEY = 'c14b9adbfb877330f94d82089e491b67';
 interface NovaPoshtaCity {
   Description: string;
