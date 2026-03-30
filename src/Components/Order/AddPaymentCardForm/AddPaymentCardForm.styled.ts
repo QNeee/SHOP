@@ -31,11 +31,11 @@ export const Row = styled.div`
 `;
 
 export const Label = styled.label`
+  position: relative;
   margin-top: 10px;
   font-size: 14px;
   color: #555;
 `;
-
 export const Input = styled.input`
   height: 44px;
   border-radius: 8px;

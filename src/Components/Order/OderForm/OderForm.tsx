@@ -4,6 +4,7 @@ import {
   BorderDown,
   CardContainer,
   CardNumberTextContainer,
+  CardsContainer,
   CourierAdressContainer,
   DeliveryDateContainer,
   DeliveryDateItem,
@@ -214,18 +215,20 @@ export const OrderForm: FC<IOrderFormProps> = ({
         </PaymentContainer>
 
         <BankCardContainer id={bankCardId}>
-          {cards.map((items) => (
-            <CardContainer
-              onClick={() => setActive(items.cardNumber)}
-              key={items.cardNumber}
-              $active={active === items.cardNumber}
-            >
-              <img src={items.image} alt={items.image} />
-              <CardNumberTextContainer>
-                <p>**{items.cardNumber}</p>
-              </CardNumberTextContainer>
-            </CardContainer>
-          ))}
+          {cards.length > 0 ? <CardsContainer>
+            {cards.map((items) => (
+              <CardContainer
+                onClick={() => setActive(items.cardNumber)}
+                key={items.cardNumber}
+                $active={active === items.cardNumber}
+              >
+                <img src={items.image} alt={items.image} />
+                <CardNumberTextContainer>
+                  <p>**{items.cardNumber}</p>
+                </CardNumberTextContainer>
+              </CardContainer>
+            ))}
+          </CardsContainer> : null}
           <ValidatedCardContainer
             name="payData"
             setFormChecked={setCheckFormOrdr}
@@ -240,7 +243,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
 
         {active === addCardContainerId ? (
           <div ref={ref}>
-            <AddPaymentCardForm setCards={setCards} setActive={setActive} scrollYPos={scrollYPos} />
+            <AddPaymentCardForm cards={cards} setCards={setCards} setActive={setActive} scrollYPos={scrollYPos} />
           </div>
         ) : null}
       </FormContainer>

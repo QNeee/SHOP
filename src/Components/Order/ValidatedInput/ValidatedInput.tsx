@@ -56,7 +56,6 @@ export const ValidatedInput: FC<ValidatedInputProps> = ({
         placeholder={placeholder}
         {...rest}
       />
-
       {showIcon && <Icon $valid={isValid}>{isValid ? <Ok /> : <Error />}</Icon>}
     </Container>
   );

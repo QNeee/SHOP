@@ -5,6 +5,7 @@ import {
   FormTitle,
   Label,
   SaveButton,
+
 } from './AddPaymentCardForm.styled';
 import { FormContainer, Row } from '../OderForm/OrderForm.styled';
 import { ValidatedInput } from '../ValidatedInput/ValidatedInput';
@@ -21,11 +22,13 @@ interface IAddPaymentCardForm {
   setActive: React.Dispatch<React.SetStateAction<string>>;
   scrollYPos: number;
   setCards: React.Dispatch<React.SetStateAction<Card[]>>;
+  cards: Card[];
 }
 export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
   setCards,
   setActive,
   scrollYPos,
+  cards,
 }) => {
   const [form, setForm] = useState(() => {
     let data = initialAddCardForm;
@@ -63,6 +66,10 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
     setCheckFormCard(initialCheckFormCard);
     setActive('');
   };
+  const isDuplicate = () => {
+    const idx = cards.findIndex(item => item.cardNumber === form.cardNumber.split(' ')[form.cardNumber.split(' ').length - 1]);
+    return idx !== -1 && form.cardNumber.split(' ').length === 4;
+  }
   const onClickSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setSubmit(true);
@@ -95,12 +102,13 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
             isValid={
               form.cardNumber.length === 0
                 ? null
-                : form.cardNumber.trim().length === maxCardNumberLength + numberOfSpaces
+                : form.cardNumber.trim().length === maxCardNumberLength + numberOfSpaces && !isDuplicate()
             }
             name="cardNumber"
             inputMode="numeric"
             submit={submit}
           />
+          {isDuplicate() ? <p style={{ color: "red" }}>card already in list</p> : null}
         </Label>
       </FormGroup>
       <Row>
@@ -116,7 +124,7 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
                 form.durationTime.length === 0
                   ? null
                   : form.durationTime.trim().length ===
-                    maxLengthDurationTime + durationTimeAnotherSymbols
+                  maxLengthDurationTime + durationTimeAnotherSymbols
               }
               name="durationTime"
               inputMode="numeric"
