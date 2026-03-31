@@ -114,3 +114,8 @@ export type Ordered = {
   flag: 'courier' | 'pickup';
   accepted: boolean;
 };
+
+export type ModalSelectPickupItems = {
+  wh: string[];
+  city: string[];
+}
