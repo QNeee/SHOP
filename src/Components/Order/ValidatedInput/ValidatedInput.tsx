@@ -15,7 +15,7 @@ interface ValidatedInputProps extends React.InputHTMLAttributes<HTMLInputElement
   name: string;
   submit: boolean;
   setFormChecked: Function;
-  dispatch: React.ActionDispatch<[action: FormAction]>;
+  dispatch?: React.ActionDispatch<[action: FormAction]>;
 }
 
 export const ValidatedInput: FC<ValidatedInputProps> = ({
@@ -35,7 +35,7 @@ export const ValidatedInput: FC<ValidatedInputProps> = ({
     const value = e.currentTarget.value;
     const [sectionStr, field] = e.currentTarget.name.split(',');
     const section = sectionStr as keyof DataForm;
-    dispatch({ type: 'SET_FIELD', section, field, value });
+    dispatch?.({ type: 'SET_FIELD', section, field, value });
   };
   useEffect(() => {
     const [section, field] = name.split(',');

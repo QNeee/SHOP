@@ -1,4 +1,4 @@
-import { useState, type FC } from "react"
+import { type FC } from "react"
 import { CloseButton, ModalContainer, ModalOverlay } from "./Pickupmodal.styled"
 import { CloseIcon } from "../../../../Generic/Icons/CloseIcon"
 import type { ModalSelectPickupItems } from "../../../../../types";

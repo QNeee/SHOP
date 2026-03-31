@@ -3,7 +3,7 @@ import type { FormAction } from "../../formReducer";
 import { StyledIMaskInput } from "./PhoneInput.styled";
 
 interface IPhoneInput {
-    dispatch: React.ActionDispatch<[action: FormAction]>;
+    dispatch?: React.ActionDispatch<[action: FormAction]>;
     showBorder: boolean | null;
     value: string;
     placeholder: string;
@@ -23,7 +23,7 @@ export const PhoneInput: FC<IPhoneInput> = ({ dispatch, showBorder, value, place
             if (isValid === null) setShowBorder(false);
         }}
         onAccept={(val: string) =>
-            dispatch({
+            dispatch?.({
                 type: 'SET_FIELD',
                 section: 'contactData',
                 field: 'phone',
