@@ -270,7 +270,7 @@ function App() {
             }
           >
             <Route
-              path={Paths.basket}
+              index
               element={
                 <BasketPage
                   setOrdered={setOrdered}
