@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { AddIcon } from '../../Generic/Icons/OrderFormsIcons';
 import { AddCardContainer } from './ValidatedCardContainer.styled';
 interface IValidatedCardContainer {
@@ -21,12 +21,14 @@ export const ValidatedCardContainer: FC<IValidatedCardContainer> = ({
   submit,
   setFormChecked,
 }) => {
-  const showBorder = (submit && isValid !== true) || isValid === false;
+  const [showBorder, setShowBorder] = useState(isValid);
+  console.log(isValid);
   useEffect(() => {
     setFormChecked((prev: any) => {
       return { ...prev, [name]: isValid };
     });
-  }, [isValid, setFormChecked]);
+    setShowBorder(isValid === null && submit ? true : false);
+  }, [isValid, setFormChecked, submit, setShowBorder, setFormChecked]);
   return (
     <AddCardContainer
       $active={active === id}

@@ -18,6 +18,7 @@ import {
 import type { Card } from '../../../types';
 import { cardsImages } from './CardsImages';
 
+
 interface IAddPaymentCardForm {
   setActive: React.Dispatch<React.SetStateAction<string>>;
   scrollYPos: number;
@@ -137,10 +138,10 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
           <Label>
             CVV
             <ValidatedInput
+              onChange={onChange}
               setFormChecked={setCheckFormCard}
               placeholder="123"
               value={form.cvv}
-              onChange={onChange}
               isValid={form.cvv.length === 0 ? null : form.cvv.length === 3}
               name="cvv"
               submit={submit}

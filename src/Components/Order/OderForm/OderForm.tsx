@@ -81,7 +81,6 @@ export const OrderForm: FC<IOrderFormProps> = ({
     const section = sectionStr as keyof DataForm;
     dispatch({ type: 'SET_FIELD', section, field, value });
   };
-
   return (
     <>
       <FormContainer>
@@ -90,11 +89,10 @@ export const OrderForm: FC<IOrderFormProps> = ({
           setFormChecked={setCheckFormOrdr}
           submit={submit}
           value={form.contactData.name}
-          onChange={onChangeInput}
           placeholder="Іван"
           name="contactData,name"
           isValid={form.contactData.name.length === 0 ? null : form.contactData.name.length > 3}
-          dispatch={dispatch}
+          onChange={onChangeInput}
         />
         <ValidatedInput
           setFormChecked={setCheckFormOrdr}
@@ -113,9 +111,8 @@ export const OrderForm: FC<IOrderFormProps> = ({
           placeholder="Ivan@gmail.com"
           name="contactData,email"
           value={form.contactData.email}
-          onChange={onChangeInput}
           isValid={form.contactData.email.length === 0 ? null : form.contactData.email.length > 3}
-          dispatch={dispatch}
+          onChange={onChangeInput}
         />
 
         {selected === Courier.key && (
@@ -128,11 +125,10 @@ export const OrderForm: FC<IOrderFormProps> = ({
                 placeholder="Київ"
                 name="deliveryAdress,city"
                 value={form.deliveryAdress.city}
-                onChange={onChangeInput}
                 isValid={
                   form.deliveryAdress.city.length === 0 ? null : form.deliveryAdress.city.length > 3
                 }
-                dispatch={dispatch}
+                onChange={onChangeInput}
               />
               <ValidatedInput
                 setFormChecked={setCheckFormOrdr}
@@ -140,13 +136,12 @@ export const OrderForm: FC<IOrderFormProps> = ({
                 placeholder="пр.переулка 12"
                 name="deliveryAdress,street"
                 value={form.deliveryAdress.street}
-                onChange={onChangeInput}
                 isValid={
                   form.deliveryAdress.street.length === 0
                     ? null
                     : form.deliveryAdress.street.length > 3
                 }
-                dispatch={dispatch}
+                onChange={onChangeInput}
               />
               <Row>
                 <ValidatedInput
@@ -155,13 +150,12 @@ export const OrderForm: FC<IOrderFormProps> = ({
                   placeholder="12"
                   name="deliveryAdress,house"
                   value={form.deliveryAdress.house}
-                  onChange={onChangeInput}
                   isValid={
                     form.deliveryAdress.house.length === 0
                       ? null
                       : form.deliveryAdress.house.length > 3
                   }
-                  dispatch={dispatch}
+                  onChange={onChangeInput}
                 />
                 <ValidatedInput
                   setFormChecked={setCheckFormOrdr}
@@ -169,13 +163,12 @@ export const OrderForm: FC<IOrderFormProps> = ({
                   placeholder="6"
                   name="deliveryAdress,flat"
                   value={form.deliveryAdress.flat}
-                  onChange={onChangeInput}
                   isValid={
                     form.deliveryAdress.flat.length === 0
                       ? null
                       : form.deliveryAdress.flat.length > 3
                   }
-                  dispatch={dispatch}
+                  onChange={onChangeInput}
                 />
               </Row>
             </CourierAdressContainer>
@@ -205,10 +198,10 @@ export const OrderForm: FC<IOrderFormProps> = ({
 
         <SectionTitle>Побажання</SectionTitle>
         <TextArea
+          onChange={onChangeInput}
           name="deliveryData,message"
           placeholder="Повідомлення ..."
           value={form.deliveryData.message}
-          onChange={onChangeInput}
         />
 
         <SectionTitle>Оплата</SectionTitle>

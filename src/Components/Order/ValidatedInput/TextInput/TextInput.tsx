@@ -1,9 +1,9 @@
-import type { ChangeEvent, FC } from "react";
+import type { FC } from "react";
 import { Input } from "./TextInput.styled";
 
 interface ITextInput extends React.InputHTMLAttributes<HTMLInputElement> {
     value: string;
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
     placeholder: string;
     isValid: boolean | null;
     name: string;
@@ -11,7 +11,7 @@ interface ITextInput extends React.InputHTMLAttributes<HTMLInputElement> {
     setShowBorder: React.Dispatch<React.SetStateAction<boolean | null>>;
     showBorder: boolean | null;
 }
-export const TextInput: FC<ITextInput> = ({ value, isValid, onChange, placeholder, name, setIsFocused, setShowBorder, showBorder }) => {
+export const TextInput: FC<ITextInput> = ({ value, isValid, onChange, placeholder, name, setIsFocused, setShowBorder, showBorder, ...refs }) => {
     return <Input
         $valid={showBorder}
         onBlur={() => {
@@ -22,5 +22,6 @@ export const TextInput: FC<ITextInput> = ({ value, isValid, onChange, placeholde
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        {...refs}
     />
 }

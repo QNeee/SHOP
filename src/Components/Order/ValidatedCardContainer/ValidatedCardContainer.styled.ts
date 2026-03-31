@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const AddCardContainer = styled.div<{ $active: boolean; $showBorder: boolean }>`
+export const AddCardContainer = styled.div<{ $active: boolean; $showBorder: boolean | null }>`
   width: 154px;
   height: 53px;
   border-radius: 8px;
-  border: 1px solid
+  border: 2px solid
     ${({ $active, $showBorder }) => ($active ? '#2563eb' : $showBorder ? 'red' : 'black')};
   background-color: ${({ $active }) => ($active ? 'orange' : 'white')};
 
