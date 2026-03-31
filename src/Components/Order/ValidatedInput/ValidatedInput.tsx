@@ -1,4 +1,4 @@
-import { type FC, useState, useEffect, useRef, type ChangeEvent } from 'react';
+import { type FC, useState, useEffect, useRef } from 'react';
 import { Container, Icon } from './ValidatedInput.styled';
 import { Error, Ok } from '../../Generic/Icons/ValidateIcons';
 import type { FormAction } from '../formReducer';
