@@ -20,7 +20,6 @@ import { AvailableTimesPickup, Courier, formatDate, localStorageItemsKeys } from
 import { ExclamationMark } from '../../Generic/Icons/OrderFormsIcons';
 import { AddPaymentCardForm } from '../AddPaymentCardForm/AddPaymentCardForm';
 import { TimeSelect } from '../DeliveryTimeSelector/DeliveryTimeSelector';
-import { PhoneInput } from '../PhoneInput/PhoneInput';
 import type { Card, CheckFormOrder, DataForm, PayData } from '../../../types';
 import { ValidatedInput } from '../ValidatedInput/ValidatedInput';
 import type { FormAction } from '../formReducer';
@@ -41,7 +40,6 @@ export const OrderForm: FC<IOrderFormProps> = ({
   dispatch,
   setCheckFormOrdr,
 }) => {
-  const phoneRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
   const [scrollYPos, setScrollYPos] = useState(0);
@@ -96,18 +94,18 @@ export const OrderForm: FC<IOrderFormProps> = ({
           placeholder="Іван"
           name="contactData,name"
           isValid={form.contactData.name.length === 0 ? null : form.contactData.name.length > 3}
-        />
-        <PhoneInput
-          name={'contactData,phone'}
-          setCheckFormOrdr={setCheckFormOrdr}
-          value={form.contactData.phone}
-          inputRef={phoneRef}
-          placeholder="+38 (___) ___-__-__"
           dispatch={dispatch}
+        />
+        <ValidatedInput
+          setFormChecked={setCheckFormOrdr}
+          submit={submit}
+          value={form.contactData.phone}
+          placeholder="+38 (___) ___-__-__"
+          name={'contactData,phone'}
           isValid={
             form.contactData.phone.length === 0 ? null : form.contactData.phone.length === 10
           }
-          submit={submit}
+          dispatch={dispatch}
         />
         <ValidatedInput
           setFormChecked={setCheckFormOrdr}
@@ -117,6 +115,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
           value={form.contactData.email}
           onChange={onChangeInput}
           isValid={form.contactData.email.length === 0 ? null : form.contactData.email.length > 3}
+          dispatch={dispatch}
         />
 
         {selected === Courier.key && (
@@ -133,6 +132,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
                 isValid={
                   form.deliveryAdress.city.length === 0 ? null : form.deliveryAdress.city.length > 3
                 }
+                dispatch={dispatch}
               />
               <ValidatedInput
                 setFormChecked={setCheckFormOrdr}
@@ -146,6 +146,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
                     ? null
                     : form.deliveryAdress.street.length > 3
                 }
+                dispatch={dispatch}
               />
               <Row>
                 <ValidatedInput
@@ -160,6 +161,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
                       ? null
                       : form.deliveryAdress.house.length > 3
                   }
+                  dispatch={dispatch}
                 />
                 <ValidatedInput
                   setFormChecked={setCheckFormOrdr}
@@ -173,6 +175,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
                       ? null
                       : form.deliveryAdress.flat.length > 3
                   }
+                  dispatch={dispatch}
                 />
               </Row>
             </CourierAdressContainer>

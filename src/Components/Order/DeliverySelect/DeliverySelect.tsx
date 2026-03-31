@@ -39,7 +39,6 @@ export const DeliverySelect: FC<IDeliverySelectProps> = ({
       setLoading(false);
     }
   };
-  console.log(dataBranch);
   useEffect(() => {
     if (delivery === PickUp.key) fetchBranches();
     else setDataBranch([]);
@@ -56,36 +55,11 @@ export const DeliverySelect: FC<IDeliverySelectProps> = ({
       </DeliverySelectContainer> : null}
       <DelivrySelectWerehouse>
         <h3>Самовивіз з поштоматів Нової Пошти</h3>
+        <div>
+
+        </div>
       </DelivrySelectWerehouse>
     </>
-    // <SelectBox>
-    //   {delivery === PickUp.key ? (
-    //     <SelectHeader onClick={() => setOpen((prev) => !prev)}>
-    //       <SelectTitle>{selected}</SelectTitle>
-    //       <Arrow $open={open}>{'>'}</Arrow>
-    //     </SelectHeader>
-    //   ) : null}
 
-    //   {open && (
-    //     <Options>
-    //       {loading ? (
-    //         <Loader />
-    //       ) : (
-    //         dataBranch.map((option, index) => (
-    //           <Option
-    //             key={index}
-    //             onClick={(e) => {
-    //               e.stopPropagation();
-    //               setSelected(option.Description);
-    //               setOpen(false);
-    //             }}
-    //           >
-    //             {option.Description}
-    //           </Option>
-    //         ))
-    //       )}
-    //     </Options>
-    //   )}
-    // </SelectBox>
   );
 };
