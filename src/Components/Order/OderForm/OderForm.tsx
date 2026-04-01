@@ -93,7 +93,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
           setFormChecked={setCheckFormOrdr}
           submit={submit}
           value={form.contactData.name}
-          placeholder="Іван"
+          placeholder="Тарас"
           name="contactData,name"
           isValid={form.contactData.name.length === 0 ? null : FormValidator.ValidateField("name", form.contactData.name, 4)}
           onChange={onChangeInput}

@@ -156,7 +156,7 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
           Ім'я власника
           <ValidatedInput
             setFormChecked={setCheckFormCard}
-            placeholder="IVAN IVANOV"
+            placeholder="TARAS TARASENKO"
             value={form.name}
             onChange={onChange}
             isValid={form.name.length === 0 ? null : FormValidator.ValidateField("cardName", form.name)}
