@@ -24,6 +24,7 @@ import type { Card, CheckFormOrder, DataForm, PayData } from '../../../types';
 import { ValidatedInput } from '../ValidatedInput/ValidatedInput';
 import type { FormAction } from '../formReducer';
 import { ValidatedCardContainer } from '../ValidatedCardContainer/ValidatedCardContainer';
+import { FormValidator } from '../FormValidator';
 
 interface IOrderFormProps {
   selected: string;
@@ -45,6 +46,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
   const [scrollYPos, setScrollYPos] = useState(0);
   const bankCardId = 'bankCardContainer';
   const addCardContainerId = 'addCardContainer';
+  const numbersDigitsOfCardToShow = 4;
   const [cards, setCards] = useState<Card[]>(() => {
     let data = [];
     const localData = localStorage.getItem(localStorageItemsKeys.cards);
@@ -52,7 +54,6 @@ export const OrderForm: FC<IOrderFormProps> = ({
     else data = [];
     return data;
   });
-  const [active, setActive] = useState(cards[0]?.cardNumber || '');
   useEffect(() => {
     const today = new Date();
     const weekLater = new Date();
@@ -70,17 +71,20 @@ export const OrderForm: FC<IOrderFormProps> = ({
       dispatch({ type: 'SET_PAY', payData });
     }
   }, [cards]);
+  const [active, setActive] = useState(cards[0]?.cardNumber || '');
   useEffect(() => {
     if (active) {
       ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }, [active]);
+
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = e.currentTarget.value;
     const [sectionStr, field] = e.currentTarget.name.split(',');
     const section = sectionStr as keyof DataForm;
     dispatch({ type: 'SET_FIELD', section, field, value });
   };
+
   return (
     <>
       <FormContainer>
@@ -91,7 +95,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
           value={form.contactData.name}
           placeholder="Іван"
           name="contactData,name"
-          isValid={form.contactData.name.length === 0 ? null : form.contactData.name.length > 3}
+          isValid={form.contactData.name.length === 0 ? null : FormValidator.ValidateField("name", form.contactData.name, 4)}
           onChange={onChangeInput}
         />
         <ValidatedInput
@@ -101,7 +105,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
           placeholder="+38 (___) ___-__-__"
           name={'contactData,phone'}
           isValid={
-            form.contactData.phone.length === 0 ? null : form.contactData.phone.length === 10
+            form.contactData.phone.length === 0 ? null : FormValidator.ValidateField("numbers", form.contactData.phone, 10)
           }
           dispatch={dispatch}
         />
@@ -111,7 +115,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
           placeholder="Ivan@gmail.com"
           name="contactData,email"
           value={form.contactData.email}
-          isValid={form.contactData.email.length === 0 ? null : form.contactData.email.length > 3}
+          isValid={form.contactData.email.length === 0 ? null : FormValidator.ValidateField("email", form.contactData.email)}
           onChange={onChangeInput}
         />
 
@@ -126,7 +130,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
                 name="deliveryAdress,city"
                 value={form.deliveryAdress.city}
                 isValid={
-                  form.deliveryAdress.city.length === 0 ? null : form.deliveryAdress.city.length > 3
+                  form.deliveryAdress.city.length === 0 ? null : FormValidator.ValidateField("name", form.deliveryAdress.city)
                 }
                 onChange={onChangeInput}
               />
@@ -153,7 +157,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
                   isValid={
                     form.deliveryAdress.house.length === 0
                       ? null
-                      : form.deliveryAdress.house.length > 3
+                      : FormValidator.ValidateField("numbers", form.deliveryAdress.house)
                   }
                   onChange={onChangeInput}
                 />
@@ -166,7 +170,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
                   isValid={
                     form.deliveryAdress.flat.length === 0
                       ? null
-                      : form.deliveryAdress.flat.length > 3
+                      : FormValidator.ValidateField("numbers", form.deliveryAdress.flat)
                   }
                   onChange={onChangeInput}
                 />
@@ -212,18 +216,22 @@ export const OrderForm: FC<IOrderFormProps> = ({
 
         <BankCardContainer id={bankCardId}>
           {cards.length > 0 ? <CardsContainer>
-            {cards.map((items) => (
-              <CardContainer
+            {cards.map((items) => {
+              const cardNumber = FormValidator.deleteSpaces(items.cardNumber);
+              const lastDigits = cardNumber.slice(-numbersDigitsOfCardToShow);
+              return <CardContainer
                 onClick={() => setActive(items.cardNumber)}
                 key={items.cardNumber}
                 $active={active === items.cardNumber}
               >
                 <img src={items.image} alt={items.image} />
                 <CardNumberTextContainer>
-                  <p>**{items.cardNumber}</p>
+                  <p>**{lastDigits}</p>
                 </CardNumberTextContainer>
               </CardContainer>
-            ))}
+            }
+
+            )}
           </CardsContainer> : null}
           <ValidatedCardContainer
             name="payData"
@@ -233,7 +241,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
             setActive={setActive}
             setScrollYPos={setScrollYPos}
             active={active}
-            isValid={!active ? null : cards.length > 0}
+            isValid={cards.length > 0}
           />
         </BankCardContainer>
 

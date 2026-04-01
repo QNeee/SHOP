@@ -6,7 +6,7 @@ interface IValidatedCardContainer {
   setActive: React.Dispatch<React.SetStateAction<string>>;
   setScrollYPos: React.Dispatch<React.SetStateAction<number>>;
   id: string;
-  isValid: boolean | null;
+  isValid: boolean;
   submit: boolean;
   setFormChecked: Function;
   name: string;
@@ -21,14 +21,15 @@ export const ValidatedCardContainer: FC<IValidatedCardContainer> = ({
   submit,
   setFormChecked,
 }) => {
-  const [showBorder, setShowBorder] = useState(isValid);
-  console.log(isValid);
+  const [showBorder, setShowBorder] = useState(false);
   useEffect(() => {
     setFormChecked((prev: any) => {
       return { ...prev, [name]: isValid };
     });
-    setShowBorder(isValid === null && submit ? true : false);
+    const border = submit && !isValid ? true : false;
+    setShowBorder(border);
   }, [isValid, setFormChecked, submit, setShowBorder, setFormChecked]);
+
   return (
     <AddCardContainer
       $active={active === id}

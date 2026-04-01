@@ -94,7 +94,7 @@ export const initialFormData = {
     data: '',
   },
   payData: {
-    cardNumber: '',
+    cardNumber: "",
     date: '',
   },
 };

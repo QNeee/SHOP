@@ -17,6 +17,7 @@ import {
 } from '../../../Helper';
 import type { Card } from '../../../types';
 import { cardsImages } from './CardsImages';
+import { FormValidator } from '../FormValidator';
 
 
 interface IAddPaymentCardForm {
@@ -40,7 +41,6 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
   const [submit, setSubmit] = useState(false);
   const [checkFormCard, setCheckFormCard] = useState(initialCheckFormCard);
   const maxCardNumberLength = 16;
-  const numberOfSpaces = 3;
   const maxLengthDurationTime = 4;
   const durationTimeAnotherSymbols = 3;
   const onChange = (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
@@ -54,8 +54,12 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
       setValue = formatted;
     } else if (name === 'durationTime') setValue = formatCardDuration(value);
     else if (name === 'name') setValue = value.replace(/\d/g, '');
+    else {
+      if (isNaN(Number(value)) || value === " ") return;
+      setValue = value;
+    }
     setForm((prev) => {
-      const newData = { ...prev, [name]: !setValue ? value : setValue };
+      const newData = { ...prev, [name]: setValue };
       localStorage.setItem(localStorageItemsKeys.cardForm, JSON.stringify(newData));
       return newData;
     });
@@ -67,19 +71,13 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
     setCheckFormCard(initialCheckFormCard);
     setActive('');
   };
-  const isDuplicate = () => {
-    const idx = cards.findIndex(item => item.cardNumber === form.cardNumber.split(' ')[form.cardNumber.split(' ').length - 1]);
-    return idx !== -1 && form.cardNumber.split(' ').length === 4;
-  }
   const onClickSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setSubmit(true);
     const isValid = Object.values(checkFormCard).some((item) => !item);
-
-    const cardNumber = form.cardNumber.split(' ');
     if (isValid) return;
     const cardObj = {
-      cardNumber: cardNumber[cardNumber.length - 1],
+      cardNumber: form.cardNumber,
       image: cardsImages[0],
     };
     setCards((prev) => {
@@ -103,13 +101,13 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
             isValid={
               form.cardNumber.length === 0
                 ? null
-                : form.cardNumber.trim().length === maxCardNumberLength + numberOfSpaces && !isDuplicate()
+                : FormValidator.ValidateCard(form.cardNumber, cards)
             }
             name="cardNumber"
             inputMode="numeric"
             submit={submit}
           />
-          {isDuplicate() ? <p style={{ color: "red" }}>card already in list</p> : null}
+          {FormValidator.isCardDuplicate(form.cardNumber, cards) ? <p style={{ color: "red" }}>card already in list</p> : null}
         </Label>
       </FormGroup>
       <Row>
@@ -161,7 +159,7 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
             placeholder="IVAN IVANOV"
             value={form.name}
             onChange={onChange}
-            isValid={form.name.length === 0 ? null : form.name.trim().length > 10}
+            isValid={form.name.length === 0 ? null : FormValidator.ValidateField("cardName", form.name)}
             name="name"
             submit={submit}
           />
