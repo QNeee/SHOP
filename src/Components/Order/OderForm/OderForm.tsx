@@ -95,7 +95,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
           value={form.contactData.name}
           placeholder="Тарас"
           name="contactData,name"
-          isValid={form.contactData.name.length === 0 ? null : FormValidator.ValidateField("name", form.contactData.name, 4)}
+          isValid={FormValidator.ValidateField("name", form.contactData.name, 4)}
           onChange={onChangeInput}
         />
         <ValidatedInput
@@ -104,18 +104,16 @@ export const OrderForm: FC<IOrderFormProps> = ({
           value={form.contactData.phone}
           placeholder="+38 (___) ___-__-__"
           name={'contactData,phone'}
-          isValid={
-            form.contactData.phone.length === 0 ? null : FormValidator.ValidateField("numbers", form.contactData.phone, 10)
-          }
+          isValid={FormValidator.ValidateField("numbers", form.contactData.phone, 10)}
           dispatch={dispatch}
         />
         <ValidatedInput
           setFormChecked={setCheckFormOrdr}
           submit={submit}
-          placeholder="Ivan@gmail.com"
+          placeholder="Taras@gmail.com"
           name="contactData,email"
           value={form.contactData.email}
-          isValid={form.contactData.email.length === 0 ? null : FormValidator.ValidateField("email", form.contactData.email)}
+          isValid={FormValidator.ValidateField("email", form.contactData.email)}
           onChange={onChangeInput}
         />
 
@@ -130,8 +128,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
                 name="deliveryAdress,city"
                 value={form.deliveryAdress.city}
                 isValid={
-                  form.deliveryAdress.city.length === 0 ? null : FormValidator.ValidateField("name", form.deliveryAdress.city)
-                }
+                  FormValidator.ValidateField("name", form.deliveryAdress.city)}
                 onChange={onChangeInput}
               />
               <ValidatedInput
@@ -154,12 +151,9 @@ export const OrderForm: FC<IOrderFormProps> = ({
                   placeholder="12"
                   name="deliveryAdress,house"
                   value={form.deliveryAdress.house}
-                  isValid={
-                    form.deliveryAdress.house.length === 0
-                      ? null
-                      : FormValidator.ValidateField("numbers", form.deliveryAdress.house)
-                  }
+                  isValid={FormValidator.ValidateField("numbers", form.deliveryAdress.house)}
                   onChange={onChangeInput}
+                  inputMode="numeric"
                 />
                 <ValidatedInput
                   setFormChecked={setCheckFormOrdr}
@@ -167,12 +161,9 @@ export const OrderForm: FC<IOrderFormProps> = ({
                   placeholder="6"
                   name="deliveryAdress,flat"
                   value={form.deliveryAdress.flat}
-                  isValid={
-                    form.deliveryAdress.flat.length === 0
-                      ? null
-                      : FormValidator.ValidateField("numbers", form.deliveryAdress.flat)
-                  }
+                  isValid={FormValidator.ValidateField("numbers", form.deliveryAdress.flat)}
                   onChange={onChangeInput}
+                  inputMode="numeric"
                 />
               </Row>
             </CourierAdressContainer>

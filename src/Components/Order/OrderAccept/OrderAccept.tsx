@@ -13,7 +13,6 @@ interface IOrderAccept {
 }
 export const OrderAccept: FC<IOrderAccept> = ({ message, date, time, setOrdered }) => {
     const isMobile = useIsmobileWidth();
-    console.log(isMobile);
     const navigate = useNavigate();
     return <>
         <OrderAcceptContainer>

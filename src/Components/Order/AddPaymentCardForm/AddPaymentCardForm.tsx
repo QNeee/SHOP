@@ -98,11 +98,7 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
             placeholder="0000 0000 0000 0000"
             value={form.cardNumber}
             onChange={onChange}
-            isValid={
-              form.cardNumber.length === 0
-                ? null
-                : FormValidator.ValidateCard(form.cardNumber, cards)
-            }
+            isValid={FormValidator.ValidateCard(form.cardNumber, cards)}
             name="cardNumber"
             inputMode="numeric"
             submit={submit}
@@ -159,7 +155,7 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
             placeholder="TARAS TARASENKO"
             value={form.name}
             onChange={onChange}
-            isValid={form.name.length === 0 ? null : FormValidator.ValidateField("cardName", form.name)}
+            isValid={FormValidator.ValidateField("cardName", form.name)}
             name="name"
             submit={submit}
           />

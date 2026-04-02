@@ -10,7 +10,8 @@ export class FormValidator {
         numbers: /^\d+$/,
         cardName: /^[A-Za-zА-Яа-яІіЇїЄєҐґ'-]+ [A-Za-zА-Яа-яІіЇїЄєҐґ'-]+$/
     }
-    static ValidateField = (field: keyof typeof this.fields, value: string, length: number = 0): boolean => {
+    static ValidateField = (field: keyof typeof this.fields, value: string, length: number = 0): boolean | null => {
+        if (value.length === 0) return null;
         const trimmedValue = value.trim();
         if (trimmedValue.length < length) return false;
         return this.fields[field].test(trimmedValue);
@@ -21,10 +22,10 @@ export class FormValidator {
     static isCardDuplicate = (cardNumber: string, cardNumbers: Card[]): boolean => {
         const cardStr = this.deleteSpaces(cardNumber);
         const idx = cardNumbers.findIndex(item => this.deleteSpaces(item.cardNumber) === cardStr);
-        if (idx === -1) return false;
-        return true;
+        return idx !== -1;
     }
-    static ValidateCard = (cardNumber: string, cardNumbers: Card[]): boolean => {
+    static ValidateCard = (cardNumber: string, cardNumbers: Card[]): boolean | null => {
+        if (cardNumber.length === 0) return null;
         const cardStr = this.deleteSpaces(cardNumber);
         if (cardStr.length < this.#cardLength || cardStr.length > this.#cardLength) return false;
         if (this.isCardDuplicate(cardNumber, cardNumbers)) return false;
