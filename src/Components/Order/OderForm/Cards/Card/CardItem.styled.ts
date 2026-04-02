@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const CardContainer = styled.div<{ $active: boolean }>`
+  position: relative;
   height: 53px;
   display: flex;
   justify-content: space-between;
@@ -20,4 +21,13 @@ export const CardNumberTextContainer = styled.div`
   padding: 7px;
   width: 44px;
   height: 16px;
+`;
+export const DeleteIconContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

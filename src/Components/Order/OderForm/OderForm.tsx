@@ -1,13 +1,7 @@
 import { useEffect, useState, type FC } from 'react';
 import { BorderDown, FormContainer } from './OrderForm.styled';
-import { Courier, localStorageItemsKeys } from '../../../Helper';
-import type {
-  Actives,
-  Card,
-  CheckFormOrder,
-  DataForm,
-  PayData,
-} from '../../../types';
+import { Courier } from '../../../Helper';
+import type { CheckFormOrder, DataForm } from '../../../types';
 import type { FormAction } from '../formReducer';
 import { PickupDataField } from './OrderFormFields/PickupData/PickupDataField';
 import { ContactDataField } from './OrderFormFields/ContactData/ContactDataField';
@@ -30,19 +24,6 @@ export const OrderForm: FC<IOrderFormProps> = ({
   setCheckFormOrdr,
 }) => {
   const [open, setOpen] = useState(false);
-  const [cards, setCards] = useState<Card[]>(() => {
-    let data = [];
-    const localData = localStorage.getItem(localStorageItemsKeys.cards);
-    if (localData) data = JSON.parse(localData);
-    else data = [];
-    return data;
-  });
-  const [actives, setActives] = useState<Actives>(() => {
-    return {
-      cardNumber: cards[0]?.cardNumber || '',
-      containerId: '',
-    };
-  });
   useEffect(() => {
     const today = new Date();
     const weekLater = new Date();
@@ -53,30 +34,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
       end: weekLater,
     });
   }, []);
-  useEffect(() => {
-    if (cards.length > 0) {
-      const card = cards[cards.length - 1];
-      const payData: PayData = {
-        cardNumber: card.cardNumber,
-        date: card.image,
-      };
-      setActives((prev) => ({
-        ...prev,
-        cardNumber: card.cardNumber,
-      }));
-      dispatch({
-        type: 'SET_PAY',
-        payData,
-      });
-    }
-  }, [cards]);
 
-  // useEffect(() => {
-  //   cardRefs.current[actives.cardNumber]?.scrollIntoView({
-  //     behavior: 'smooth',
-  //     block: 'center',
-  //   });
-  // }, [actives.cardNumber]);
   const onChangeInput = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -115,14 +73,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
           message={form.deliveryData.message}
           onChangeInput={onChangeInput}
         />
-        <PayDataField
-          actives={actives}
-          setCards={setCards}
-          submit={submit}
-          setCheckFormOrdr={setCheckFormOrdr}
-          cards={cards}
-          setActives={setActives}
-        />
+        <PayDataField submit={submit} setCheckFormOrdr={setCheckFormOrdr} />
       </FormContainer>
       <BorderDown />
       <div

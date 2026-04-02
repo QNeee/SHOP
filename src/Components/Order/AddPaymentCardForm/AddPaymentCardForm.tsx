@@ -94,6 +94,8 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
       );
       return newData;
     });
+    localStorage.setItem(localStorageItemsKeys.card, form.cardNumber);
+    setActives((prev) => ({ ...prev, cardNumber: form.cardNumber }));
     clearForm();
   };
   return (

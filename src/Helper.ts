@@ -53,6 +53,7 @@ export const localStorageItemsKeys = {
   cardForm: 'cardForm',
   orderForm: 'orderForm',
   cards: 'cards',
+  card: 'card',
 };
 export const initialTotalObj = {
   total: 0,
@@ -268,4 +269,18 @@ export const pickupModalText = {
 export const initialDeliveryModalText = {
   vh: [],
   city: [],
+};
+
+export const scrollToCard = (
+  container: HTMLElement | null,
+  card: HTMLDivElement | null,
+) => {
+  if (container && card) {
+    const left = card.offsetLeft - container.offsetLeft;
+
+    container.scrollTo({
+      left,
+      behavior: 'smooth',
+    });
+  }
 };

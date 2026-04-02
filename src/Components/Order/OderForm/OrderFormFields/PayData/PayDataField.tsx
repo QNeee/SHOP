@@ -6,19 +6,12 @@ import { Cards } from '../../Cards/Cards';
 import { SectionTitle } from '../../OrderForm.styled';
 import { BankCardContainer, PaymentContainer } from './PayDataField.styled';
 import type { Actives, Card, CheckFormOrder } from '../../../../../types';
+import { localStorageItemsKeys, scrollToCard } from '../../../../../Helper';
 interface IPayDataField {
-  cards: Card[];
-  setActives: React.Dispatch<React.SetStateAction<Actives>>;
-  actives: Actives;
-  setCards: React.Dispatch<React.SetStateAction<Card[]>>;
   submit: boolean;
   setCheckFormOrdr: React.Dispatch<React.SetStateAction<CheckFormOrder>>;
 }
 export const PayDataField: FC<IPayDataField> = ({
-  cards,
-  setActives,
-  setCards,
-  actives,
   submit,
   setCheckFormOrdr,
 }) => {
@@ -27,6 +20,19 @@ export const PayDataField: FC<IPayDataField> = ({
   const addCardContainerId = 'addCardContainer';
   const ref = useRef<HTMLDivElement | null>(null);
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const [cards, setCards] = useState<Card[]>(() => {
+    let data = [];
+    const localData = localStorage.getItem(localStorageItemsKeys.cards);
+    if (localData) data = JSON.parse(localData);
+    else data = [];
+    return data;
+  });
+  const [actives, setActives] = useState<Actives>(() => {
+    return {
+      cardNumber: localStorage.getItem(localStorageItemsKeys.card) || '',
+      containerId: '',
+    };
+  });
   useEffect(() => {
     if (actives.containerId) {
       ref.current?.scrollIntoView({
@@ -38,17 +44,8 @@ export const PayDataField: FC<IPayDataField> = ({
   useEffect(() => {
     const container = document.getElementById(bankCardId);
     const card = cardRefs.current[actives.cardNumber];
-
-    if (container && card) {
-      const cardOffsetLeft = card.offsetLeft;
-      const containerWidth = container.clientWidth;
-      const cardWidth = card.clientWidth;
-      container.scrollTo({
-        left: cardOffsetLeft - (containerWidth - cardWidth) / 2,
-        behavior: 'smooth',
-      });
-    }
-  }, [actives.cardNumber]);
+    scrollToCard(container, card);
+  }, [cards]);
   return (
     <>
       <SectionTitle>Оплата</SectionTitle>
@@ -57,13 +54,16 @@ export const PayDataField: FC<IPayDataField> = ({
         <ExclamationMark />
       </PaymentContainer>
       <BankCardContainer>
-        <Cards
-          id={bankCardId}
-          cardRefs={cardRefs}
-          cards={cards}
-          setActives={setActives}
-          actives={actives}
-        />
+        {cards.length > 0 ? (
+          <Cards
+            setCards={setCards}
+            id={bankCardId}
+            cardRefs={cardRefs}
+            cards={cards}
+            setActives={setActives}
+            actives={actives}
+          />
+        ) : null}
         <ValidatedCardContainer
           name="payData"
           setFormChecked={setCheckFormOrdr}

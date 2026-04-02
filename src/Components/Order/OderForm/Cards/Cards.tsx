@@ -9,6 +9,7 @@ interface ICards {
   actives: Actives;
   cardRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
   id: string;
+  setCards: React.Dispatch<React.SetStateAction<Card[]>>;
 }
 export const Cards: FC<ICards> = ({
   cards,
@@ -16,11 +17,13 @@ export const Cards: FC<ICards> = ({
   actives,
   cardRefs,
   id,
+  setCards,
 }) => {
   return (
     <CardsContainer id={id}>
       {cards.map((item) => (
         <CardItem
+          setCards={setCards}
           key={item.cardNumber}
           card={item}
           setActives={setActives}
