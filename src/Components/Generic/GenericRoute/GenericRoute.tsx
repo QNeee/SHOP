@@ -1,5 +1,9 @@
 import { type FC, type ReactElement } from 'react';
-import { BackContainer, GenericRouteContainer, GenericRouterWrapper } from './GenericRoute.styled';
+import {
+  BackContainer,
+  GenericRouteContainer,
+  GenericRouterWrapper,
+} from './GenericRoute.styled';
 import { ButtonBack } from './ButtonBack';
 import { PathText } from './PathText';
 import { useLocation, useNavigate } from 'react-router-dom';
