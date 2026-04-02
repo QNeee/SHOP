@@ -2,9 +2,6 @@ import { useEffect, useRef, useState, type FC } from 'react';
 import {
   BankCardContainer,
   BorderDown,
-  CardContainer,
-  CardNumberTextContainer,
-  CardsContainer,
   CourierAdressContainer,
   DeliveryDateContainer,
   DeliveryDateItem,
@@ -16,15 +13,27 @@ import {
   SectionTitle,
   TextArea,
 } from './OrderForm.styled';
-import { AvailableTimesPickup, Courier, formatDate, localStorageItemsKeys } from '../../../Helper';
+import {
+  AvailableTimesPickup,
+  Courier,
+  formatDate,
+  localStorageItemsKeys,
+} from '../../../Helper';
 import { ExclamationMark } from '../../Generic/Icons/OrderFormsIcons';
 import { AddPaymentCardForm } from '../AddPaymentCardForm/AddPaymentCardForm';
 import { TimeSelect } from '../DeliveryTimeSelector/DeliveryTimeSelector';
-import type { Card, CheckFormOrder, DataForm, PayData } from '../../../types';
+import type {
+  Actives,
+  Card,
+  CheckFormOrder,
+  DataForm,
+  PayData,
+} from '../../../types';
 import { ValidatedInput } from '../ValidatedInput/ValidatedInput';
 import type { FormAction } from '../formReducer';
 import { ValidatedCardContainer } from '../ValidatedCardContainer/ValidatedCardContainer';
 import { FormValidator } from '../FormValidator';
+import { Cards } from './Cards/Cards';
 
 interface IOrderFormProps {
   selected: string;
@@ -46,7 +55,6 @@ export const OrderForm: FC<IOrderFormProps> = ({
   const [scrollYPos, setScrollYPos] = useState(0);
   const bankCardId = 'bankCardContainer';
   const addCardContainerId = 'addCardContainer';
-  const numbersDigitsOfCardToShow = 4;
   const [cards, setCards] = useState<Card[]>(() => {
     let data = [];
     const localData = localStorage.getItem(localStorageItemsKeys.cards);
@@ -54,11 +62,21 @@ export const OrderForm: FC<IOrderFormProps> = ({
     else data = [];
     return data;
   });
+  const [actives, setActives] = useState<Actives>(() => {
+    return {
+      cardNumber: cards[0]?.cardNumber || '',
+      containerId: '',
+    };
+  });
   useEffect(() => {
     const today = new Date();
     const weekLater = new Date();
     weekLater.setDate(today.getDate() + 7);
-    dispatch({ type: 'SET_DATES', start: today, end: weekLater });
+    dispatch({
+      type: 'SET_DATES',
+      start: today,
+      end: weekLater,
+    });
   }, []);
   useEffect(() => {
     if (cards.length > 0) {
@@ -67,24 +85,38 @@ export const OrderForm: FC<IOrderFormProps> = ({
         cardNumber: card.cardNumber,
         date: card.image,
       };
-      setActive(card.cardNumber);
-      dispatch({ type: 'SET_PAY', payData });
+      setActives((prev) => ({
+        ...prev,
+        cardNumber: card.cardNumber,
+      }));
+      dispatch({
+        type: 'SET_PAY',
+        payData,
+      });
     }
   }, [cards]);
-  const [active, setActive] = useState(cards[0]?.cardNumber || '');
   useEffect(() => {
-    if (active) {
-      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    if (actives.containerId) {
+      ref.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
     }
-  }, [active]);
+  }, [actives.containerId]);
 
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onChangeInput = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const value = e.currentTarget.value;
     const [sectionStr, field] = e.currentTarget.name.split(',');
     const section = sectionStr as keyof DataForm;
-    dispatch({ type: 'SET_FIELD', section, field, value });
+    dispatch({
+      type: 'SET_FIELD',
+      section,
+      field,
+      value,
+    });
   };
-
   return (
     <>
       <FormContainer>
@@ -95,7 +127,11 @@ export const OrderForm: FC<IOrderFormProps> = ({
           value={form.contactData.name}
           placeholder="Тарас"
           name="contactData,name"
-          isValid={FormValidator.ValidateField("name", form.contactData.name, 4)}
+          isValid={FormValidator.ValidateField(
+            'name',
+            form.contactData.name,
+            4,
+          )}
           onChange={onChangeInput}
         />
         <ValidatedInput
@@ -104,7 +140,11 @@ export const OrderForm: FC<IOrderFormProps> = ({
           value={form.contactData.phone}
           placeholder="+38 (___) ___-__-__"
           name={'contactData,phone'}
-          isValid={FormValidator.ValidateField("numbers", form.contactData.phone, 10)}
+          isValid={FormValidator.ValidateField(
+            'numbers',
+            form.contactData.phone,
+            10,
+          )}
           dispatch={dispatch}
         />
         <ValidatedInput
@@ -113,7 +153,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
           placeholder="Taras@gmail.com"
           name="contactData,email"
           value={form.contactData.email}
-          isValid={FormValidator.ValidateField("email", form.contactData.email)}
+          isValid={FormValidator.ValidateField('email', form.contactData.email)}
           onChange={onChangeInput}
         />
 
@@ -127,8 +167,10 @@ export const OrderForm: FC<IOrderFormProps> = ({
                 placeholder="Київ"
                 name="deliveryAdress,city"
                 value={form.deliveryAdress.city}
-                isValid={
-                  FormValidator.ValidateField("name", form.deliveryAdress.city)}
+                isValid={FormValidator.ValidateField(
+                  'name',
+                  form.deliveryAdress.city,
+                )}
                 onChange={onChangeInput}
               />
               <ValidatedInput
@@ -151,7 +193,10 @@ export const OrderForm: FC<IOrderFormProps> = ({
                   placeholder="12"
                   name="deliveryAdress,house"
                   value={form.deliveryAdress.house}
-                  isValid={FormValidator.ValidateField("numbers", form.deliveryAdress.house)}
+                  isValid={FormValidator.ValidateField(
+                    'numbers',
+                    form.deliveryAdress.house,
+                  )}
                   onChange={onChangeInput}
                   inputMode="numeric"
                 />
@@ -161,7 +206,10 @@ export const OrderForm: FC<IOrderFormProps> = ({
                   placeholder="6"
                   name="deliveryAdress,flat"
                   value={form.deliveryAdress.flat}
-                  isValid={FormValidator.ValidateField("numbers", form.deliveryAdress.flat)}
+                  isValid={FormValidator.ValidateField(
+                    'numbers',
+                    form.deliveryAdress.flat,
+                  )}
                   onChange={onChangeInput}
                   inputMode="numeric"
                 />
@@ -175,11 +223,15 @@ export const OrderForm: FC<IOrderFormProps> = ({
                 <DeliveryDateItem>
                   {formatDate(form.deliveryData.deliveryDateStart)}
                 </DeliveryDateItem>
-                <DeliveryDateItem>{formatDate(form.deliveryData.deliveryDateEnd)}</DeliveryDateItem>
+                <DeliveryDateItem>
+                  {formatDate(form.deliveryData.deliveryDateEnd)}
+                </DeliveryDateItem>
               </DeliveryDateContainer>
 
               <p>Час</p>
-              <DeliveryTimeSelectContainer onClick={() => setOpen((prev) => !prev)}>
+              <DeliveryTimeSelectContainer
+                onClick={() => setOpen((prev) => !prev)}
+              >
                 <TimeSelect
                   open={open}
                   setOpen={setOpen}
@@ -206,45 +258,38 @@ export const OrderForm: FC<IOrderFormProps> = ({
         </PaymentContainer>
 
         <BankCardContainer id={bankCardId}>
-          {cards.length > 0 ? <CardsContainer>
-            {cards.map((items) => {
-              const cardNumber = FormValidator.deleteSpaces(items.cardNumber);
-              const lastDigits = cardNumber.slice(-numbersDigitsOfCardToShow);
-              return <CardContainer
-                onClick={() => setActive(items.cardNumber)}
-                key={items.cardNumber}
-                $active={active === items.cardNumber}
-              >
-                <img src={items.image} alt={items.image} />
-                <CardNumberTextContainer>
-                  <p>**{lastDigits}</p>
-                </CardNumberTextContainer>
-              </CardContainer>
-            }
-
-            )}
-          </CardsContainer> : null}
+          <Cards cards={cards} setActives={setActives} actives={actives} />
           <ValidatedCardContainer
             name="payData"
             setFormChecked={setCheckFormOrdr}
             submit={submit}
             id={addCardContainerId}
-            setActive={setActive}
+            setActives={setActives}
             setScrollYPos={setScrollYPos}
-            active={active}
+            actives={actives}
             isValid={cards.length > 0}
           />
         </BankCardContainer>
 
-        {active === addCardContainerId ? (
+        {actives.containerId === addCardContainerId ? (
           <div ref={ref}>
-            <AddPaymentCardForm cards={cards} setCards={setCards} setActive={setActive} scrollYPos={scrollYPos} />
+            <AddPaymentCardForm
+              cards={cards}
+              setCards={setCards}
+              setActives={setActives}
+              scrollYPos={scrollYPos}
+            />
           </div>
         ) : null}
       </FormContainer>
 
       <BorderDown />
-      <div style={{ marginTop: '30px', height: '1px' }} />
+      <div
+        style={{
+          marginTop: '30px',
+          height: '1px',
+        }}
+      />
     </>
   );
 };

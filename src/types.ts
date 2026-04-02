@@ -119,3 +119,7 @@ export type ModalSelectPickupItems = {
   wh: string[];
   city: string[];
 }
+export type Actives = {
+  cardNumber: string;
+  containerId: string;
+}
