@@ -65,12 +65,12 @@ export interface NPBranch {
   CityRef: string;
   WarehouseType: string;
 }
-type ContactData = {
+export type ContactData = {
   name: string;
   phone: string;
   email: string;
 };
-type DeliveryAdress = {
+export type DeliveryAdress = {
   city: string;
   street: string;
   house: string;
@@ -116,10 +116,10 @@ export type Ordered = {
 };
 
 export type ModalSelectPickupItems = {
-  wh: string[];
+  wh: string[] | null;
   city: string[];
-}
+};
 export type Actives = {
   cardNumber: string;
   containerId: string;
-}
+};

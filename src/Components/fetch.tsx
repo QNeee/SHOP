@@ -1,24 +1,5 @@
 import type { NPBranch, NPWarehouse } from '../types';
 
-export const getUserLocation = (): Promise<{ latitude: number; longitude: number }> => {
-  return new Promise((resolve, reject) => {
-    if (!navigator.geolocation) {
-      reject(new Error('Геолокація не підтримується цим браузером'));
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        resolve({ latitude, longitude });
-      },
-      (error) => {
-        reject(error);
-      },
-      { enableHighAccuracy: true },
-    );
-  });
-};
 const API_KEY = 'c14b9adbfb877330f94d82089e491b67';
 interface NovaPoshtaCity {
   Description: string;
@@ -33,7 +14,9 @@ interface NovaPoshtaResponse {
   warnings: string[];
 }
 
-export const getNovaPoshtaCities = async (city: string): Promise<NovaPoshtaCity[]> => {
+export const getNovaPoshtaCities = async (
+  city: string,
+): Promise<NovaPoshtaCity[]> => {
   try {
     const response = await fetch('https://api.novaposhta.ua/v2.0/json/', {
       method: 'POST',

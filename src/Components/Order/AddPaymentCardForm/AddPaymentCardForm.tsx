@@ -4,10 +4,10 @@ import {
   FormGroup,
   FormTitle,
   Label,
+  Row,
   SaveButton,
-
 } from './AddPaymentCardForm.styled';
-import { FormContainer, Row } from '../OderForm/OrderForm.styled';
+import { FormContainer } from '../OderForm/OrderForm.styled';
 import { ValidatedInput } from '../ValidatedInput/ValidatedInput';
 import {
   formatCardDuration,
@@ -19,9 +19,8 @@ import type { Actives, Card } from '../../../types';
 import { cardsImages } from './CardsImages';
 import { FormValidator } from '../FormValidator';
 
-
 interface IAddPaymentCardForm {
-  setActives: React.Dispatch<React.SetStateAction<Actives>>
+  setActives: React.Dispatch<React.SetStateAction<Actives>>;
   scrollYPos: number;
   setCards: React.Dispatch<React.SetStateAction<Card[]>>;
   cards: Card[];
@@ -55,16 +54,20 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
     } else if (name === 'durationTime') setValue = formatCardDuration(value);
     else if (name === 'name') setValue = value.replace(/\d/g, '');
     else {
-      if (isNaN(Number(value)) || value === " ") return;
+      if (isNaN(Number(value)) || value === ' ') return;
       setValue = value;
     }
     setForm((prev) => {
       const newData = { ...prev, [name]: setValue };
-      localStorage.setItem(localStorageItemsKeys.cardForm, JSON.stringify(newData));
+      localStorage.setItem(
+        localStorageItemsKeys.cardForm,
+        JSON.stringify(newData),
+      );
       return newData;
     });
   };
-  const clearActive = () => setActives(prev => ({ ...prev, containerId: "" }));
+  const clearActive = () =>
+    setActives((prev) => ({ ...prev, containerId: '' }));
   const clearForm = () => {
     setSubmit(false);
     localStorage.removeItem(localStorageItemsKeys.cardForm);
@@ -72,7 +75,9 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
     setCheckFormCard(initialCheckFormCard);
     clearActive();
   };
-  const onClickSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onClickSubmit = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
     e.preventDefault();
     setSubmit(true);
     const isValid = Object.values(checkFormCard).some((item) => !item);
@@ -83,7 +88,10 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
     };
     setCards((prev) => {
       const newData = [...prev, cardObj];
-      localStorage.setItem(localStorageItemsKeys.cards, JSON.stringify(newData));
+      localStorage.setItem(
+        localStorageItemsKeys.cards,
+        JSON.stringify(newData),
+      );
       return newData;
     });
     clearForm();
@@ -104,7 +112,9 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
             inputMode="numeric"
             submit={submit}
           />
-          {FormValidator.isCardDuplicate(form.cardNumber, cards) ? <p style={{ color: "red" }}>card already in list</p> : null}
+          {FormValidator.isCardDuplicate(form.cardNumber, cards) ? (
+            <p style={{ color: 'red' }}>card already in list</p>
+          ) : null}
         </Label>
       </FormGroup>
       <Row>
@@ -120,7 +130,7 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
                 form.durationTime.length === 0
                   ? null
                   : form.durationTime.trim().length ===
-                  maxLengthDurationTime + durationTimeAnotherSymbols
+                    maxLengthDurationTime + durationTimeAnotherSymbols
               }
               name="durationTime"
               inputMode="numeric"
@@ -156,7 +166,7 @@ export const AddPaymentCardForm: FC<IAddPaymentCardForm> = ({
             placeholder="TARAS TARASENKO"
             value={form.name}
             onChange={onChange}
-            isValid={FormValidator.ValidateField("cardName", form.name)}
+            isValid={FormValidator.ValidateField('cardName', form.name)}
             name="name"
             submit={submit}
           />

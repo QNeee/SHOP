@@ -7,16 +7,25 @@ interface ICards {
   cards: Card[];
   setActives: React.Dispatch<React.SetStateAction<Actives>>;
   actives: Actives;
+  cardRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
+  id: string;
 }
-export const Cards: FC<ICards> = ({ cards, setActives, actives }) => {
+export const Cards: FC<ICards> = ({
+  cards,
+  setActives,
+  actives,
+  cardRefs,
+  id,
+}) => {
   return (
-    <CardsContainer>
+    <CardsContainer id={id}>
       {cards.map((item) => (
         <CardItem
           key={item.cardNumber}
           card={item}
           setActives={setActives}
           actives={actives}
+          cardRefs={cardRefs}
         />
       ))}
     </CardsContainer>

@@ -1,27 +1,6 @@
-import { useEffect, useRef, useState, type FC } from 'react';
-import {
-  BankCardContainer,
-  BorderDown,
-  CourierAdressContainer,
-  DeliveryDateContainer,
-  DeliveryDateItem,
-  DeliveryTimeSelectContainer,
-  FormContainer,
-  PaymentContainer,
-  PickUpDataContainer,
-  Row,
-  SectionTitle,
-  TextArea,
-} from './OrderForm.styled';
-import {
-  AvailableTimesPickup,
-  Courier,
-  formatDate,
-  localStorageItemsKeys,
-} from '../../../Helper';
-import { ExclamationMark } from '../../Generic/Icons/OrderFormsIcons';
-import { AddPaymentCardForm } from '../AddPaymentCardForm/AddPaymentCardForm';
-import { TimeSelect } from '../DeliveryTimeSelector/DeliveryTimeSelector';
+import { useEffect, useState, type FC } from 'react';
+import { BorderDown, FormContainer } from './OrderForm.styled';
+import { Courier, localStorageItemsKeys } from '../../../Helper';
 import type {
   Actives,
   Card,
@@ -29,11 +8,11 @@ import type {
   DataForm,
   PayData,
 } from '../../../types';
-import { ValidatedInput } from '../ValidatedInput/ValidatedInput';
 import type { FormAction } from '../formReducer';
-import { ValidatedCardContainer } from '../ValidatedCardContainer/ValidatedCardContainer';
-import { FormValidator } from '../FormValidator';
-import { Cards } from './Cards/Cards';
+import { PickupDataField } from './OrderFormFields/PickupData/PickupDataField';
+import { ContactDataField } from './OrderFormFields/ContactData/ContactDataField';
+import { MessageDataField } from './OrderFormFields/MessageData/MessageDataField';
+import { PayDataField } from './OrderFormFields/PayData/PayDataField';
 
 interface IOrderFormProps {
   selected: string;
@@ -51,10 +30,6 @@ export const OrderForm: FC<IOrderFormProps> = ({
   setCheckFormOrdr,
 }) => {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [scrollYPos, setScrollYPos] = useState(0);
-  const bankCardId = 'bankCardContainer';
-  const addCardContainerId = 'addCardContainer';
   const [cards, setCards] = useState<Card[]>(() => {
     let data = [];
     const localData = localStorage.getItem(localStorageItemsKeys.cards);
@@ -95,15 +70,13 @@ export const OrderForm: FC<IOrderFormProps> = ({
       });
     }
   }, [cards]);
-  useEffect(() => {
-    if (actives.containerId) {
-      ref.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'end',
-      });
-    }
-  }, [actives.containerId]);
 
+  // useEffect(() => {
+  //   cardRefs.current[actives.cardNumber]?.scrollIntoView({
+  //     behavior: 'smooth',
+  //     block: 'center',
+  //   });
+  // }, [actives.cardNumber]);
   const onChangeInput = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -120,169 +93,37 @@ export const OrderForm: FC<IOrderFormProps> = ({
   return (
     <>
       <FormContainer>
-        <SectionTitle>Контактні дані</SectionTitle>
-        <ValidatedInput
-          setFormChecked={setCheckFormOrdr}
-          submit={submit}
-          value={form.contactData.name}
-          placeholder="Тарас"
-          name="contactData,name"
-          isValid={FormValidator.ValidateField(
-            'name',
-            form.contactData.name,
-            4,
-          )}
-          onChange={onChangeInput}
-        />
-        <ValidatedInput
-          setFormChecked={setCheckFormOrdr}
-          submit={submit}
-          value={form.contactData.phone}
-          placeholder="+38 (___) ___-__-__"
-          name={'contactData,phone'}
-          isValid={FormValidator.ValidateField(
-            'numbers',
-            form.contactData.phone,
-            10,
-          )}
+        <ContactDataField
           dispatch={dispatch}
-        />
-        <ValidatedInput
-          setFormChecked={setCheckFormOrdr}
+          setCheckFormOrdr={setCheckFormOrdr}
+          onChangeInput={onChangeInput}
           submit={submit}
-          placeholder="Taras@gmail.com"
-          name="contactData,email"
-          value={form.contactData.email}
-          isValid={FormValidator.ValidateField('email', form.contactData.email)}
-          onChange={onChangeInput}
+          contactData={form.contactData}
         />
-
-        {selected === Courier.key && (
-          <PickUpDataContainer>
-            <CourierAdressContainer>
-              <SectionTitle>Адреса доставки</SectionTitle>
-              <ValidatedInput
-                setFormChecked={setCheckFormOrdr}
-                submit={submit}
-                placeholder="Київ"
-                name="deliveryAdress,city"
-                value={form.deliveryAdress.city}
-                isValid={FormValidator.ValidateField(
-                  'name',
-                  form.deliveryAdress.city,
-                )}
-                onChange={onChangeInput}
-              />
-              <ValidatedInput
-                setFormChecked={setCheckFormOrdr}
-                submit={submit}
-                placeholder="пр.переулка 12"
-                name="deliveryAdress,street"
-                value={form.deliveryAdress.street}
-                isValid={
-                  form.deliveryAdress.street.length === 0
-                    ? null
-                    : form.deliveryAdress.street.length > 3
-                }
-                onChange={onChangeInput}
-              />
-              <Row>
-                <ValidatedInput
-                  setFormChecked={setCheckFormOrdr}
-                  submit={submit}
-                  placeholder="12"
-                  name="deliveryAdress,house"
-                  value={form.deliveryAdress.house}
-                  isValid={FormValidator.ValidateField(
-                    'numbers',
-                    form.deliveryAdress.house,
-                  )}
-                  onChange={onChangeInput}
-                  inputMode="numeric"
-                />
-                <ValidatedInput
-                  setFormChecked={setCheckFormOrdr}
-                  submit={submit}
-                  placeholder="6"
-                  name="deliveryAdress,flat"
-                  value={form.deliveryAdress.flat}
-                  isValid={FormValidator.ValidateField(
-                    'numbers',
-                    form.deliveryAdress.flat,
-                  )}
-                  onChange={onChangeInput}
-                  inputMode="numeric"
-                />
-              </Row>
-            </CourierAdressContainer>
-
-            <div>
-              <SectionTitle>Дані по доставці</SectionTitle>
-              <p>Дата доставки</p>
-              <DeliveryDateContainer>
-                <DeliveryDateItem>
-                  {formatDate(form.deliveryData.deliveryDateStart)}
-                </DeliveryDateItem>
-                <DeliveryDateItem>
-                  {formatDate(form.deliveryData.deliveryDateEnd)}
-                </DeliveryDateItem>
-              </DeliveryDateContainer>
-
-              <p>Час</p>
-              <DeliveryTimeSelectContainer
-                onClick={() => setOpen((prev) => !prev)}
-              >
-                <TimeSelect
-                  open={open}
-                  setOpen={setOpen}
-                  options={AvailableTimesPickup}
-                  dispatch={dispatch}
-                />
-              </DeliveryTimeSelectContainer>
-            </div>
-          </PickUpDataContainer>
-        )}
-
-        <SectionTitle>Побажання</SectionTitle>
-        <TextArea
-          onChange={onChangeInput}
-          name="deliveryData,message"
-          placeholder="Повідомлення ..."
-          value={form.deliveryData.message}
-        />
-
-        <SectionTitle>Оплата</SectionTitle>
-        <PaymentContainer>
-          <p>Оплата тільки онлайн</p>
-          <ExclamationMark />
-        </PaymentContainer>
-
-        <BankCardContainer id={bankCardId}>
-          <Cards cards={cards} setActives={setActives} actives={actives} />
-          <ValidatedCardContainer
-            name="payData"
-            setFormChecked={setCheckFormOrdr}
+        {selected === Courier.key ? (
+          <PickupDataField
+            setOpen={setOpen}
+            open={open}
+            dispatch={dispatch}
+            setCheckFormOrdr={setCheckFormOrdr}
+            onChangeInput={onChangeInput}
+            adress={form.deliveryAdress}
             submit={submit}
-            id={addCardContainerId}
-            setActives={setActives}
-            setScrollYPos={setScrollYPos}
-            actives={actives}
-            isValid={cards.length > 0}
           />
-        </BankCardContainer>
-
-        {actives.containerId === addCardContainerId ? (
-          <div ref={ref}>
-            <AddPaymentCardForm
-              cards={cards}
-              setCards={setCards}
-              setActives={setActives}
-              scrollYPos={scrollYPos}
-            />
-          </div>
         ) : null}
+        <MessageDataField
+          message={form.deliveryData.message}
+          onChangeInput={onChangeInput}
+        />
+        <PayDataField
+          actives={actives}
+          setCards={setCards}
+          submit={submit}
+          setCheckFormOrdr={setCheckFormOrdr}
+          cards={cards}
+          setActives={setActives}
+        />
       </FormContainer>
-
       <BorderDown />
       <div
         style={{

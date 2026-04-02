@@ -12,24 +12,6 @@ export const FormContainer = styled.div`
     max-width: 600px;
   }
 `;
-export const CourierAdressContainer = styled.div``;
-export const DeliveryDateContainer = styled.div`
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  gap: 23px;
-`;
-export const DeliveryDateItem = styled.div`
-  width: 99px;
-  height: 51px;
-  outline: 1px solid black;
-  border-radius: 8px;
-  text-align: center;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 export const DeliveryTimeSelectContainer = styled.div`
   width: 160px;
   height: 51px;
@@ -76,61 +58,6 @@ export const Input = styled.input`
   &::placeholder {
     color: #999;
   }
-`;
-
-export const Row = styled.div`
-  display: flex;
-  gap: 10px;
-  width: 100%;
-
-  > * {
-    flex: 1;
-    min-width: 0;
-  }
-`;
-
-export const TextArea = styled.textarea`
-  width: 100%;
-  height: 90px;
-  margin-top: 10px;
-
-  border-radius: 8px;
-  border: 1px solid #cfcfcf;
-  padding: 10px;
-
-  font-size: 14px;
-  resize: none;
-
-  box-sizing: border-box;
-
-  &:focus {
-    outline: none;
-    border: 1px solid #7c3aed;
-    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
-  }
-`;
-
-export const BankCardContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-`;
-
-export const PickUpDataContainer = styled.div``;
-
-export const BankCard = styled.div``;
-export const PaymentContainer = styled.div`
-  padding: 0 12px;
-  width: 233px;
-  height: 48px;
-  border: 1px solid green;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 28px;
-  background-color: white;
 `;
 
 export const PaymentRow = styled.div`
