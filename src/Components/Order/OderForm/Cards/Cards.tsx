@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import type { Actives, Card } from '../../../../types';
+import type { Actives, Card, ModalCardDelete } from '../../../../types';
 import { CardItem } from './Card/CardItem';
 import { CardsContainer } from './Cards.styled';
 
@@ -9,7 +9,7 @@ interface ICards {
   actives: Actives;
   cardRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
   id: string;
-  setCards: React.Dispatch<React.SetStateAction<Card[]>>;
+  setModal: React.Dispatch<React.SetStateAction<ModalCardDelete>>;
 }
 export const Cards: FC<ICards> = ({
   cards,
@@ -17,13 +17,13 @@ export const Cards: FC<ICards> = ({
   actives,
   cardRefs,
   id,
-  setCards,
+  setModal,
 }) => {
   return (
     <CardsContainer id={id}>
       {cards.map((item) => (
         <CardItem
-          setCards={setCards}
+          setModal={setModal}
           key={item.cardNumber}
           card={item}
           setActives={setActives}

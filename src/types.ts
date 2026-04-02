@@ -123,3 +123,7 @@ export type Actives = {
   cardNumber: string;
   containerId: string;
 };
+export type ModalCardDelete = {
+  modal: boolean;
+  cardNumber: string;
+};

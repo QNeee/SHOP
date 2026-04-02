@@ -1,4 +1,10 @@
-import { HeaderContainer, Logo, SearchContainer, SearchIcon, SearcInput } from './Header.styled';
+import {
+  HeaderContainer,
+  Logo,
+  SearchContainer,
+  SearchIcon,
+  SearcInput,
+} from './Header.styled';
 import LogoImg from '../../assets/glance.png';
 import SearchImg from '../../assets/icon_search.png';
 import { useIsmobileWidth } from '../../Helper';

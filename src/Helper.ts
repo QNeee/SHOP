@@ -284,3 +284,7 @@ export const scrollToCard = (
     });
   }
 };
+export const initialModalToDelete = {
+  modal: false,
+  cardNumber: '',
+};

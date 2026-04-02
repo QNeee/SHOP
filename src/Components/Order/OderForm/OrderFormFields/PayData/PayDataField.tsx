@@ -5,8 +5,18 @@ import { ValidatedCardContainer } from '../../../ValidatedCardContainer/Validate
 import { Cards } from '../../Cards/Cards';
 import { SectionTitle } from '../../OrderForm.styled';
 import { BankCardContainer, PaymentContainer } from './PayDataField.styled';
-import type { Actives, Card, CheckFormOrder } from '../../../../../types';
-import { localStorageItemsKeys, scrollToCard } from '../../../../../Helper';
+import type {
+  Actives,
+  Card,
+  CheckFormOrder,
+  ModalCardDelete,
+} from '../../../../../types';
+import {
+  initialModalToDelete,
+  localStorageItemsKeys,
+  scrollToCard,
+} from '../../../../../Helper';
+import { DeleteCardModal } from '../../Cards/DeleteCardModal/DeleteCardModal';
 interface IPayDataField {
   submit: boolean;
   setCheckFormOrdr: React.Dispatch<React.SetStateAction<CheckFormOrder>>;
@@ -20,6 +30,7 @@ export const PayDataField: FC<IPayDataField> = ({
   const addCardContainerId = 'addCardContainer';
   const ref = useRef<HTMLDivElement | null>(null);
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const [modal, setModal] = useState<ModalCardDelete>(initialModalToDelete);
   const [cards, setCards] = useState<Card[]>(() => {
     let data = [];
     const localData = localStorage.getItem(localStorageItemsKeys.cards);
@@ -46,8 +57,49 @@ export const PayDataField: FC<IPayDataField> = ({
     const card = cardRefs.current[actives.cardNumber];
     scrollToCard(container, card);
   }, [cards]);
+  useEffect(() => {
+    if (modal.modal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [modal]);
+  const onClickDeleteCard = () => {
+    let lastActives = '';
+    setCards((prev) => {
+      const newCards = [...prev];
+      const idx = newCards.findIndex(
+        (it) => it.cardNumber === modal.cardNumber,
+      );
+      if (idx !== -1) newCards.splice(idx, 1);
+      if (actives.cardNumber === modal.cardNumber && newCards.length > 0) {
+        const index = (idx - 1 + newCards.length) % newCards.length;
+        lastActives = newCards[index].cardNumber ?? '';
+      } else {
+        lastActives = actives.cardNumber;
+      }
+      localStorage.setItem(
+        localStorageItemsKeys.cards,
+        JSON.stringify(newCards),
+      );
+      localStorage.setItem(localStorageItemsKeys.card, lastActives);
+      setActives({ cardNumber: lastActives, containerId: '' });
+      setModal(initialModalToDelete);
+      return newCards;
+    });
+  };
   return (
-    <>
+    <div style={{ position: 'relative' }}>
+      {modal.modal ? (
+        <DeleteCardModal
+          onConfirm={onClickDeleteCard}
+          onCancel={() => setModal(initialModalToDelete)}
+        />
+      ) : null}
       <SectionTitle>Оплата</SectionTitle>
       <PaymentContainer>
         <p>Оплата тільки онлайн</p>
@@ -56,7 +108,7 @@ export const PayDataField: FC<IPayDataField> = ({
       <BankCardContainer>
         {cards.length > 0 ? (
           <Cards
-            setCards={setCards}
+            setModal={setModal}
             id={bankCardId}
             cardRefs={cardRefs}
             cards={cards}
@@ -86,6 +138,6 @@ export const PayDataField: FC<IPayDataField> = ({
           />
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
