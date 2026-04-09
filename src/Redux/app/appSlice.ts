@@ -20,6 +20,6 @@ export const appSlice = createSlice({
     },
     exitApp: () => initialState,
   },
-  extraReducers: (builder) => {},
+  // extraReducers: (builder) => {},
 });
 export const { exitApp, setToken } = appSlice.actions;
