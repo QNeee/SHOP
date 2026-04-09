@@ -1,12 +1,14 @@
 import type { FC } from 'react';
-import { CanLikeId, Paths, useIsmobileWidth } from '../../Helper';
-import type { LocalSorageObject, LocalStorageItemShopCategory } from '../../types';
+import { Paths, useIsmobileWidth } from '../../Helper';
+import type {
+  LocalSorageObject,
+  LocalStorageItemShopCategory,
+} from '../../types';
 import { Footer } from '../Footer/Footer';
 import { Header } from '../Header/Header';
 import { Main } from '../Main/Main';
 import { useLocation } from 'react-router-dom';
-import { Products } from '../Products/Products';
-import { sharesPhoto } from '../../assets/Shares/Shares';
+import { Watched } from '../Watched/Watched';
 interface IMainLayoutProps {
   carouselsRefs: React.RefObject<HTMLDivElement | null>;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
@@ -30,14 +32,11 @@ export const MainLayout: FC<IMainLayoutProps> = ({
       {pathname === base ? <Header items={baket} /> : null}
       <Main />
       {pathname !== base && !ordered ? (
-        <Products
+        <Watched
           baket={baket}
           favorite={favorite}
-          carouselRef={carouselsRefs}
-          onClickCarousel={onClickCarouselButton}
-          items={sharesPhoto}
-          headerTitle="Ви дивилися"
-          id={CanLikeId}
+          watchedRef={carouselsRefs}
+          onClickCarouselButton={onClickCarouselButton}
           onClick={onClickFavorite}
         />
       ) : null}

@@ -1,12 +1,23 @@
 import { type FC } from 'react';
 
 import React from 'react';
-import { AdBannerId, CatalogId, SharesId, useIsmobileWidth, WatchedId } from '../Helper';
-import type { CarouselsRefs, LocalSorageObject, LocalStorageItemShopCategory } from '../types';
+import {
+  AdBannerId,
+  CatalogId,
+  SharesId,
+  useIsmobileWidth,
+  WatchedId,
+} from '../Helper';
+import type {
+  CarouselsRefs,
+  LocalSorageObject,
+  LocalStorageItemShopCategory,
+} from '../types';
 import { AdBanner } from '../Components/AdBanner/AdBanner';
 import { Catalog } from '../Components/Catalog/Catalog';
-import { Products } from '../Components/Products/Products';
 import { sharesPhoto } from '../assets/Shares/Shares';
+import { Shares } from '../Components/Shares/Shares';
+import { Watched } from '../Components/Watched/Watched';
 
 interface IMainPageProps {
   favorite: LocalStorageItemShopCategory;
@@ -22,33 +33,22 @@ export const MainPage: FC<IMainPageProps> = ({
   carouselsRefs,
   onClickCarouselButton,
 }) => {
-  const isMobile = useIsmobileWidth();
-
   return (
     <>
-      <AdBanner carouselRef={carouselsRefs[AdBannerId]} onClick={onClickCarouselButton} />
-      <Catalog carouselRef={carouselsRefs[CatalogId]} onClick={onClickCarouselButton} />
-      {isMobile ? (
-        <Products
-          baket={baket}
-          favorite={favorite}
-          carouselRef={carouselsRefs[WatchedId]}
-          onClickCarousel={onClickCarouselButton}
-          items={sharesPhoto}
-          headerTitle="Ви дивилися"
-          id={WatchedId}
-          onClick={onClick}
-        />
-      ) : null}
-      <Products
+      <AdBanner
+        carouselRef={carouselsRefs[AdBannerId]}
+        onClick={onClickCarouselButton}
+      />
+      <Catalog
+        carouselRef={carouselsRefs[CatalogId]}
+        onClick={onClickCarouselButton}
+      />
+      <Shares
         baket={baket}
         favorite={favorite}
-        carouselRef={carouselsRefs[SharesId]}
-        onClickCarousel={onClickCarouselButton}
-        items={sharesPhoto}
-        headerTitle="Акції"
-        id={SharesId}
+        sharesRef={carouselsRefs[SharesId]}
         onClick={onClick}
+        onClickCarouselButton={onClickCarouselButton}
       />
     </>
   );

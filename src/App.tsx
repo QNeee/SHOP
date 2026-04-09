@@ -44,26 +44,30 @@ function App() {
   const [submit, setSubmit] = useState(false);
   const [form, dispatch] = useReducer(formReducer, initialFormData);
   const { baket, shopItems, favorite, orderForm } = localStorageItemsKeys;
-  const [checkFormOrder, setCheckFormOrdr] = useState<CheckFormOrder>(initialCheckFormOrder);
+  const [checkFormOrder, setCheckFormOrdr] = useState<CheckFormOrder>(
+    initialCheckFormOrder,
+  );
   const valute = '₴';
   const [ordered, setOrdered] = useState<Ordered>(initialOrdered);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
-  const [localStorageItems, setLocalStorageItems] = useState<LocalStorageItemShop>(() => {
-    const data = localStorage.getItem(shopItems);
-    return data
-      ? JSON.parse(data)
-      : {
-        favorites: {
-          smart: {},
-        },
-        baket: {
-          smart: {},
-        },
-      };
-  });
+  const [localStorageItems, setLocalStorageItems] =
+    useState<LocalStorageItemShop>(() => {
+      const data = localStorage.getItem(shopItems);
+      return data
+        ? JSON.parse(data)
+        : {
+            favorites: {
+              smart: {},
+            },
+            baket: {
+              smart: {},
+            },
+          };
+    });
   useEffect(() => {
     const data = Object.keys(localStorageItems[baket]).flatMap((k) => {
-      const itemKey = localStorageItems[baket][k as keyof LocalStorageItemShopCategory];
+      const itemKey =
+        localStorageItems[baket][k as keyof LocalStorageItemShopCategory];
 
       return sharesPhoto
         .filter((item) => item.id in itemKey)
@@ -168,7 +172,9 @@ function App() {
 
   const onClickCarouselButton = (e: React.MouseEvent<SVGSVGElement>) => {
     const id = e.currentTarget.id;
-    const parentId = e.currentTarget.parentElement?.id as keyof CarouselsRefs | undefined;
+    const parentId = e.currentTarget.parentElement?.id as
+      | keyof CarouselsRefs
+      | undefined;
     if (parentId && carouselsRefs[parentId]?.current) {
       carouselsRefs[parentId].current.scrollBy({
         left:
@@ -202,7 +208,9 @@ function App() {
     setTotal(initialTotalObj);
     dispatch({ type: 'RESET' });
   };
-  const onSubmitOrderForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onSubmitOrderForm = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
     e.preventDefault();
     setSubmit(true);
     const sectionToCheck =
@@ -220,7 +228,10 @@ function App() {
         formatDateString(form.deliveryData.deliveryDateStart) +
         '-' +
         formatDateString(form.deliveryData.deliveryDateEnd),
-      timeDelivery: form.deliveryType.name === Courier.key ? form.deliveryData.deliveryTime : null,
+      timeDelivery:
+        form.deliveryType.name === Courier.key
+          ? form.deliveryData.deliveryTime
+          : null,
       flag: form.deliveryType.name as 'courier' | 'pickup',
       accepted: true,
     };

@@ -13,7 +13,12 @@ interface IOrderProps {
   dispatch: React.ActionDispatch<[action: FormAction]>;
   setCheckFormOrdr: React.Dispatch<React.SetStateAction<CheckFormOrder>>;
 }
-export const Order: FC<IOrderProps> = ({ submit, form, dispatch, setCheckFormOrdr }) => {
+export const Order: FC<IOrderProps> = ({
+  submit,
+  form,
+  dispatch,
+  setCheckFormOrdr,
+}) => {
   const [delivery, setDelivery] = useState(Courier.key);
   const [selected, setSelected] = useState(OrderSelectTitle.courier);
   const [open, setOpen] = useState(false);
@@ -29,7 +34,7 @@ export const Order: FC<IOrderProps> = ({ submit, form, dispatch, setCheckFormOrd
     });
   }, [delivery]);
 
-  useEffect(() => { });
+  useEffect(() => {});
   return (
     <OrderContainer>
       <DeliverySelector
