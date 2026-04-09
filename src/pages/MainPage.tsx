@@ -1,13 +1,7 @@
 import { type FC } from 'react';
 
 import React from 'react';
-import {
-  AdBannerId,
-  CatalogId,
-  SharesId,
-  useIsmobileWidth,
-  WatchedId,
-} from '../Helper';
+import { AdBannerId, CatalogId, SharesId } from '../Helper';
 import type {
   CarouselsRefs,
   LocalSorageObject,
@@ -15,9 +9,7 @@ import type {
 } from '../types';
 import { AdBanner } from '../Components/AdBanner/AdBanner';
 import { Catalog } from '../Components/Catalog/Catalog';
-import { sharesPhoto } from '../assets/Shares/Shares';
 import { Shares } from '../Components/Shares/Shares';
-import { Watched } from '../Components/Watched/Watched';
 
 interface IMainPageProps {
   favorite: LocalStorageItemShopCategory;
