@@ -14,6 +14,7 @@ import {
   initialTotalObj,
   localStorageItemsKeys,
   Paths,
+  valute,
 } from './Helper';
 import { ProfilePage } from './pages/ProfilePage';
 import { CatalogPage } from './pages/CatalogPage';
@@ -49,7 +50,6 @@ function App() {
     initialCheckFormOrder,
   );
   const sharesData = useSelector(getSharesItems);
-  const valute = '₴';
   const [ordered, setOrdered] = useState<Ordered>(initialOrdered);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const [localStorageItems, setLocalStorageItems] =

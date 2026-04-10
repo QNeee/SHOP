@@ -288,3 +288,4 @@ export const initialModalToDelete = {
   modal: false,
   cardNumber: '',
 };
+export const valute = '$';

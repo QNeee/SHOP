@@ -1,12 +1,19 @@
 import { useEffect, useState, type FC } from 'react';
-import { CounterButton, CounterContainer, CounterValue } from './Counter.styled';
+import {
+  CounterButton,
+  CounterContainer,
+  CounterValue,
+} from './Counter.styled';
 import { localStorageItemsKeys } from '../../Helper';
-import type { LocalStorageItemShop, LocalStorageItemShopCategory } from '../../types';
+import type {
+  LocalStorageItemShop,
+  LocalStorageItemShopCategory,
+} from '../../types';
 
 interface ICounterProps {
   initial?: number;
   min?: number;
-  max?: number;
+  max: number;
   setLocalStorageItems: Function;
   itemType: string;
   itemId: string;

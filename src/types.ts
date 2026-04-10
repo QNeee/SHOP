@@ -20,6 +20,7 @@ export type ProductItem = {
   discount: Discount;
   price: number;
   type: string;
+  inStockCount: number;
   count?: number;
 };
 export type CarouselsRefs = {

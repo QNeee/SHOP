@@ -24,10 +24,15 @@ export const OrderForm: FC<IOrderFormProps> = ({
   setCheckFormOrdr,
 }) => {
   const [open, setOpen] = useState(false);
+  const [dates, setDates] = useState<{ start: Date; end: Date }>({
+    start: new Date(),
+    end: new Date(),
+  });
   useEffect(() => {
     const today = new Date();
     const weekLater = new Date();
     weekLater.setDate(today.getDate() + 7);
+    setDates({ start: today, end: weekLater });
     dispatch({
       type: 'SET_DATES',
       start: today,
@@ -60,6 +65,7 @@ export const OrderForm: FC<IOrderFormProps> = ({
         />
         {selected === Courier.key ? (
           <PickupDataField
+            dates={dates}
             setOpen={setOpen}
             open={open}
             dispatch={dispatch}

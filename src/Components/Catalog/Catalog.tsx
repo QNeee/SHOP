@@ -13,7 +13,11 @@ export const Catalog: FC<ICatalogProps> = ({ carouselRef, onClick }) => {
     <>
       <CatalogSection>
         <CatalogText>Каталог</CatalogText>
-        <GenericCarousel id={CatalogId} carouselRef={carouselRef} onClick={onClick}>
+        <GenericCarousel
+          id={CatalogId}
+          carouselRef={carouselRef}
+          onClick={onClick}
+        >
           <>
             {catalogPhotos.map((item) => (
               <CatalogCard key={item.id} item={item} />

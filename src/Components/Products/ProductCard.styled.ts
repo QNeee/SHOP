@@ -4,6 +4,14 @@ export const ImageContainer = styled.div`
   margin-bottom: auto;
   margin-top: 20px;
   position: relative;
+  img {
+    width: 144px;
+    height: 158px;
+    @media screen and (min-width: 768px) {
+      width: 169px;
+      height: 216px;
+    }
+  }
 `;
 export const DiscountContainer = styled.div`
   width: 65px;

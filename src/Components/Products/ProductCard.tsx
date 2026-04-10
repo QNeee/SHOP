@@ -18,7 +18,7 @@ import {
 } from './ProductCard.styled';
 import { Button } from '../Generic/GenericCarousel/GenericCarousel.styled';
 import { FavoriteIcon } from '../Generic/Icons/FavoriteIcon';
-import { discountCalculate } from '../../Helper';
+import { discountCalculate, valute } from '../../Helper';
 import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGeneticContainer';
 interface IProductCardProps {
   item: ProductItem;
@@ -35,7 +35,6 @@ export const ProductCard: FC<IProductCardProps> = ({
   onClick,
   baket,
 }) => {
-  const valute = '$';
   const availabletext = 'В навності';
   const noAvailabletext = 'Немає в наявності';
   const localStorageObj = {

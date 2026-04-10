@@ -16,6 +16,10 @@ interface IPickupDataField {
   ) => void;
   adress: DeliveryAdress;
   submit: boolean;
+  dates: {
+    start: Date;
+    end: Date;
+  };
 }
 export const PickupDataField: FC<IPickupDataField> = ({
   setOpen,
@@ -25,6 +29,7 @@ export const PickupDataField: FC<IPickupDataField> = ({
   onChangeInput,
   submit,
   adress,
+  dates,
 }) => {
   return (
     <PickUpDataContainer>
@@ -36,7 +41,7 @@ export const PickupDataField: FC<IPickupDataField> = ({
       />
       <div>
         <DeliveryTime setOpen={setOpen} open={open} dispatch={dispatch} />
-        <DeliveryDate dateStart={new Date()} dateEnd={new Date()} />
+        <DeliveryDate dateStart={dates.start} dateEnd={dates.end} />
       </div>
     </PickUpDataContainer>
   );

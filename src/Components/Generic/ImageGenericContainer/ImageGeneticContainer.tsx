@@ -13,10 +13,6 @@ export const ImageGenericContainer: FC<IImageGenericContainer> = ({
 }) => {
   const [color, setColor] = useState('black');
   const isMobileWidth = useIsmobileWidth();
-  const bounds = {
-    width: isMobileWidth ? 144 : 169,
-    height: isMobileWidth ? 158 : 216,
-  };
   const makePhotoColor = () => {
     const itemPhoto = itemPhotos[color];
     if (itemPhoto.length > 1) {
@@ -27,13 +23,7 @@ export const ImageGenericContainer: FC<IImageGenericContainer> = ({
   };
   return (
     <>
-      <img
-        width={bounds.width}
-        height={bounds.height}
-        src={makePhotoColor()}
-        loading="lazy"
-        alt={title}
-      />
+      <img src={makePhotoColor()} loading="lazy" alt={title} />
       <ChangeColorList setColor={setColor} itemPhotos={itemPhotos} />
     </>
   );

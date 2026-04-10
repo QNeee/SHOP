@@ -67,6 +67,7 @@ export const BasketCard: FC<IBasketCardProps> = ({
             <BasketIcon onClickDeleteOne={onClickDeleteOne} item={item} />
           </IconContainer>
           <Counter
+            max={item.inStockCount}
             itemId={item.id}
             itemType={item.type}
             setLocalStorageItems={setLocalStorageItems}
