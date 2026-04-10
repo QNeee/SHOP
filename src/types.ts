@@ -7,15 +7,19 @@ type SharesPhotoItem = {
   320: string | string[];
   1280: string | string[];
 };
+type Discount = {
+  percent: number;
+  expireAt: string;
+};
 export type ProductItem = {
-  type: string;
   id: string;
-  photos: SharesPhotoItem;
-  discount: number;
-  text: string;
+  images: Record<string, string[]>;
+  inStock: boolean;
+  smartId: string;
+  title: string;
+  discount: Discount;
   price: number;
-  valute: string;
-  available: boolean;
+  type: string;
   count?: number;
 };
 export type CarouselsRefs = {

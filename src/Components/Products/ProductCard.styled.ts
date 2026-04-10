@@ -20,25 +20,17 @@ export const DiscountContainer = styled.div`
 export const TextContainer = styled.div`
   width: 144px;
   height: 85px;
-  margin-bottom: auto;
   margin-top: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
-  p {
-    line-height: 1.2;
-    font-size: 14px;
-  }
 `;
 export const CostContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   @media screen and (min-width: 768px) {
-    justify-content: center;
+    justify-content: space-arround;
   }
   align-items: center;
-  width: 100%;
+  width: 144px;
+  height: 21px;
 `;
 export const ButtonsContainer = styled.div<{ $available: boolean }>`
   width: 100%;
@@ -47,6 +39,7 @@ export const ButtonsContainer = styled.div<{ $available: boolean }>`
   align-items: center;
   margin-bottom: auto;
   height: 32px;
+  width: 131px;
   margin-top: 16px;
   p {
     font-size: 12px;
@@ -58,13 +51,7 @@ export const ProductCardContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 164px;
-  height: 395px;
   border-radius: 8px;
-  @media screen and (min-width: 1280px) {
-    width: 217px;
-    height: 531px;
-  }
 `;
 export const FavoriteContainer = styled.div`
   width: 35px;

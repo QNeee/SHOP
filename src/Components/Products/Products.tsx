@@ -1,8 +1,16 @@
 import type { FC } from 'react';
-import { ProductTextContainer, ProductSection, ProductText } from './Products.styled';
+import {
+  ProductTextContainer,
+  ProductSection,
+  ProductText,
+} from './Products.styled';
 import { ProductCard } from './ProductCard';
 import { GenericCarousel } from '../Generic/GenericCarousel/GenericCarousel';
-import type { LocalSorageObject, LocalStorageItemShopCategory, ProductItem } from '../../types';
+import type {
+  LocalSorageObject,
+  LocalStorageItemShopCategory,
+  ProductItem,
+} from '../../types';
 import { useLocation } from 'react-router-dom';
 interface IProductsProps {
   onClick: (obj: LocalSorageObject) => void;
@@ -32,7 +40,11 @@ export const Products: FC<IProductsProps> = ({
         <ProductTextContainer>
           <ProductText>{headerTitle}</ProductText>
         </ProductTextContainer>
-        <GenericCarousel id={id} carouselRef={carouselRef} onClick={onClickCarousel}>
+        <GenericCarousel
+          id={id}
+          carouselRef={carouselRef}
+          onClick={onClickCarousel}
+        >
           <>
             {items.map((item) => (
               <ProductCard

@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchShares } from './sharesOperations';
+import type { ProductItem } from '../../types';
 export interface ISharesState {
   loading: boolean;
   error: unknown;
-  items: [];
+  items: ProductItem[];
 }
 const initialState: ISharesState = {
   items: [],

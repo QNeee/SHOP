@@ -1,16 +1,14 @@
-import { type FC } from 'react';
+import { useEffect, type FC } from 'react';
 import { Products } from '../Products/Products';
 import type {
   LocalSorageObject,
   LocalStorageItemShopCategory,
-  ProductItem,
 } from '../../types';
 import { SharesId } from '../../Helper';
-import { sharesPhoto } from '../../assets/Shares/Shares';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getSharesItems } from '../../Redux/shares/sharesSelectors';
-// import { fetchShares } from '../../Redux/shares/sharesOperations';
-// import type { AppDispatch } from '../../Redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSharesItems } from '../../Redux/shares/sharesSelectors';
+import { fetchShares } from '../../Redux/shares/sharesOperations';
+import type { AppDispatch } from '../../Redux/store';
 interface IShared {
   baket: LocalStorageItemShopCategory;
   favorite: LocalStorageItemShopCategory;
@@ -25,14 +23,12 @@ export const Shares: FC<IShared> = ({
   onClickCarouselButton,
   onClick,
 }) => {
-  // const dispatch: AppDispatch = useDispatch();
-  // const newItems = useSelector(getSharesItems);
-  // console.log(newItems);
-  const items: ProductItem[] = sharesPhoto;
+  const dispatch: AppDispatch = useDispatch();
+  const items = useSelector(getSharesItems);
   const headerTitle = 'Акції';
-  // useEffect(() => {
-  //   dispatch(fetchShares());
-  // }, []);
+  useEffect(() => {
+    dispatch(fetchShares());
+  }, []);
   return (
     <Products
       baket={baket}

@@ -1,4 +1,4 @@
-import { useRef, useState, type FC } from 'react';
+import { type FC } from 'react';
 import type { DeletedItemFromBaket, ProductItem } from '../../types';
 import {
   BaskerCardContainer,
@@ -9,12 +9,12 @@ import {
   InfoPriceContainer,
   PriceContainer,
 } from './BasketCard.styled';
-import { ChangeColorList } from '../Generic/ChangeColorList/ChangeColorList';
 import { InputCheckbox } from './Basket.styled';
 import { OldPrice, Price } from '../Products/ProductCard.styled';
 import { discountCalculate } from '../../Helper';
 import { BasketIcon } from '../Generic/Icons/BasketIcon';
 import { Counter } from './Counter';
+import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGeneticContainer';
 
 interface IBasketCardProps {
   item: ProductItem;
@@ -31,8 +31,6 @@ export const BasketCard: FC<IBasketCardProps> = ({
   onClickDeleteOne,
   setLocalStorageItems,
 }) => {
-  const [pointer, setPointer] = useState(0);
-  const listRef = useRef<HTMLUListElement>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(item.id, e.target.checked);
   };
@@ -40,22 +38,27 @@ export const BasketCard: FC<IBasketCardProps> = ({
   return (
     <BaskerCardContainer>
       <ImageContainer>
-        <img src={item.photos[320][pointer]} loading="lazy" alt={item.type} />
-        <ChangeColorList listRef={listRef} pointer={pointer} setPointer={setPointer} id={'list'} />
+        <ImageGenericContainer title={item.title} itemPhotos={item.images} />
       </ImageContainer>
       <InfoContainer>
         <InputCheckbox
-          style={{ position: 'absolute', top: 0, right: 0, marginRight: '20px', marginTop: '20px' }}
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            marginRight: '20px',
+            marginTop: '20px',
+          }}
           checked={checked}
           onChange={handleChange}
           type="checkbox"
         />
         <InfoPriceContainer>
-          <p>{item.text}</p>
+          <p>{item.title}</p>
           <PriceContainer>
-            <Price>{item.price + item.valute}</Price>
+            <Price>{item.price + '$'}</Price>
             <OldPrice style={{ marginTop: '5px', marginLeft: '8px' }}>
-              {discountCalculate(item.price, item.discount) + item.valute}
+              {discountCalculate(item.price, item.discount.percent) + '$'}
             </OldPrice>
           </PriceContainer>
         </InfoPriceContainer>

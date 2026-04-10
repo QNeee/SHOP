@@ -1,12 +1,14 @@
-import type { FC } from 'react';
+import { useEffect, type FC } from 'react';
 import type {
   LocalSorageObject,
   LocalStorageItemShopCategory,
-  ProductItem,
 } from '../../types';
-import { sharesPhoto } from '../../assets/Shares/Shares';
 import { Products } from '../Products/Products';
 import { CanLikeId } from '../../Helper';
+import { fetchShares } from '../../Redux/shares/sharesOperations';
+import type { AppDispatch } from '../../Redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSharesItems } from '../../Redux/shares/sharesSelectors';
 
 interface IWatched {
   baket: LocalStorageItemShopCategory;
@@ -22,7 +24,11 @@ export const Watched: FC<IWatched> = ({
   onClick,
   onClickCarouselButton,
 }) => {
-  const items: ProductItem[] = sharesPhoto;
+  const dispatch: AppDispatch = useDispatch();
+  const items = useSelector(getSharesItems);
+  useEffect(() => {
+    dispatch(fetchShares());
+  }, []);
   const headerTitle = 'Може сподобатись';
   return (
     <Products

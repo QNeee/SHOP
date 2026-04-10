@@ -1,4 +1,4 @@
-import { useRef, useState, type FC } from 'react';
+import { type FC } from 'react';
 import type {
   LocalSorageObject,
   LocalStorageItemShop,
@@ -18,8 +18,8 @@ import {
 } from './ProductCard.styled';
 import { Button } from '../Generic/GenericCarousel/GenericCarousel.styled';
 import { FavoriteIcon } from '../Generic/Icons/FavoriteIcon';
-import { discountCalculate, isDesktop, isMobile, useIsmobileWidth } from '../../Helper';
-import { ChangeColorList } from '../Generic/ChangeColorList/ChangeColorList';
+import { discountCalculate } from '../../Helper';
+import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGeneticContainer';
 interface IProductCardProps {
   item: ProductItem;
   onClick: (obj: LocalSorageObject) => void;
@@ -28,34 +28,37 @@ interface IProductCardProps {
   baket: LocalStorageItemShopCategory;
 }
 
-export const ProductCard: FC<IProductCardProps> = ({ item, favorite, id, onClick, baket }) => {
-  const isMobileWidth = useIsmobileWidth();
-  const itemPhotos = isMobileWidth ? item.photos[isMobile] : item.photos[isDesktop];
-  const [pointer, setPointer] = useState(0);
+export const ProductCard: FC<IProductCardProps> = ({
+  item,
+  favorite,
+  id,
+  onClick,
+  baket,
+}) => {
+  const valute = '$';
   const availabletext = 'В навності';
   const noAvailabletext = 'Немає в наявності';
-  const listRef = useRef<HTMLUListElement>(null);
   const localStorageObj = {
     id: item.id,
     elemId: id as keyof LocalStorageItemShop,
   };
-
   return (
     <ProductCardContainer id={item.id}>
       <ImageContainer>
-        <img src={itemPhotos[pointer]} loading="lazy" alt={item.text} />
-        <ChangeColorList listRef={listRef} setPointer={setPointer} pointer={pointer} id={'list'} />
-        <DiscountContainer>{item.discount + '%'}</DiscountContainer>
+        <ImageGenericContainer title={item.title} itemPhotos={item.images} />
+        <DiscountContainer>{item.discount.percent + '%'}</DiscountContainer>
       </ImageContainer>
       <TextContainer>
-        <p>{item.text}</p>
+        <p style={{ textAlign: 'center' }}>{item.title}</p>
         <CostContainer>
-          <Price>{item.price + item.valute}</Price>
-          <OldPrice>{discountCalculate(item.price, item.discount) + item.valute}</OldPrice>
+          <Price>{item.price + valute}</Price>
+          <OldPrice>
+            {discountCalculate(item.price, item.discount.percent) + valute}
+          </OldPrice>
         </CostContainer>
       </TextContainer>
-      <ButtonsContainer $available={item.available}>
-        <p>{item.available ? availabletext : noAvailabletext}</p>
+      <ButtonsContainer $available={item.inStock}>
+        <p>{item.inStock ? availabletext : noAvailabletext}</p>
         <FavoriteContainer
           onClick={() =>
             onClick({
@@ -67,11 +70,16 @@ export const ProductCard: FC<IProductCardProps> = ({ item, favorite, id, onClick
           id={item.id}
         >
           <FavoriteIcon
-            flag={favorite[item.type as keyof LocalStorageItemShopCategory][item.id] || 0}
+            flag={
+              favorite[item.type as keyof LocalStorageItemShopCategory][
+                item.id
+              ] || 0
+            }
           />
         </FavoriteContainer>
       </ButtonsContainer>
       <Button
+        style={{ marginTop: '20px' }}
         type="button"
         onClick={() =>
           onClick({

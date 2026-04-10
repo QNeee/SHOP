@@ -11,7 +11,12 @@ import {
 } from './Basket.styled';
 import { BasketIcon } from '../Generic/Icons/BasketIcon';
 import { type FC } from 'react';
-import type { CheckedItem, DeletedItemFromBaket, Ordered, ProductItem } from '../../types';
+import type {
+  CheckedItem,
+  DeletedItemFromBaket,
+  Ordered,
+  ProductItem,
+} from '../../types';
 import { BasketCard } from './BasketCard';
 import { BasketEmpty } from './BaskerEmpty';
 interface IBasketProps {
@@ -20,7 +25,9 @@ interface IBasketProps {
   onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
   setLocalStorageItems: Function;
   checkedItems: Record<string, boolean>;
-  setCheckedItems: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
+  setCheckedItems: React.Dispatch<
+    React.SetStateAction<Record<string, boolean>>
+  >;
   setOrdered: React.Dispatch<React.SetStateAction<Ordered>>;
 }
 export const Basket: FC<IBasketProps> = ({
@@ -35,7 +42,8 @@ export const Basket: FC<IBasketProps> = ({
   const navigate = useNavigate();
 
   const checkedAll =
-    Object.keys(checkedItems).length > 0 && Object.values(checkedItems).every(Boolean);
+    Object.keys(checkedItems).length > 0 &&
+    Object.values(checkedItems).every(Boolean);
 
   const toggleAll = (value: boolean) => {
     const newState: Record<string, boolean> = {};

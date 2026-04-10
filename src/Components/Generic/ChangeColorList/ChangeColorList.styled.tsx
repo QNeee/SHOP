@@ -2,21 +2,25 @@ import styled from 'styled-components';
 
 export const ChangeList = styled.ul`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  width: 80px;
+  width: 100%;
   list-style: none;
   padding: 0;
   margin: 0;
   margin-left: auto;
   margin-right: auto;
   margin-top: 12px;
-  li {
-    width: 20px;
-    height: 20px;
-    border: 1px solid black;
-    background-color: white;
-    border-radius: 50%;
-    cursor: pointer;
-  }
+`;
+export const ChangeListItem = styled.li<{
+  $active: boolean;
+  $backColor: string;
+}>`
+  width: 15px;
+  height: 15px;
+  border: ${(props) => (props.$active ? '2px solid black' : '1px solid white')};
+  background-color: ${({ $active, $backColor }) =>
+    $active ? $backColor : 'white'};
+  border-radius: 50%;
+  cursor: pointer;
 `;

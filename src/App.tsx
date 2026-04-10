@@ -33,9 +33,10 @@ import type {
 import React from 'react';
 import { BasketLayout } from './Components/Layouts/BasketLayout';
 import { BasketPage } from './pages/BasketPage';
-import { sharesPhoto } from './assets/Shares/Shares';
 import { OrderPage } from './pages/OrderPage';
 import { formReducer } from './Components/Order/formReducer';
+import { useSelector } from 'react-redux';
+import { getSharesItems } from './Redux/shares/sharesSelectors';
 
 function App() {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ function App() {
   const [checkFormOrder, setCheckFormOrdr] = useState<CheckFormOrder>(
     initialCheckFormOrder,
   );
+  const sharesData = useSelector(getSharesItems);
   const valute = '₴';
   const [ordered, setOrdered] = useState<Ordered>(initialOrdered);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
@@ -68,13 +70,10 @@ function App() {
     const data = Object.keys(localStorageItems[baket]).flatMap((k) => {
       const itemKey =
         localStorageItems[baket][k as keyof LocalStorageItemShopCategory];
-
-      return sharesPhoto
+      const filtered = sharesData
         .filter((item) => item.id in itemKey)
-        .map((item) => ({
-          ...item,
-          count: itemKey[item.id],
-        }));
+        .map((item) => ({ ...item, count: itemKey[item.id] }));
+      return filtered;
     });
     setRenderItemsBaket(data);
     const initialChecked: Record<string, boolean> = {};
@@ -85,7 +84,7 @@ function App() {
     if (data.length === 0) {
       setCheckedItems({});
     }
-  }, [localStorageItems[baket as keyof LocalStorageItemShop]]);
+  }, [localStorageItems, baket, sharesData]);
   useEffect(() => {
     const totalPrice = renderItemsBaket.reduce((acc, item) => {
       const count = item.count ?? 1;
@@ -93,7 +92,10 @@ function App() {
     }, 0);
     const totalPriceWithDiscount = renderItemsBaket.reduce((acc, item) => {
       const count = item.count ?? 1;
-      return acc + Number(discountCalculate(item.price, item.discount)) * count;
+      return (
+        acc +
+        Number(discountCalculate(item.price, item.discount.percent)) * count
+      );
     }, 0);
     const totalObj = {
       total: totalPrice,
