@@ -10,6 +10,8 @@ import type {
 import { AdBanner } from '../Components/AdBanner/AdBanner';
 import { Catalog } from '../Components/Catalog/Catalog';
 import { Shares } from '../Components/Shares/Shares';
+import { useSelector } from 'react-redux';
+import { getSharesItems } from '../Redux/shares/sharesSelectors';
 
 interface IMainPageProps {
   favorite: LocalStorageItemShopCategory;
@@ -25,6 +27,7 @@ export const MainPage: FC<IMainPageProps> = ({
   carouselsRefs,
   onClickCarouselButton,
 }) => {
+  const sharesItems = useSelector(getSharesItems);
   return (
     <>
       <AdBanner
@@ -36,6 +39,7 @@ export const MainPage: FC<IMainPageProps> = ({
         onClick={onClickCarouselButton}
       />
       <Shares
+        items={sharesItems}
         baket={baket}
         favorite={favorite}
         sharesRef={carouselsRefs[SharesId]}
