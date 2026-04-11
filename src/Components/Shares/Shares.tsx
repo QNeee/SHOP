@@ -7,10 +7,7 @@ import type {
 } from '../../types';
 import { SharesId } from '../../Helper';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getSharesItems,
-  getSharesLodaing,
-} from '../../Redux/shares/sharesSelectors';
+import { getSharesLodaing } from '../../Redux/shares/sharesSelectors';
 import { fetchShares } from '../../Redux/shares/sharesOperations';
 import type { AppDispatch } from '../../Redux/store';
 import { Loader } from '../Generic/Loader/Loader';
