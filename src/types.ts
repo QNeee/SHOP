@@ -8,19 +8,18 @@ type SharesPhotoItem = {
   1280: string | string[];
 };
 type Discount = {
-  percent: number;
+  percentage: number;
   expireAt: string;
 };
 export type ProductItem = {
   id: string;
-  images: Record<string, string[]>;
-  inStock: boolean;
-  smartId: string;
+  productId: string;
   title: string;
-  discount: Discount;
-  price: number;
   type: string;
+  discount: Discount;
   inStockCount: number;
+  price: number;
+  images: Record<string, string[]>;
   count?: number;
 };
 export type CarouselsRefs = {

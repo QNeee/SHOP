@@ -94,7 +94,7 @@ function App() {
       const count = item.count ?? 1;
       return (
         acc +
-        Number(discountCalculate(item.price, item.discount.percent)) * count
+        Number(discountCalculate(item.price, item.discount.percentage)) * count
       );
     }, 0);
     const totalObj = {

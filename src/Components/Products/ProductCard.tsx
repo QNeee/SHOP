@@ -45,19 +45,19 @@ export const ProductCard: FC<IProductCardProps> = ({
     <ProductCardContainer id={item.id}>
       <ImageContainer>
         <ImageGenericContainer title={item.title} itemPhotos={item.images} />
-        <DiscountContainer>{item.discount.percent + '%'}</DiscountContainer>
+        <DiscountContainer>{item.discount.percentage + '%'}</DiscountContainer>
       </ImageContainer>
       <TextContainer>
         <p style={{ textAlign: 'center' }}>{item.title}</p>
         <CostContainer>
           <Price>{item.price + valute}</Price>
           <OldPrice>
-            {discountCalculate(item.price, item.discount.percent) + valute}
+            {discountCalculate(item.price, item.discount.percentage) + valute}
           </OldPrice>
         </CostContainer>
       </TextContainer>
-      <ButtonsContainer $available={item.inStock}>
-        <p>{item.inStock ? availabletext : noAvailabletext}</p>
+      <ButtonsContainer $available={item.inStockCount > 0}>
+        <p>{item.inStockCount > 0 ? availabletext : noAvailabletext}</p>
         <FavoriteContainer
           onClick={() =>
             onClick({

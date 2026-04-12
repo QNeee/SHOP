@@ -58,7 +58,7 @@ export const BasketCard: FC<IBasketCardProps> = ({
           <PriceContainer>
             <Price>{item.price + '$'}</Price>
             <OldPrice style={{ marginTop: '5px', marginLeft: '8px' }}>
-              {discountCalculate(item.price, item.discount.percent) + '$'}
+              {discountCalculate(item.price, item.discount.percentage) + '$'}
             </OldPrice>
           </PriceContainer>
         </InfoPriceContainer>
