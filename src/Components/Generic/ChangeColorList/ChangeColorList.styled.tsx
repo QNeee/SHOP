@@ -16,11 +16,10 @@ export const ChangeListItem = styled.li<{
   $active: boolean;
   $backColor: string;
 }>`
-  width: 15px;
-  height: 15px;
-  border: ${(props) => (props.$active ? '2px solid black' : '1px solid white')};
-  background-color: ${({ $active, $backColor }) =>
-    $active ? $backColor : 'white'};
+  width: 20px;
+  height: 20px;
+  border: ${({ $active }) => ($active ? '2px solid red' : '1px solid white')};
+  background-color: ${({ $backColor }) => $backColor};
   border-radius: 50%;
   cursor: pointer;
 `;
