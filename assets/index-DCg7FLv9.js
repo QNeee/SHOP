@@ -315,10 +315,10 @@ Please change the parent <Route path="${E}"> to <Route path="${E==="/"?"*":`${E}
   margin-right: auto;
   margin-top: 12px;
 `,lC=H.li`
-  width: 15px;
-  height: 15px;
-  border: ${a=>a.$active?"2px solid black":"1px solid white"};
-  background-color: ${({$active:a,$backColor:n})=>a?n:"white"};
+  width: 20px;
+  height: 20px;
+  border: ${({$active:a})=>a?"2px solid red":"1px solid white"};
+  background-color: ${({$backColor:a})=>a};
   border-radius: 50%;
   cursor: pointer;
 `,uC=({itemPhotos:a,setColor:n})=>{const[r,l]=T.useState("0"),s=(c,d)=>{l(c.currentTarget.id),n(d)};return y.jsx(rC,{children:Object.keys(a).map((c,d)=>y.jsx(lC,{onClick:h=>s(h,c),$backColor:c,$active:r===d.toString(),id:d.toString()},d))})},ev=({title:a,itemPhotos:n})=>{const[r,l]=T.useState("black"),s=ja(),c=()=>n[r].length>1?s?n[r][0]:n[r][1]:n[r][0];return y.jsxs(y.Fragment,{children:[y.jsx("img",{src:c(),loading:"lazy",alt:a}),y.jsx(uC,{setColor:l,itemPhotos:n})]})},sC=({item:a,favorite:n,id:r,onClick:l,baket:s})=>{const c="В навності",d="Немає в наявності",h={id:a.id,elemId:r};return y.jsxs(W_,{id:a.id,children:[y.jsxs(Q_,{children:[y.jsx(ev,{title:a.title,itemPhotos:a.images}),y.jsx(K_,{children:a.discount.percentage+"%"})]}),y.jsxs(J_,{children:[y.jsx("p",{style:{textAlign:"center"},children:a.title}),y.jsxs($_,{children:[y.jsx(P1,{children:a.price+ad}),y.jsx(W1,{children:Nd(a.price,a.discount.percentage)+ad})]})]}),y.jsxs(P_,{$available:a.inStockCount>0,children:[y.jsx("p",{children:a.inStockCount>0?c:d}),y.jsx(eC,{onClick:()=>l({...h,type:"favorites",itemType:a.type}),id:a.id,children:y.jsx(iC,{flag:n[a.type][a.id]||0})})]}),y.jsx(aC,{style:{marginTop:"20px"},type:"button",onClick:()=>l({...h,type:"baket",itemType:a.type}),children:s[a.type][a.id]?"Видалити з кошику":"В кошик"})]})},Qg=({direction:a="prev",onClick:n,hidden:r,pathname:l=""})=>{const[s,c]=T.useState(!1),h=l===mt.base+"/"?"0":a==="prev"?"-80px":"80px";return y.jsxs("svg",{width:"60",height:"60",viewBox:"0 0 52 52",fill:"none",xmlns:"http://www.w3.org/2000/svg",style:{transform:a==="next"?"rotate(180deg)":"none",opacity:r?0:1,transition:"all 0.2s ease",pointerEvents:r?"none":"auto",cursor:"pointer",transformOrigin:"center",scale:s?1.1:1,position:"relative",left:h},onClick:n,onMouseEnter:()=>c(!0),onMouseLeave:()=>c(!1),id:a,children:[y.jsx("rect",{x:"-1",y:"1",width:"50",height:"50",rx:"25",transform:"matrix(-1 0 0 1 50 0)",stroke:s?"#000":"black",fill:s?"#333":"black",strokeWidth:"2",style:{transition:"all 0.2s ease"}}),y.jsx("path",{d:"M32 16L20.9418 24.7544C20.4519 25.1423 20.4337 25.8795 20.904 26.291L32 36",stroke:s?"#fff":"red",strokeWidth:"2",strokeLinecap:"round",style:{transition:"all 0.2s ease"}})]})},oC=H.div`
