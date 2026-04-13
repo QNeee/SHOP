@@ -29,9 +29,11 @@ export const MainLayout: FC<IMainLayoutProps> = ({
   const base = Paths.base + '/';
   return (
     <>
-      {pathname === base ? <Header items={baket} /> : null}
+      {pathname === base || pathname.includes(Paths.catalog) ? (
+        <Header items={baket} />
+      ) : null}
       <Main />
-      {pathname !== base && !ordered ? (
+      {pathname !== base && !ordered && !pathname.includes(Paths.catalog) ? (
         <Watched
           baket={baket}
           favorite={favorite}

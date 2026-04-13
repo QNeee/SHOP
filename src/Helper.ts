@@ -54,6 +54,7 @@ export const localStorageItemsKeys = {
   orderForm: 'orderForm',
   cards: 'cards',
   card: 'card',
+  catalogPath: 'catalogPath',
 };
 export const initialTotalObj = {
   total: 0,

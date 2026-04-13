@@ -38,6 +38,7 @@ import { OrderPage } from './pages/OrderPage';
 import { formReducer } from './Components/Order/formReducer';
 import { useSelector } from 'react-redux';
 import { getSharesItems } from './Redux/shares/sharesSelectors';
+import { CatalogItemPage } from './pages/CatalogItemPage';
 
 function App() {
   const navigate = useNavigate();
@@ -268,7 +269,6 @@ function App() {
               />
             }
           />
-
           <Route
             path={Paths.basket}
             element={
@@ -309,6 +309,7 @@ function App() {
             />
           </Route>
           <Route path={Paths.profile} element={<ProfilePage />} />
+          <Route path={Paths.catalog + '/:id'} element={<CatalogItemPage />} />
           <Route path={Paths.catalog} element={<CatalogPage />} />
         </Route>
       </Routes>

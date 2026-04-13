@@ -1,6 +1,6 @@
 export const catalogPhotos = [
   {
-    id: 'smart',
+    id: 'smarts',
     item: {
       320: 'https://i.postimg.cc/85cj5zb3/smart320.png',
       1280: 'https://i.postimg.cc/nLdsKDRW/smart1280.png',
@@ -8,7 +8,7 @@ export const catalogPhotos = [
     text: 'Смартфони',
   },
   {
-    id: 'laptop',
+    id: 'laptops',
     item: {
       320: 'https://i.postimg.cc/x1jk75zj/note320-(1).png',
       1280: 'https://i.ibb.co/Qv7yC9zk/note1280.png',
@@ -16,7 +16,7 @@ export const catalogPhotos = [
     text: 'Ноутбуки',
   },
   {
-    id: 'tv',
+    id: 'tvs',
     item: {
       320: 'https://i.postimg.cc/VLhQQLSW-/tv320-(1).png',
       1280: 'https://i.ibb.co/ynpCTCZp/Tv1280.png',
@@ -32,7 +32,7 @@ export const catalogPhotos = [
     text: 'Планшети',
   },
   {
-    id: 'sound',
+    id: 'sounds',
     item: {
       320: 'https://i.postimg.cc/LXGCQhQ9/sound320-(1).png',
       1280: 'https://i.postimg.cc/W3v2kbT2/sound1280.png',
@@ -40,7 +40,7 @@ export const catalogPhotos = [
     text: 'Колонки',
   },
   {
-    id: 'headsets',
+    id: 'headphones',
     item: {
       320: 'https://i.postimg.cc/jjm4tmHm/istockphoto-860853774-1024x1024-removebg-preview-(1)-(1).png',
       1280: 'https://i.postimg.cc/mZdt0CTs/istockphoto-860853774-1024x1024-removebg-preview-(1).png',
@@ -56,7 +56,7 @@ export const catalogPhotos = [
     text: 'Мікрофони',
   },
   {
-    id: 'pilososes',
+    id: 'cleaners',
     item: {
       320: 'https://i.postimg.cc/FRBZQ4yd/pilesos320.png',
       1280: 'https://i.postimg.cc/hvm3yjkr/pilesos1280.png',

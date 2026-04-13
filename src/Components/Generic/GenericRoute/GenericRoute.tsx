@@ -1,4 +1,4 @@
-import { type FC, type ReactElement } from 'react';
+import { useState, type FC, type ReactElement } from 'react';
 import {
   BackContainer,
   GenericRouteContainer,
@@ -7,6 +7,7 @@ import {
 import { ButtonBack } from './ButtonBack';
 import { PathText } from './PathText';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { localStorageItemsKeys, Paths } from '../../../Helper';
 
 interface IGenericRoute {
   path: string;
@@ -26,12 +27,20 @@ export const GenericRoute: FC<IGenericRoute> = ({ path, title, children }) => {
     });
     navigate(backPath);
   };
-
+  const getCatalogPath = () => {
+    const pathArr = path.split('/');
+    const localPath = localStorage.getItem(localStorageItemsKeys.catalogPath);
+    const isPathRefreshed = pathArr[pathArr.length - 1] === ' ';
+    if (isPathRefreshed) return path + localPath;
+    else return path;
+  };
   return (
     <GenericRouteContainer>
       <GenericRouterWrapper>
         <div>
-          <PathText text={path} />
+          <PathText
+            text={pathname.includes(Paths.catalog) ? getCatalogPath() : path}
+          />
         </div>
         <BackContainer>
           <ButtonBack onClick={onClick} />
