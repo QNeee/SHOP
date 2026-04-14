@@ -72,8 +72,8 @@ export const Basket: FC<IBasketProps> = ({
                   items
                     .filter((item) => checkedItems[item.id])
                     .map((item) => ({
-                      smart: item.type === 'smart' ? item.id : undefined,
-                      tv: item.type === 'tv' ? item.id : undefined,
+                      smarts: item.type === 'smarts' ? item.id : undefined,
+                      tvs: item.type === 'tvs' ? item.id : undefined,
                     })),
                 )
               }
