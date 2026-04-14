@@ -298,3 +298,13 @@ export const initialModalToDelete = {
   cardNumber: '',
 };
 export const valute = '$';
+export const initialLocalStorageItems = {
+  favorites: {
+    smarts: {},
+    tvs: {},
+  },
+  baket: {
+    smarts: {},
+    tvs: {},
+  },
+};

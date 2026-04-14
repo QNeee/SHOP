@@ -10,6 +10,7 @@ import {
   formatDateString,
   initialCheckFormOrder,
   initialFormData,
+  initialLocalStorageItems,
   initialOrdered,
   initialTotalObj,
   localStorageItemsKeys,
@@ -56,16 +57,7 @@ function App() {
   const [localStorageItems, setLocalStorageItems] =
     useState<LocalStorageItemShop>(() => {
       const data = localStorage.getItem(shopItems);
-      return data
-        ? JSON.parse(data)
-        : {
-            favorites: {
-              smart: {},
-            },
-            baket: {
-              smart: {},
-            },
-          };
+      return data ? JSON.parse(data) : initialLocalStorageItems;
     });
   useEffect(() => {
     const data = Object.keys(localStorageItems[baket]).flatMap((k) => {
@@ -203,7 +195,7 @@ function App() {
     setSubmit(false);
     setCheckFormOrdr(initialCheckFormOrder);
     const arrayToDelete = renderItemsBaket.map((item) => {
-      const obj: CheckedItem = { smart: undefined, tv: undefined };
+      const obj: CheckedItem = { smarts: undefined, tvs: undefined };
       obj[item.type as keyof CheckedItem] = item.id;
       return obj;
     });

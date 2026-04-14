@@ -39,12 +39,12 @@ export type LocalStorageItemShop = {
   baket: LocalStorageItemShopCategory;
 };
 export type LocalStorageItemShopCategory = {
-  smart: Record<string, number>;
-  tv: Record<string, number>;
+  smarts: Record<string, number>;
+  tvs: Record<string, number>;
 };
 export type CheckedItem = {
-  smart: string | undefined;
-  tv: string | undefined;
+  smarts: string | undefined;
+  tvs: string | undefined;
 };
 export type DeletedItemFromBaket = {
   type: keyof CheckedItem;

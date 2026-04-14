@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { GenericRoute } from '../Components/Generic/GenericRoute/GenericRoute';
 import { catalogPhotos } from '../assets/Catalog/Catalog';
 import { CatalogCard } from '../Components/Catalog/CatalogCard';
