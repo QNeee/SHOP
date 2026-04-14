@@ -8,11 +8,6 @@ export const WatchedId = 'Watched';
 export const CanLikeId = 'CanLike';
 export const isMobile = 320;
 export const isDesktop = 1280;
-export const main = 'Головна';
-export const basket = 'Корзина';
-export const profile = 'Профіль';
-export const catalog = 'Каталог';
-export const order = 'Оформлення товару';
 export const Paths = {
   base: '/SHOP',
   basket: '/SHOP/basket',
@@ -54,7 +49,6 @@ export const localStorageItemsKeys = {
   orderForm: 'orderForm',
   cards: 'cards',
   card: 'card',
-  catalogPath: 'catalogPath',
 };
 export const initialTotalObj = {
   total: 0,
@@ -62,8 +56,22 @@ export const initialTotalObj = {
   valute: '',
 };
 
-const basketPath = `${main} / ${basket}`;
-export const initialGenericRouteOptions = { path: basketPath, title: basket };
+export const ItemsPaths = {
+  catalog: 'Каталог',
+  basket: 'Корзина',
+  profile: 'Профіль',
+  order: 'Оформлення товару',
+  SHOP: 'Головна',
+  smarts: 'Смартфони',
+  laptops: 'Ноутбуки',
+  tvs: 'Телевізори',
+  tablets: 'Планшети',
+  sounds: 'Колонки',
+  headphones: 'Навушники',
+  micros: 'Мікрофони',
+  cleaners: 'Пилососи',
+  charges: 'Зарядки',
+};
 export const OrderSelectTitle = {
   courier: 'Виберіть Курьера',
   pickup: 'Виберіть відділення',

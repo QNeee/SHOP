@@ -309,7 +309,16 @@ function App() {
             />
           </Route>
           <Route path={Paths.profile} element={<ProfilePage />} />
-          <Route path={Paths.catalog + '/:id'} element={<CatalogItemPage />} />
+          <Route path={Paths.catalog + '/:id'} element={<CatalogItemPage />}>
+            <Route
+              path={Paths.catalog + '/:id' + '/:id'}
+              element={
+                <div>
+                  <h3>alo</h3>
+                </div>
+              }
+            />
+          </Route>
           <Route path={Paths.catalog} element={<CatalogPage />} />
         </Route>
       </Routes>

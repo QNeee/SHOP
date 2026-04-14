@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { basket, main, order, orderedMesages, Paths } from '../../Helper';
+import { orderedMesages, Paths } from '../../Helper';
 import { GenericRoute } from '../Generic/GenericRoute/GenericRoute';
 import type { Ordered, TotalObj } from '../../types';
 import { type FC } from 'react';
@@ -25,15 +25,11 @@ export const BasketLayout: FC<IBasketLayout> = ({
   setOrdered,
 }) => {
   const { pathname } = useLocation();
-  const basketPath = `${main} / ${basket}`;
-  const orderPath = `${main} / ${basket} / ${order}`;
   const isBasket = pathname.replace(/\/$/, '') === Paths.basket;
-  const path = isBasket ? basketPath : orderPath;
-  const title = isBasket ? basket : order;
   return (
     <>
       {!ordered.accepted ? (
-        <GenericRoute path={path} title={title}>
+        <GenericRoute>
           <>
             <Outlet />
             {basketLength ? <Total total={total}></Total> : null}

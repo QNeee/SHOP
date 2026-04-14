@@ -1,4 +1,3 @@
 import type { RootState } from '../store';
 
-export const getCatalogItemPath = (state: RootState) =>
-  state.app.catalogItemPath;
+export const getAppToken = (state: RootState) => state.app.token;

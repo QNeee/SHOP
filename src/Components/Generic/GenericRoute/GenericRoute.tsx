@@ -1,4 +1,4 @@
-import { type FC, type ReactElement } from 'react';
+import { useEffect, useState, type FC, type ReactElement } from 'react';
 import {
   BackContainer,
   GenericRouteContainer,
@@ -7,16 +7,27 @@ import {
 import { ButtonBack } from './ButtonBack';
 import { PathText } from './PathText';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { localStorageItemsKeys, Paths } from '../../../Helper';
+import { ItemsPaths } from '../../../Helper';
 
 interface IGenericRoute {
-  path: string;
-  title: string;
   children: ReactElement;
 }
-export const GenericRoute: FC<IGenericRoute> = ({ path, title, children }) => {
+export const GenericRoute: FC<IGenericRoute> = ({ children }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [newPath, setNewPath] = useState('');
+  useEffect(() => {
+    const pathsArr = pathname.split('/').filter(Boolean);
+    for (let i = 0; i < pathsArr.length; i++) {
+      const pathItem = ItemsPaths[pathsArr[i] as keyof typeof ItemsPaths];
+      pathsArr[i] = pathItem;
+    }
+    setNewPath(pathsArr.join(' / '));
+  }, [pathname]);
+  const MakeTitle = () => {
+    const pathsArr = pathname.split('/').filter(Boolean);
+    return ItemsPaths[pathsArr[pathsArr.length - 1] as keyof typeof ItemsPaths];
+  };
   const onClick = () => {
     const pages = pathname.split('/');
     const needPages = [...pages].filter(Boolean);
@@ -27,24 +38,15 @@ export const GenericRoute: FC<IGenericRoute> = ({ path, title, children }) => {
     });
     navigate(backPath);
   };
-  const getCatalogPath = () => {
-    const pathArr = path.split('/');
-    const localPath = localStorage.getItem(localStorageItemsKeys.catalogPath);
-    const isPathRefreshed = pathArr[pathArr.length - 1] === ' ';
-    if (isPathRefreshed) return path + localPath;
-    else return path;
-  };
   return (
     <GenericRouteContainer>
       <GenericRouterWrapper>
         <div>
-          <PathText
-            text={pathname.includes(Paths.catalog) ? getCatalogPath() : path}
-          />
+          <PathText text={newPath} />
         </div>
         <BackContainer>
           <ButtonBack onClick={onClick} />
-          <p>{title}</p>
+          <p>{MakeTitle()}</p>
         </BackContainer>
       </GenericRouterWrapper>
       {children}
