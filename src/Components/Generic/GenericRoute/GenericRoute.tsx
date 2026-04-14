@@ -1,4 +1,4 @@
-import { useState, type FC, type ReactElement } from 'react';
+import { type FC, type ReactElement } from 'react';
 import {
   BackContainer,
   GenericRouteContainer,

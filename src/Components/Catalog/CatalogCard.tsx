@@ -2,19 +2,16 @@ import type { FC } from 'react';
 import type { PhotoItem } from '../../types';
 import { CatalogCardWrapper, ImageContainer } from './CatalogCard.styled';
 import {
-  catalog,
   isDesktop,
   isMobile,
   localStorageItemsKeys,
-  main,
   Paths,
   useIsmobileWidth,
 } from '../../Helper';
 import { useNavigate } from 'react-router-dom';
 import type { AppDispatch } from '../../Redux/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setCatalogItemPath } from '../../Redux/app/appSlice';
-import { getCatalogItemPath } from '../../Redux/app/appSelectors';
 interface ICatalogCardProps {
   item: PhotoItem;
 }
