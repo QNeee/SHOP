@@ -10,11 +10,11 @@ import {
   PriceContainer,
 } from './BasketCard.styled';
 import { InputCheckbox } from './Basket.styled';
-import { OldPrice, Price } from '../Products/ProductCard.styled';
 import { discountCalculate } from '../../Helper';
 import { BasketIcon } from '../Generic/Icons/BasketIcon';
 import { Counter } from './Counter';
 import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGeneticContainer';
+import { OldPrice, Price } from '../Products/Cost.styled';
 
 interface IBasketCardProps {
   item: ProductItem;

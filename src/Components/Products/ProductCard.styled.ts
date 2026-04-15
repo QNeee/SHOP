@@ -30,16 +30,6 @@ export const TextContainer = styled.div`
   height: 85px;
   margin-top: 16px;
 `;
-export const CostContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  @media screen and (min-width: 768px) {
-    justify-content: space-arround;
-  }
-  align-items: center;
-  width: 144px;
-  height: 21px;
-`;
 export const ButtonsContainer = styled.div<{ $available: boolean }>`
   width: 100%;
   display: flex;
@@ -70,26 +60,4 @@ export const FavoriteContainer = styled.div`
   background-color: whitesmoke;
   border-radius: 4px;
   cursor: pointer;
-`;
-export const Price = styled.p`
-  font-size: 20px;
-  font-weight: 600;
-`;
-
-export const OldPrice = styled.p`
-  position: relative;
-  font-size: 14px;
-  color: gray;
-  @media screen and (min-width: 768px) {
-    margin-left: 8px;
-  }
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    height: 1px;
-    background: gray;
-  }
 `;

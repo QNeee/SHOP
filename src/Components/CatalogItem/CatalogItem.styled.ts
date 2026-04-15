@@ -28,7 +28,17 @@ export const CatalogItemInfoContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   h3 {
     margin: 0;
   }
 `;
+export const CatalogItemInfoPContainer = styled.div`
+  margin-top: 12px;
+  p {
+    margin: 0;
+    font-size: 10px;
+    color: #888;
+  }
+`;
+export const CatalogItemInfoPriceContainer = styled.div``;

@@ -308,3 +308,8 @@ export const initialLocalStorageItems = {
     tvs: {},
   },
 };
+export const options = {
+  cores: 'Кількість Ядер',
+  screen: 'Екран',
+  power: 'Потужніть блока живлення',
+};
