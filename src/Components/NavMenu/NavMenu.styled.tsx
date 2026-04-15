@@ -38,9 +38,9 @@ export const IconsUrl = styled.a`
 export const BaketCountContainer = styled.div`
   position: relative;
 `;
-export const CountContainer = styled.div`
+export const CountContainer = styled.div<{ $count: number }>`
   position: absolute;
-  opacity: 0;
+  opacity: ${({ $count }) => ($count > 0 ? 1 : 0)};
   top: -8px;
   right: -8px;
   background-color: purple;

@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react';
+import { useMemo, type FC } from 'react';
 import { Paths, useIsmobileWidth } from '../../Helper';
 import {
   BaketCountContainer,
@@ -10,22 +10,26 @@ import {
 } from './NavMenu.styled';
 import { Link } from 'react-router-dom';
 import type { LocalStorageItemShopCategory } from '../../types';
-import { BasketIcon, CatalogIcon, HomeIcon, ProfileIcon } from '../Generic/Icons/NavMenuIcons';
+import {
+  BasketIcon,
+  CatalogIcon,
+  HomeIcon,
+  ProfileIcon,
+} from '../Generic/Icons/NavMenuIcons';
 interface INavMenuProps {
   items: LocalStorageItemShopCategory;
 }
 export const NavMenu: FC<INavMenuProps> = ({ items }) => {
   const isMobile = useIsmobileWidth();
-  useEffect(() => {
-    for (const obj in items) {
-      const item = items[obj as keyof LocalStorageItemShopCategory];
-      const count = Object.values(item).length;
-      const el = document.getElementById('count');
-      if (el) {
-        el.style.opacity = count === 0 ? '0' : '1';
-        el.textContent = count === 0 ? '' : count.toString();
-      }
-    }
+  const count = useMemo(() => {
+    let newCount = 0;
+    const keys = Object.keys(items);
+    keys.forEach((it) => {
+      newCount += Object.values(
+        items[it as keyof LocalStorageItemShopCategory],
+      ).length;
+    });
+    return newCount;
   }, [items]);
   return (
     <Nav>
@@ -47,7 +51,9 @@ export const NavMenu: FC<INavMenuProps> = ({ items }) => {
         </li>
         <li>
           <BaketCountContainer>
-            <CountContainer id="count"></CountContainer>
+            <CountContainer $count={count}>
+              {count > 0 ? count : null}
+            </CountContainer>
             <IconsUrl as={Link} to={Paths.basket}>
               <BasketIcon />
               <UrlText>Кошик</UrlText>

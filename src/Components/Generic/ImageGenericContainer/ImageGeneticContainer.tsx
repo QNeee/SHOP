@@ -22,9 +22,9 @@ export const ImageGenericContainer: FC<IImageGenericContainer> = ({
     }
   };
   return (
-    <>
+    <div>
       <img src={makePhotoColor()} loading="lazy" alt={title} />
       <ChangeColorList setColor={setColor} itemPhotos={itemPhotos} />
-    </>
+    </div>
   );
 };

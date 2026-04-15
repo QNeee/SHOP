@@ -21,6 +21,7 @@ export type ProductItem = {
   price: number;
   images: Record<string, string[]>;
   count?: number;
+  isDiscount: boolean;
 };
 export type CarouselsRefs = {
   AdBanner: React.RefObject<HTMLDivElement | null>;
