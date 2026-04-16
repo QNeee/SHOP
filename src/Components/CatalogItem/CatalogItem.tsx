@@ -5,12 +5,15 @@ import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGen
 import {
   CatalogItemContainer,
   CatalogItemContainerWrapper,
+  CatalogItemCostAvailable,
+  CatalogItemCostContainer,
   CatalogItemInfoContainer,
   CatalogItemInfoPContainer,
   ImageContainer,
 } from './CatalogItem.styled';
 import { DiscountContainer } from '../Products/ProductCard.styled';
 import { options } from '../../Helper';
+import { Cost } from '../Products/Cost';
 
 interface ICatalogItem {
   item: ProductItem;
@@ -25,12 +28,16 @@ export const CatalogItem: FC<ICatalogItem> = ({ item }) => {
     }
     return arr;
   }, [item]);
+  const makeInStockTitle = () => {
+    if (item.stock > 0) return 'В наявності';
+    return 'Немає в наявності';
+  };
   return (
     <CatalogItemContainer>
       <CatalogItemContainerWrapper>
         <ImageContainer>
           <ImageGenericContainer title={item.title} itemPhotos={item.images} />
-          {item.isDiscount ? (
+          {item.discount != null ? (
             <DiscountContainer>Акція</DiscountContainer>
           ) : null}
         </ImageContainer>
@@ -41,10 +48,15 @@ export const CatalogItem: FC<ICatalogItem> = ({ item }) => {
               <p key={index}>{it}</p>
             ))}
           </CatalogItemInfoPContainer>
-          {/* <Cost
-            itemPrice={item.price}
-            itemDiscountPercentage={item.discount?.percentage}
-          /> */}
+          <CatalogItemCostContainer>
+            <CatalogItemCostAvailable $inStock={item.stock > 0}>
+              {makeInStockTitle()}
+            </CatalogItemCostAvailable>
+            <Cost
+              itemPrice={item.price}
+              itemDiscountPercentage={item.discount?.percentage}
+            />
+          </CatalogItemCostContainer>
         </CatalogItemInfoContainer>
       </CatalogItemContainerWrapper>
     </CatalogItemContainer>

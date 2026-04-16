@@ -30,6 +30,10 @@ export const TextContainer = styled.div`
   height: 85px;
   margin-top: 16px;
 `;
+export const CostContainer = styled.div`
+  width: 144px;
+  height: 21px;
+`;
 export const ButtonsContainer = styled.div<{ $available: boolean }>`
   width: 100%;
   display: flex;

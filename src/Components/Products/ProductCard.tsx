@@ -7,6 +7,7 @@ import type {
 } from '../../types';
 import {
   ButtonsContainer,
+  CostContainer,
   DiscountContainer,
   FavoriteContainer,
   ImageContainer,
@@ -46,13 +47,15 @@ export const ProductCard: FC<IProductCardProps> = ({
       </ImageContainer>
       <TextContainer>
         <p style={{ textAlign: 'center' }}>{item.title}</p>
-        <Cost
-          itemPrice={item.price}
-          itemDiscountPercentage={item.discount?.percentage}
-        />
+        <CostContainer>
+          <Cost
+            itemPrice={item.price}
+            itemDiscountPercentage={item.discount?.percentage}
+          />
+        </CostContainer>
       </TextContainer>
-      <ButtonsContainer $available={item.inStockCount > 0}>
-        <p>{item.inStockCount > 0 ? availabletext : noAvailabletext}</p>
+      <ButtonsContainer $available={item.stock > 0}>
+        <p>{item.stock > 0 ? availabletext : noAvailabletext}</p>
         <FavoriteContainer
           onClick={() =>
             onClick({

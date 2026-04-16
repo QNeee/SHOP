@@ -37,8 +37,22 @@ export const CatalogItemInfoPContainer = styled.div`
   margin-top: 12px;
   p {
     margin: 0;
-    font-size: 10px;
+    font-size: 11px;
     color: #888;
   }
 `;
-export const CatalogItemInfoPriceContainer = styled.div``;
+export const CatalogItemCostContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  white-space: nowrap;
+`;
+export const CatalogItemCostAvailable = styled.p<{ $inStock: boolean }>`
+  font-size: 12px;
+  margin: 0;
+  line-height: 1;
+  color: ${({ $inStock }) => ($inStock ? 'green' : 'blue')};
+`;

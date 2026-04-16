@@ -17,11 +17,10 @@ export type ProductItem = {
   title: string;
   type: string;
   discount: Discount;
-  inStockCount: number;
+  stock: number;
   price: number;
   images: Record<string, string[]>;
   count?: number;
-  isDiscount: boolean;
   options: Record<string, string>;
 };
 export type CarouselsRefs = {

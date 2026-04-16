@@ -7,8 +7,8 @@ export const CostContainer = styled.div`
     justify-content: space-arround;
   }
   align-items: center;
-  width: 144px;
-  height: 21px;
+  width: 100%;
+  height: 100%;
 `;
 export const Price = styled.p`
   font-size: 20px;

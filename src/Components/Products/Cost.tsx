@@ -9,9 +9,11 @@ export const Cost: FC<ICost> = ({ itemPrice, itemDiscountPercentage }) => {
   return (
     <CostContainer>
       <Price>{itemPrice + valute}</Price>
-      <OldPrice>
-        {discountCalculate(itemPrice, itemDiscountPercentage) + valute}
-      </OldPrice>
+      {itemDiscountPercentage ? (
+        <OldPrice>
+          {discountCalculate(itemPrice, itemDiscountPercentage) + valute}
+        </OldPrice>
+      ) : null}
     </CostContainer>
   );
 };
