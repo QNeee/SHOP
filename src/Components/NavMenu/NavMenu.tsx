@@ -26,7 +26,7 @@ export const NavMenu: FC<INavMenuProps> = ({ items }) => {
     const keys = Object.keys(items);
     keys.forEach((it) => {
       newCount += Object.values(
-        items[it as keyof LocalStorageItemShopCategory],
+        items[Number(it) as keyof LocalStorageItemShopCategory],
       ).length;
     });
     return newCount;
