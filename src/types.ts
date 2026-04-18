@@ -11,17 +11,35 @@ type Discount = {
   percentage: number;
   expireAt: string;
 };
-export type ProductItem = {
-  id: string;
+export type SharesItem = {
+  productVariantId: string;
   productId: string;
   title: string;
-  type: string;
-  discount: Discount;
-  stock: number;
   price: number;
   images: Record<string, string[]>;
+  categoryId: number;
+  discountPercentage: number;
+  discountExpiresIn: Date;
+  stock: number;
   count?: number;
+};
+export type ProductItem = {
+  productId: string;
+  categoryId: number;
+  productName: string;
+  images: Record<string, string[]>;
   options: Record<string, string>;
+  variants: Variant[];
+  count?: number;
+};
+type Variant = {
+  productVariantId: string;
+  discountExpiresAt: Date;
+  discountPercent: number;
+  price: number;
+  memoryGb: number;
+  stock: number;
+  storageGb: number;
 };
 export type CarouselsRefs = {
   AdBanner: React.RefObject<HTMLDivElement | null>;
@@ -40,12 +58,12 @@ export type LocalStorageItemShop = {
   baket: LocalStorageItemShopCategory;
 };
 export type LocalStorageItemShopCategory = {
-  smarts: Record<string, number>;
-  tvs: Record<string, number>;
+  1: Record<string, number>;
+  2: Record<string, number>;
 };
 export type CheckedItem = {
-  smarts: string | undefined;
-  tvs: string | undefined;
+  1: string | undefined;
+  2: string | undefined;
 };
 export type DeletedItemFromBaket = {
   type: keyof CheckedItem;

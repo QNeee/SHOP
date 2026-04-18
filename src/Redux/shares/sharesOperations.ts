@@ -6,7 +6,7 @@ export const fetchShares = createAsyncThunk(
   'shares/getAll',
   async (_, { rejectWithValue }) => {
     try {
-      const result = await axios.get(Host + 'shares/');
+      const result = await axios.get(Host + 'products/shares/');
       return result;
     } catch (error) {
       return rejectWithValue(error);

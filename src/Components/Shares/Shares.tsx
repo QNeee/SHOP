@@ -3,7 +3,7 @@ import { Products } from '../Products/Products';
 import type {
   LocalSorageObject,
   LocalStorageItemShopCategory,
-  ProductItem,
+  SharesItem,
 } from '../../types';
 import { SharesId } from '../../Helper';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ interface IShared {
   sharesRef: React.RefObject<HTMLDivElement | null>;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
   onClick: (obj: LocalSorageObject) => void;
-  items: ProductItem[];
+  items: SharesItem[];
 }
 export const Shares: FC<IShared> = ({
   baket,

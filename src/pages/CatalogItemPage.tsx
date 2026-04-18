@@ -18,8 +18,8 @@ export const CatalogItemPage = () => {
   return (
     <GenericRoute>
       <>
-        {items.map((item) => (
-          <CatalogItem key={item.id} item={item} />
+        {items.map((item, index) => (
+          <CatalogItem idx={index} key={item.productId} item={item} />
         ))}
       </>
     </GenericRoute>

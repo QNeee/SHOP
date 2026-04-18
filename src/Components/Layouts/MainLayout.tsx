@@ -26,14 +26,16 @@ export const MainLayout: FC<IMainLayoutProps> = ({
   ordered,
 }) => {
   const { pathname } = useLocation();
-  const base = Paths.base + '/';
+  const pathsBlockHeader = [Paths.basket, Paths.order];
   return (
     <>
-      {pathname === base || pathname.includes(Paths.catalog) ? (
+      {!pathsBlockHeader.includes(pathname.replace(/\/$/, '')) ? (
         <Header items={baket} />
       ) : null}
       <Main />
-      {pathname !== base && !ordered && !pathname.includes(Paths.catalog) ? (
+      {pathname === Paths.basket &&
+      !ordered &&
+      !pathname.includes(Paths.catalog) ? (
         <Watched
           baket={baket}
           favorite={favorite}

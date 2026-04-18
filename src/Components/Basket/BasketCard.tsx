@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import type { DeletedItemFromBaket, ProductItem } from '../../types';
+import type { DeletedItemFromBaket, SharesItem } from '../../types';
 import {
   BaskerCardContainer,
   IconAndCounterContainer,
@@ -17,7 +17,7 @@ import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGen
 import { OldPrice, Price } from '../Products/Cost.styled';
 
 interface IBasketCardProps {
-  item: ProductItem;
+  item: SharesItem;
   checked: boolean;
   onChange: (id: string, value: boolean) => void;
   onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
@@ -32,7 +32,7 @@ export const BasketCard: FC<IBasketCardProps> = ({
   setLocalStorageItems,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(item.id, e.target.checked);
+    onChange(item.productVariantId, e.target.checked);
   };
 
   return (
@@ -58,7 +58,7 @@ export const BasketCard: FC<IBasketCardProps> = ({
           <PriceContainer>
             <Price>{item.price + '$'}</Price>
             <OldPrice style={{ marginTop: '5px', marginLeft: '8px' }}>
-              {discountCalculate(item.price, item.discount.percentage) + '$'}
+              {discountCalculate(item.price, item?.discountPercentage) + '$'}
             </OldPrice>
           </PriceContainer>
         </InfoPriceContainer>
@@ -68,8 +68,8 @@ export const BasketCard: FC<IBasketCardProps> = ({
           </IconContainer>
           <Counter
             max={item.stock}
-            itemId={item.id}
-            itemType={item.type}
+            itemId={item.productVariantId}
+            itemType={item.categoryId}
             setLocalStorageItems={setLocalStorageItems}
           />
         </IconAndCounterContainer>

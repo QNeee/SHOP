@@ -15,12 +15,12 @@ import type {
   CheckedItem,
   DeletedItemFromBaket,
   Ordered,
-  ProductItem,
+  SharesItem,
 } from '../../types';
 import { BasketCard } from './BasketCard';
-import { BasketEmpty } from './BaskerEmpty';
+import { BasketEmpty } from './BasketEmpty';
 interface IBasketProps {
-  items: ProductItem[];
+  items: SharesItem[];
   onClickDeleteAll: (data: CheckedItem[]) => void;
   onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
   setLocalStorageItems: Function;
@@ -49,7 +49,7 @@ export const Basket: FC<IBasketProps> = ({
     const newState: Record<string, boolean> = {};
 
     items.forEach((item) => {
-      newState[item.id] = value;
+      newState[item.productId] = value;
     });
 
     setCheckedItems(newState);
@@ -70,10 +70,16 @@ export const Basket: FC<IBasketProps> = ({
               onClick={() =>
                 onClickDeleteAll(
                   items
-                    .filter((item) => checkedItems[item.id])
+                    .filter((item) => checkedItems[item.productVariantId])
                     .map((item) => ({
-                      smarts: item.type === 'smarts' ? item.id : undefined,
-                      tvs: item.type === 'tvs' ? item.id : undefined,
+                      1:
+                        item.categoryId === 1
+                          ? item.productVariantId
+                          : undefined,
+                      2:
+                        item.categoryId === 2
+                          ? item.productVariantId
+                          : undefined,
                     })),
                 )
               }
@@ -98,8 +104,8 @@ export const Basket: FC<IBasketProps> = ({
               setLocalStorageItems={setLocalStorageItems}
               onClickDeleteOne={onClickDeleteOne}
               item={item}
-              key={item.id}
-              checked={!!checkedItems[item.id]}
+              key={item.productVariantId}
+              checked={!!checkedItems[item.productVariantId]}
               onChange={toggleItem}
             />
           ))}

@@ -62,15 +62,15 @@ export const ItemsPaths = {
   profile: 'Профіль',
   order: 'Оформлення товару',
   SHOP: 'Головна',
-  smarts: 'Смартфони',
-  laptops: 'Ноутбуки',
-  tvs: 'Телевізори',
-  tablets: 'Планшети',
-  sounds: 'Колонки',
-  headphones: 'Навушники',
-  micros: 'Мікрофони',
-  cleaners: 'Пилососи',
-  charges: 'Зарядки',
+  1: 'Смартфони',
+  3: 'Ноутбуки',
+  2: 'Телевізори',
+  4: 'Планшети',
+  5: 'Колонки',
+  6: 'Навушники',
+  7: 'Мікрофони',
+  8: 'Пилососи',
+  9: 'Зарядки',
 };
 export const OrderSelectTitle = {
   courier: 'Виберіть Курьера',
@@ -300,16 +300,17 @@ export const initialModalToDelete = {
 export const valute = '$';
 export const initialLocalStorageItems = {
   favorites: {
-    smarts: {},
-    tvs: {},
+    1: {},
+    2: {},
   },
   baket: {
-    smarts: {},
-    tvs: {},
+    1: {},
+    2: {},
   },
 };
 export const options = {
   cores: 'Кількість Ядер',
-  screen: 'Екран',
-  power: 'Потужніть блока живлення',
+  screenSize: 'Екран',
+  screenResolution: 'Роздільна здатність',
+  powerW: 'Потужніть блока живлення',
 };

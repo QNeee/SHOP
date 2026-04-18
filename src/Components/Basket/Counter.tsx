@@ -15,7 +15,7 @@ interface ICounterProps {
   min?: number;
   max: number;
   setLocalStorageItems: Function;
-  itemType: string;
+  itemType: number;
   itemId: string;
 }
 

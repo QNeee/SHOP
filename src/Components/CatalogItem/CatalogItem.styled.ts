@@ -8,17 +8,27 @@ export const CatalogItemContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
+export const CatalogItemBorder = styled.div<{ $idx: number }>`
+  border-top: ${({ $idx }) => ($idx === 0 ? '1px solid grey' : 'none')};
+  border-bottom: 1px solid grey;
+`;
 export const CatalogItemContainerWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.03);
+  }
 `;
 export const ImageContainer = styled.div`
   position: relative;
   width: 100px;
   height: 139px;
   flex-shrink: 0;
-
+  z-index: 10;
   img {
     width: 100%;
     height: 100%;

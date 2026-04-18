@@ -29,7 +29,7 @@ import type {
   LocalStorageItemShop,
   LocalStorageItemShopCategory,
   Ordered,
-  ProductItem,
+  SharesItem,
   TotalObj,
 } from './types';
 import React from 'react';
@@ -40,10 +40,11 @@ import { formReducer } from './Components/Order/formReducer';
 import { useSelector } from 'react-redux';
 import { getSharesItems } from './Redux/shares/sharesSelectors';
 import { CatalogItemPage } from './pages/CatalogItemPage';
+import { ErrorPage } from './pages/ErrorPage';
 
 function App() {
   const navigate = useNavigate();
-  const [renderItemsBaket, setRenderItemsBaket] = useState<ProductItem[]>([]);
+  const [renderItemsBaket, setRenderItemsBaket] = useState<SharesItem[]>([]);
   const [total, setTotal] = useState<TotalObj>(initialTotalObj);
   const [submit, setSubmit] = useState(false);
   const [form, dispatch] = useReducer(formReducer, initialFormData);
@@ -62,16 +63,18 @@ function App() {
   useEffect(() => {
     const data = Object.keys(localStorageItems[baket]).flatMap((k) => {
       const itemKey =
-        localStorageItems[baket][k as keyof LocalStorageItemShopCategory];
+        localStorageItems[baket][
+          Number(k) as keyof LocalStorageItemShopCategory
+        ];
       const filtered = sharesData
-        .filter((item) => item.id in itemKey)
-        .map((item) => ({ ...item, count: itemKey[item.id] }));
+        .filter((item) => item.productVariantId in itemKey)
+        .map((item) => ({ ...item, count: itemKey[item.productVariantId] }));
       return filtered;
     });
     setRenderItemsBaket(data);
     const initialChecked: Record<string, boolean> = {};
     data.forEach((item) => {
-      initialChecked[item.id] = false;
+      initialChecked[item.productVariantId] = false;
     });
     setCheckedItems(initialChecked);
     if (data.length === 0) {
@@ -87,7 +90,7 @@ function App() {
       const count = item.count ?? 1;
       return (
         acc +
-        Number(discountCalculate(item.price, item.discount.percentage)) * count
+        Number(discountCalculate(item.price, item.discountPercentage)) * count
       );
     }, 0);
     const totalObj = {
@@ -104,7 +107,9 @@ function App() {
       data.forEach((item) => {
         Object.entries(item).forEach(([key, id]) => {
           if (id) {
-            delete needData[key as keyof LocalStorageItemShopCategory][id];
+            delete needData[Number(key) as keyof LocalStorageItemShopCategory][
+              id
+            ];
           }
         });
       });
@@ -195,8 +200,8 @@ function App() {
     setSubmit(false);
     setCheckFormOrdr(initialCheckFormOrder);
     const arrayToDelete = renderItemsBaket.map((item) => {
-      const obj: CheckedItem = { smarts: undefined, tvs: undefined };
-      obj[item.type as keyof CheckedItem] = item.id;
+      const obj: CheckedItem = { 1: undefined, 2: undefined };
+      obj[item.categoryId as keyof CheckedItem] = item.productVariantId;
       return obj;
     });
     onClickDeleteAll(arrayToDelete);
@@ -312,6 +317,7 @@ function App() {
             />
           </Route>
           <Route path={Paths.catalog} element={<CatalogPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
     </>

@@ -1,15 +1,26 @@
 import type { FC } from 'react';
-import type { CheckedItem, DeletedItemFromBaket, ProductItem } from '../../../types';
+import type {
+  CheckedItem,
+  DeletedItemFromBaket,
+  ProductItem,
+  SharesItem,
+} from '../../../types';
 
 interface IBasketIconProps {
   onClickDeleteOne?: (obj: DeletedItemFromBaket) => void | undefined;
-  item?: ProductItem;
+  item?: SharesItem;
 }
-export const BasketIcon: FC<IBasketIconProps> = ({ onClickDeleteOne, item }) => {
+export const BasketIcon: FC<IBasketIconProps> = ({
+  onClickDeleteOne,
+  item,
+}) => {
   return (
     <svg
       onClick={() =>
-        onClickDeleteOne?.({ id: item?.id || '', type: item?.type as keyof CheckedItem })
+        onClickDeleteOne?.({
+          id: item?.productVariantId || '',
+          type: item?.categoryId as keyof CheckedItem,
+        })
       }
       style={{ cursor: 'pointer' }}
       width="21"

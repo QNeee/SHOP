@@ -4,10 +4,10 @@ import type {
   CheckedItem,
   DeletedItemFromBaket,
   Ordered,
-  ProductItem,
+  SharesItem,
 } from '../types';
 interface IBasketPageProps {
-  items: ProductItem[];
+  items: SharesItem[];
   onClickDeleteAll: (data: CheckedItem[]) => void;
   onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
   setLocalStorageItems: Function;

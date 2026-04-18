@@ -3,7 +3,7 @@ import type {
   LocalSorageObject,
   LocalStorageItemShop,
   LocalStorageItemShopCategory,
-  ProductItem,
+  SharesItem,
 } from '../../types';
 import {
   ButtonsContainer,
@@ -19,7 +19,7 @@ import { FavoriteIcon } from '../Generic/Icons/FavoriteIcon';
 import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGeneticContainer';
 import { Cost } from './Cost';
 interface IProductCardProps {
-  item: ProductItem;
+  item: SharesItem;
   onClick: (obj: LocalSorageObject) => void;
   favorite: LocalStorageItemShopCategory;
   id: string;
@@ -36,21 +36,21 @@ export const ProductCard: FC<IProductCardProps> = ({
   const availabletext = 'В навності';
   const noAvailabletext = 'Немає в наявності';
   const localStorageObj = {
-    id: item.id,
+    id: item.productVariantId,
     elemId: id as keyof LocalStorageItemShop,
   };
   return (
-    <ProductCardContainer id={item.id}>
+    <ProductCardContainer id={item.productVariantId}>
       <ImageContainer>
         <ImageGenericContainer title={item.title} itemPhotos={item.images} />
-        <DiscountContainer>{item.discount.percentage + '%'}</DiscountContainer>
+        <DiscountContainer>{item.discountPercentage + '%'}</DiscountContainer>
       </ImageContainer>
       <TextContainer>
         <p style={{ textAlign: 'center' }}>{item.title}</p>
         <CostContainer>
           <Cost
             itemPrice={item.price}
-            itemDiscountPercentage={item.discount?.percentage}
+            itemDiscountPercentage={item.discountPercentage}
           />
         </CostContainer>
       </TextContainer>
@@ -61,15 +61,15 @@ export const ProductCard: FC<IProductCardProps> = ({
             onClick({
               ...localStorageObj,
               type: 'favorites',
-              itemType: item.type as keyof LocalStorageItemShopCategory,
+              itemType: item.categoryId as keyof LocalStorageItemShopCategory,
             })
           }
-          id={item.id}
+          id={item.productVariantId}
         >
           <FavoriteIcon
             flag={
-              favorite[item.type as keyof LocalStorageItemShopCategory][
-                item.id
+              favorite[item.categoryId as keyof LocalStorageItemShopCategory][
+                item.productVariantId
               ] || 0
             }
           />
@@ -82,11 +82,13 @@ export const ProductCard: FC<IProductCardProps> = ({
           onClick({
             ...localStorageObj,
             type: 'baket',
-            itemType: item.type as keyof LocalStorageItemShopCategory,
+            itemType: item.categoryId as keyof LocalStorageItemShopCategory,
           })
         }
       >
-        {baket[item.type as keyof LocalStorageItemShopCategory][item.id]
+        {baket[item.categoryId as keyof LocalStorageItemShopCategory][
+          item.productVariantId
+        ]
           ? 'Видалити з кошику'
           : 'В кошик'}
       </Button>
