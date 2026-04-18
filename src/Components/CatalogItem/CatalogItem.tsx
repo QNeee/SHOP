@@ -27,14 +27,14 @@ interface ICatalogItem {
   item: ProductItem;
   favorite: LocalStorageItemShopCategory;
   baket: LocalStorageItemShopCategory;
-  onClick: (obj: LocalSorageObject) => void;
+  onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
 }
 
 export const CatalogItem: FC<ICatalogItem> = ({
   item,
   favorite,
   baket,
-  onClick,
+  onClickAdd,
 }) => {
   const localStorageObj = {
     id: item.productVariantId,
@@ -88,9 +88,8 @@ export const CatalogItem: FC<ICatalogItem> = ({
         </CatalogItemContainerWrapper>
         <ButtonsContainer>
           <FavoriteElem
-            onClick={onClick}
-            categoryId={item.categoryId}
-            productVariantId={item.productVariantId}
+            onClickAdd={onClickAdd}
+            item={item}
             flag={
               favorite[item.categoryId as keyof LocalStorageItemShopCategory][
                 item.productVariantId
@@ -102,11 +101,15 @@ export const CatalogItem: FC<ICatalogItem> = ({
             style={{ width: '143px' }}
             type="button"
             onClick={() => {
-              onClick({
-                ...localStorageObj,
-                type: 'basket',
-                itemType: item.categoryId as keyof LocalStorageItemShopCategory,
-              });
+              onClickAdd(
+                {
+                  ...localStorageObj,
+                  type: 'basket',
+                  itemType:
+                    item.categoryId as keyof LocalStorageItemShopCategory,
+                },
+                item,
+              );
             }}
           >
             {baket[item.categoryId as keyof LocalStorageItemShopCategory][

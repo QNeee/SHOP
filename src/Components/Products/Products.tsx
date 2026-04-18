@@ -13,7 +13,7 @@ import type {
 } from '../../types';
 import { useLocation } from 'react-router-dom';
 interface IProductsProps {
-  onClick: (obj: LocalSorageObject) => void;
+  onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
   favorite: LocalStorageItemShopCategory;
   baket: LocalStorageItemShopCategory;
   carouselRef: React.RefObject<HTMLDivElement | null>;
@@ -30,7 +30,7 @@ export const Products: FC<IProductsProps> = ({
   items,
   headerTitle,
   id,
-  onClick,
+  onClickAdd,
   baket,
 }) => {
   const { pathname } = useLocation();
@@ -48,7 +48,7 @@ export const Products: FC<IProductsProps> = ({
           <>
             {items.map((item) => (
               <ProductCard
-                onClick={onClick}
+                onClickAdd={onClickAdd}
                 id={id}
                 key={item.productVariantId}
                 item={item}

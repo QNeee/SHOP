@@ -2,12 +2,12 @@ import type { FC } from 'react';
 import type {
   CheckedItem,
   DeletedItemFromBaket,
-  SharesItem,
+  ProductItem,
 } from '../../../types';
 
 interface IBasketIconProps {
   onClickDeleteOne?: (obj: DeletedItemFromBaket) => void | undefined;
-  item?: SharesItem;
+  item?: ProductItem;
 }
 export const BasketIcon: FC<IBasketIconProps> = ({
   onClickDeleteOne,

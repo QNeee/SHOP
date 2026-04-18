@@ -6,16 +6,20 @@ import {
   fetchProductsShares,
 } from './productsOperations';
 export interface ISProductsState {
-  loading: boolean;
+  sharesLoading: boolean;
   error: unknown;
   products: ProductItem[];
   shares: ProductItem[];
   watched: ProductItem[];
   basket: ProductItem[];
+  productsLoading: boolean;
+  basketLoading: boolean;
 }
 const initialState: ISProductsState = {
   products: [],
-  loading: false,
+  sharesLoading: false,
+  basketLoading: false,
+  productsLoading: false,
   error: null,
   shares: [],
   watched: [],
@@ -34,40 +38,40 @@ export const productsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchProducts.pending, (state) => {
-        state.loading = true;
+        state.productsLoading = true;
         state.error = null;
         state.products = [];
       })
       .addCase(fetchProducts.fulfilled, (state, { payload }) => {
         state.products = payload.data;
-        state.loading = false;
+        state.productsLoading = false;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.loading = false;
+        state.productsLoading = false;
         state.error = action.payload;
       })
       .addCase(fetchProductsShares.pending, (state) => {
-        state.loading = true;
+        state.sharesLoading = true;
         state.error = null;
       })
       .addCase(fetchProductsShares.fulfilled, (state, { payload }) => {
         state.shares = payload.data;
-        state.loading = false;
+        state.sharesLoading = false;
       })
       .addCase(fetchProductsShares.rejected, (state, action) => {
-        state.loading = false;
+        state.sharesLoading = false;
         state.error = action.payload;
       })
       .addCase(fetchBasketProducts.pending, (state) => {
-        state.loading = true;
+        state.basketLoading = true;
         state.error = null;
       })
       .addCase(fetchBasketProducts.fulfilled, (state, { payload }) => {
         state.basket = payload.data;
-        state.loading = false;
+        state.basketLoading = false;
       })
       .addCase(fetchBasketProducts.rejected, (state, action) => {
-        state.loading = false;
+        state.basketLoading = false;
         state.error = action.payload;
       });
   },

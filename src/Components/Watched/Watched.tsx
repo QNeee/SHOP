@@ -12,14 +12,14 @@ interface IWatched {
   favorite: LocalStorageItemShopCategory;
   watchedRef: React.RefObject<HTMLDivElement | null>;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
-  onClick: (obj: LocalSorageObject) => void;
+  onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
   items: ProductItem[];
 }
 export const Watched: FC<IWatched> = ({
   baket,
   favorite,
   watchedRef,
-  onClick,
+  onClickAdd,
   onClickCarouselButton,
   items,
 }) => {
@@ -33,7 +33,7 @@ export const Watched: FC<IWatched> = ({
       items={items}
       headerTitle={headerTitle}
       id={CanLikeId}
-      onClick={onClick}
+      onClickAdd={onClickAdd}
     />
   );
 };

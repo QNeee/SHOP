@@ -6,15 +6,12 @@ import type {
   ProductItem,
 } from '../../types';
 import { SharesId } from '../../Helper';
-import { useSelector } from 'react-redux';
-import { Loader } from '../Generic/Loader/Loader';
-import { getProdutsLodaing } from '../../Redux/products/productsSelectors';
 interface IShared {
   baket: LocalStorageItemShopCategory;
   favorite: LocalStorageItemShopCategory;
   sharesRef: React.RefObject<HTMLDivElement | null>;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
-  onClick: (obj: LocalSorageObject) => void;
+  onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
   items: ProductItem[];
 }
 export const Shares: FC<IShared> = ({
@@ -22,27 +19,22 @@ export const Shares: FC<IShared> = ({
   favorite,
   sharesRef,
   onClickCarouselButton,
-  onClick,
+  onClickAdd,
   items,
 }) => {
-  const sharesLoading = useSelector(getProdutsLodaing);
   const headerTitle = 'Акції';
   return (
     <>
-      {sharesLoading ? (
-        <Loader />
-      ) : (
-        <Products
-          baket={baket}
-          favorite={favorite}
-          carouselRef={sharesRef}
-          onClickCarousel={onClickCarouselButton}
-          items={items}
-          headerTitle={headerTitle}
-          id={SharesId}
-          onClick={onClick}
-        />
-      )}
+      <Products
+        baket={baket}
+        favorite={favorite}
+        carouselRef={sharesRef}
+        onClickCarousel={onClickCarouselButton}
+        items={items}
+        headerTitle={headerTitle}
+        id={SharesId}
+        onClickAdd={onClickAdd}
+      />
     </>
   );
 };

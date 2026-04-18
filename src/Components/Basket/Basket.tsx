@@ -19,6 +19,9 @@ import type {
 } from '../../types';
 import { BasketCard } from './BasketCard';
 import { BasketEmpty } from './BasketEmpty';
+import { Loader } from '../Generic/Loader/Loader';
+import { useSelector } from 'react-redux';
+import { getBasketLoading } from '../../Redux/products/productsSelectors';
 interface IBasketProps {
   items: ProductItem[];
   onClickDeleteAll: (data: CheckedItem[]) => void;
@@ -39,6 +42,7 @@ export const Basket: FC<IBasketProps> = ({
   setCheckedItems,
   setOrdered,
 }) => {
+  const basketLoading = useSelector(getBasketLoading);
   const navigate = useNavigate();
   const checkedAll =
     Object.keys(checkedItems).length > 0 &&
@@ -109,8 +113,10 @@ export const Basket: FC<IBasketProps> = ({
             />
           ))}
         </BasketWrapper>
-      ) : (
+      ) : items.length === 0 && !basketLoading ? (
         <BasketEmpty setOrdered={setOrdered} navigate={navigate} />
+      ) : (
+        <Loader />
       )}
     </div>
   );

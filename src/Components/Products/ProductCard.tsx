@@ -19,7 +19,7 @@ import { Cost } from './Cost';
 import { FavoriteElem } from '../Generic/Favorite/FavoriteElem';
 interface IProductCardProps {
   item: ProductItem;
-  onClick: (obj: LocalSorageObject) => void;
+  onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
   favorite: LocalStorageItemShopCategory;
   id: string;
   baket: LocalStorageItemShopCategory;
@@ -29,7 +29,7 @@ export const ProductCard: FC<IProductCardProps> = ({
   item,
   favorite,
   id,
-  onClick,
+  onClickAdd,
   baket,
 }) => {
   const availabletext = 'В навності';
@@ -56,9 +56,8 @@ export const ProductCard: FC<IProductCardProps> = ({
       <ButtonsContainer $available={item.stock > 0}>
         <p>{item.stock > 0 ? availabletext : noAvailabletext}</p>
         <FavoriteElem
-          onClick={onClick}
-          categoryId={item.categoryId}
-          productVariantId={item.productVariantId}
+          onClickAdd={onClickAdd}
+          item={item}
           flag={
             favorite[item.categoryId as keyof LocalStorageItemShopCategory][
               item.productVariantId
@@ -71,11 +70,14 @@ export const ProductCard: FC<IProductCardProps> = ({
         style={{ marginTop: '20px' }}
         type="button"
         onClick={() =>
-          onClick({
-            ...localStorageObj,
-            type: 'basket',
-            itemType: item.categoryId as keyof LocalStorageItemShopCategory,
-          })
+          onClickAdd(
+            {
+              ...localStorageObj,
+              type: 'basket',
+              itemType: item.categoryId as keyof LocalStorageItemShopCategory,
+            },
+            item,
+          )
         }
       >
         {baket[item.categoryId as keyof LocalStorageItemShopCategory][

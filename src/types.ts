@@ -41,7 +41,6 @@ export type CarouselsRefs = {
   CanLike: React.RefObject<HTMLDivElement | null>;
 };
 export type LocalSorageObject = {
-  id: string;
   type: 'favorites' | 'basket';
   itemType: keyof LocalStorageItemShopCategory;
 };

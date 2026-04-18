@@ -6,14 +6,18 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, type FC } from 'react';
 import { fetchProducts } from '../Redux/products/productsOperations';
 import { CatalogItem } from '../Components/CatalogItem/CatalogItem';
-import type { LocalSorageObject, LocalStorageItemShopCategory } from '../types';
+import type {
+  LocalSorageObject,
+  LocalStorageItemShopCategory,
+  ProductItem,
+} from '../types';
 interface ICalaogItemPage {
   favorite: LocalStorageItemShopCategory;
   baket: LocalStorageItemShopCategory;
-  onClick: (obj: LocalSorageObject) => void;
+  onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
 }
 export const CatalogItemPage: FC<ICalaogItemPage> = ({
-  onClick,
+  onClickAdd,
   favorite,
   baket,
 }) => {
@@ -29,7 +33,7 @@ export const CatalogItemPage: FC<ICalaogItemPage> = ({
       <>
         {items.map((item) => (
           <CatalogItem
-            onClick={onClick}
+            onClickAdd={onClickAdd}
             favorite={favorite}
             baket={baket}
             key={item.productVariantId}

@@ -29,6 +29,7 @@ import type {
   LocalStorageItemShop,
   LocalStorageItemShopCategory,
   Ordered,
+  ProductItem,
   TotalObj,
 } from './types';
 import React from 'react';
@@ -158,15 +159,26 @@ function App() {
     });
   };
 
-  const onClickAdd = (obj: LocalSorageObject) => {
-    const { type, itemType, id } = obj;
-
+  const onClickAdd = (obj: LocalSorageObject, item: ProductItem) => {
+    const { type, itemType } = obj;
+    if (type === baket) {
+      const exists = basketData.some(
+        (d) => d.productVariantId === item.productVariantId,
+      );
+      const updatedBasket = exists
+        ? basketData.filter(
+            (it) => it.productVariantId !== item.productVariantId,
+          )
+        : [...basketData, item];
+      appDispath(setBasket(updatedBasket));
+    }
     setLocalStorageItems((prev) => {
       const elemData = { ...prev[type] };
       const itemData = { ...elemData[itemType] };
 
-      if (itemData[id]) delete itemData[id];
-      else itemData[id] = 1;
+      if (itemData[item.productVariantId])
+        delete itemData[item.productVariantId];
+      else itemData[item.productVariantId] = 1;
       const newData = {
         ...prev,
         [type]: {
@@ -266,7 +278,7 @@ function App() {
               ordered={ordered.accepted}
               favorite={localStorageItems[favorite]}
               baket={localStorageItems[baket]}
-              onClickFavorite={onClickAdd}
+              onClickAdd={onClickAdd}
               carouselsRefs={carouselsRefs[CanLikeId]}
               onClickCarouselButton={onClickCarouselButton}
             />
@@ -278,7 +290,7 @@ function App() {
               <MainPage
                 carouselsRefs={carouselsRefs}
                 onClickCarouselButton={onClickCarouselButton}
-                onClick={onClickAdd}
+                onClickAdd={onClickAdd}
                 favorite={localStorageItems[favorite]}
                 baket={localStorageItems[baket]}
               />
@@ -329,7 +341,7 @@ function App() {
             element={
               <CatalogItemPage
                 favorite={localStorageItems[favorite]}
-                onClick={onClickAdd}
+                onClickAdd={onClickAdd}
                 baket={localStorageItems[baket]}
               />
             }

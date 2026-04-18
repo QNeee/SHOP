@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import type { DeletedItemFromBaket, SharesItem } from '../../types';
+import type { DeletedItemFromBaket, ProductItem } from '../../types';
 import {
   BaskerCardContainer,
   IconAndCounterContainer,
@@ -17,7 +17,7 @@ import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGen
 import { OldPrice, Price } from '../Products/Cost.styled';
 
 interface IBasketCardProps {
-  item: SharesItem;
+  item: ProductItem;
   checked: boolean;
   onChange: (id: string, value: boolean) => void;
   onClickDeleteOne: (obj: DeletedItemFromBaket) => void;

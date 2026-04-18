@@ -6,24 +6,29 @@ import type {
   CarouselsRefs,
   LocalSorageObject,
   LocalStorageItemShopCategory,
+  ProductItem,
 } from '../types';
 import { AdBanner } from '../Components/AdBanner/AdBanner';
 import { Catalog } from '../Components/Catalog/Catalog';
 import { Shares } from '../Components/Shares/Shares';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../Redux/store';
-import { getProductsSharesItems } from '../Redux/products/productsSelectors';
+import {
+  getProductsSharesItems,
+  getSharesLodaing,
+} from '../Redux/products/productsSelectors';
 import { fetchProductsShares } from '../Redux/products/productsOperations';
+import { Loader } from '../Components/Generic/Loader/Loader';
 
 interface IMainPageProps {
   favorite: LocalStorageItemShopCategory;
   baket: LocalStorageItemShopCategory;
-  onClick: (obj: LocalSorageObject) => void;
+  onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
   carouselsRefs: CarouselsRefs;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
 }
 export const MainPage: FC<IMainPageProps> = ({
-  onClick,
+  onClickAdd,
   favorite,
   baket,
   carouselsRefs,
@@ -31,6 +36,7 @@ export const MainPage: FC<IMainPageProps> = ({
 }) => {
   const sharesItems = useSelector(getProductsSharesItems);
   const dispatch: AppDispatch = useDispatch();
+  const sharesLoading = useSelector(getSharesLodaing);
   useEffect(() => {
     if (sharesItems.length === 0) dispatch(fetchProductsShares());
   }, [sharesItems]);
@@ -44,15 +50,17 @@ export const MainPage: FC<IMainPageProps> = ({
         carouselRef={carouselsRefs[CatalogId]}
         onClick={onClickCarouselButton}
       />
-      {sharesItems.length > 0 ? (
+      {sharesItems.length > 0 && !sharesLoading ? (
         <Shares
           items={sharesItems}
           baket={baket}
           favorite={favorite}
           sharesRef={carouselsRefs[SharesId]}
-          onClick={onClick}
+          onClickAdd={onClickAdd}
           onClickCarouselButton={onClickCarouselButton}
         />
+      ) : sharesLoading ? (
+        <Loader />
       ) : null}
     </>
   );

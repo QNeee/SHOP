@@ -3,6 +3,7 @@ import { Paths, useIsmobileWidth } from '../../Helper';
 import type {
   LocalSorageObject,
   LocalStorageItemShopCategory,
+  ProductItem,
 } from '../../types';
 import { Footer } from '../Footer/Footer';
 import { Header } from '../Header/Header';
@@ -16,13 +17,13 @@ interface IMainLayoutProps {
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
   favorite: LocalStorageItemShopCategory;
   baket: LocalStorageItemShopCategory;
-  onClickFavorite: (obj: LocalSorageObject) => void;
+  onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
   ordered: boolean;
 }
 export const MainLayout: FC<IMainLayoutProps> = ({
   carouselsRefs,
   onClickCarouselButton,
-  onClickFavorite,
+  onClickAdd,
   baket,
   favorite,
   ordered,
@@ -45,7 +46,7 @@ export const MainLayout: FC<IMainLayoutProps> = ({
           favorite={favorite}
           watchedRef={carouselsRefs}
           onClickCarouselButton={onClickCarouselButton}
-          onClick={onClickFavorite}
+          onClickAdd={onClickAdd}
           items={items}
         />
       ) : null}

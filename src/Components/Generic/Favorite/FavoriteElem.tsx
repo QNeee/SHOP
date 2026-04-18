@@ -3,14 +3,14 @@ import type {
   LocalSorageObject,
   LocalStorageItemShop,
   LocalStorageItemShopCategory,
+  ProductItem,
 } from '../../../types';
 import { FavoriteIcon } from '../Icons/FavoriteIcon';
 import { FavoriteContainer } from './FavoriteElem.styled';
 
 export interface IFavoriteElem {
-  onClick: (obj: LocalSorageObject) => void;
-  categoryId: number;
-  productVariantId: string;
+  onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
+  item: ProductItem;
   flag: number;
   localStorageObj: {
     id: string;
@@ -19,22 +19,23 @@ export interface IFavoriteElem {
 }
 
 export const FavoriteElem: FC<IFavoriteElem> = ({
-  onClick,
-  categoryId,
-  productVariantId,
+  onClickAdd,
   flag,
   localStorageObj,
+  item,
 }) => {
   return (
     <FavoriteContainer
       onClick={() =>
-        onClick({
-          ...localStorageObj,
-          type: 'favorites',
-          itemType: categoryId as keyof LocalStorageItemShopCategory,
-        })
+        onClickAdd(
+          {
+            ...localStorageObj,
+            type: 'favorites',
+            itemType: item.categoryId as keyof LocalStorageItemShopCategory,
+          },
+          item,
+        )
       }
-      id={productVariantId}
     >
       <FavoriteIcon flag={flag} />
     </FavoriteContainer>
