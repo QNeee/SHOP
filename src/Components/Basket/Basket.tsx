@@ -65,7 +65,7 @@ export const Basket: FC<IBasketProps> = ({
   };
   return (
     <div style={{ marginBottom: '20px' }}>
-      {items.length > 0 ? (
+      {items.length > 0 && !basketLoading ? (
         <BasketWrapper>
           <BasketContainer>
             <BasketIconContainer

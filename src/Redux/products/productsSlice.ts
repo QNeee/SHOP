@@ -12,14 +12,14 @@ export interface ISProductsState {
   shares: ProductItem[];
   watched: ProductItem[];
   basket: ProductItem[];
-  productsLoading: boolean;
+  catalogLoading: boolean;
   basketLoading: boolean;
 }
 const initialState: ISProductsState = {
   products: [],
   sharesLoading: false,
   basketLoading: false,
-  productsLoading: false,
+  catalogLoading: false,
   error: null,
   shares: [],
   watched: [],
@@ -38,16 +38,16 @@ export const productsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchProducts.pending, (state) => {
-        state.productsLoading = true;
+        state.catalogLoading = true;
         state.error = null;
         state.products = [];
       })
       .addCase(fetchProducts.fulfilled, (state, { payload }) => {
         state.products = payload.data;
-        state.productsLoading = false;
+        state.catalogLoading = false;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.productsLoading = false;
+        state.catalogLoading = false;
         state.error = action.payload;
       })
       .addCase(fetchProductsShares.pending, (state) => {

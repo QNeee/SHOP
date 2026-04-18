@@ -17,11 +17,13 @@ interface ICatalogPageProps {}
 export const CatalogPage: FC<ICatalogPageProps> = ({}) => {
   return (
     <GenericRoute>
-      <Container>
-        {catalogPhotos.map((item) => (
-          <CatalogCard key={item.id} item={item} />
-        ))}
-      </Container>
+      {
+        <Container>
+          {catalogPhotos.map((item) => (
+            <CatalogCard key={item.id} item={item} />
+          ))}
+        </Container>
+      }
     </GenericRoute>
   );
 };

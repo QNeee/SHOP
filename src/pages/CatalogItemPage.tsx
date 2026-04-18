@@ -1,7 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { GenericRoute } from '../Components/Generic/GenericRoute/GenericRoute';
 import type { AppDispatch } from '../Redux/store';
-import { getProdutsItems } from '../Redux/products/productsSelectors';
+import {
+  getCatalogLodaing,
+  getProdutsItems,
+} from '../Redux/products/productsSelectors';
 import { useLocation } from 'react-router-dom';
 import { useEffect, type FC } from 'react';
 import { fetchProducts } from '../Redux/products/productsOperations';
@@ -11,6 +14,7 @@ import type {
   LocalStorageItemShopCategory,
   ProductItem,
 } from '../types';
+import { Loader } from '../Components/Generic/Loader/Loader';
 interface ICalaogItemPage {
   favorite: LocalStorageItemShopCategory;
   baket: LocalStorageItemShopCategory;
@@ -28,19 +32,24 @@ export const CatalogItemPage: FC<ICalaogItemPage> = ({
     const filter = pathname.split('/').at(-1) ?? '';
     dispath(fetchProducts(filter));
   }, []);
+  const catalogLoading = useSelector(getCatalogLodaing);
   return (
     <GenericRoute>
-      <>
-        {items.map((item) => (
-          <CatalogItem
-            onClickAdd={onClickAdd}
-            favorite={favorite}
-            baket={baket}
-            key={item.productVariantId}
-            item={item}
-          />
-        ))}
-      </>
+      {!catalogLoading ? (
+        <>
+          {items.map((item) => (
+            <CatalogItem
+              onClickAdd={onClickAdd}
+              favorite={favorite}
+              baket={baket}
+              key={item.productVariantId}
+              item={item}
+            />
+          ))}
+        </>
+      ) : (
+        <Loader />
+      )}
     </GenericRoute>
   );
 };

@@ -4,8 +4,8 @@ export const getSharesLodaing = (state: RootState) =>
   state.products.sharesLoading;
 export const getBasketLoading = (state: RootState) =>
   state.products.basketLoading;
-export const getProdutsLodaing = (state: RootState) =>
-  state.products.productsLoading;
+export const getCatalogLodaing = (state: RootState) =>
+  state.products.catalogLoading;
 export const getProdutsError = (state: RootState) => state.products.error;
 export const getProdutsItems = (state: RootState) => state.products.products;
 export const getProductsSharesItems = (state: RootState) =>
