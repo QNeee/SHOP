@@ -10,10 +10,7 @@ import { Main } from '../Main/Main';
 import { useLocation } from 'react-router-dom';
 import { Watched } from '../Watched/Watched';
 import { useSelector } from 'react-redux';
-import {
-  getProductsSharesItems,
-  getProductsWatchedItems,
-} from '../../Redux/products/productsSelectors';
+import { getProductsWatchedItems } from '../../Redux/products/productsSelectors';
 interface IMainLayoutProps {
   carouselsRefs: React.RefObject<HTMLDivElement | null>;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
