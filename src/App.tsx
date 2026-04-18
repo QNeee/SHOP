@@ -40,10 +40,7 @@ import { formReducer } from './Components/Order/formReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { CatalogItemPage } from './pages/CatalogItemPage';
 import { ErrorPage } from './pages/ErrorPage';
-import {
-  getCatalogLodaing,
-  getProductsBasketItems,
-} from './Redux/products/productsSelectors';
+import { getProductsBasketItems } from './Redux/products/productsSelectors';
 import { fetchBasketProducts } from './Redux/products/productsOperations';
 import type { AppDispatch } from './Redux/store';
 import { setBasket } from './Redux/products/productsSlice';
@@ -58,7 +55,6 @@ function App() {
   const [checkFormOrder, setCheckFormOrdr] = useState<CheckFormOrder>(
     initialCheckFormOrder,
   );
-  const catalogLoading = useSelector(getCatalogLodaing);
   const [ordered, setOrdered] = useState<Ordered>(initialOrdered);
   const basketData = useSelector(getProductsBasketItems);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
