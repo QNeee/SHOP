@@ -7,10 +7,7 @@ type SharesPhotoItem = {
   320: string | string[];
   1280: string | string[];
 };
-type Discount = {
-  percentage: number;
-  expireAt: string;
-};
+
 export type SharesItem = {
   productVariantId: string;
   productId: string;
