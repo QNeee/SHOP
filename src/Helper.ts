@@ -44,7 +44,7 @@ export const discountCalculate = (price: number, discount: number) => {
 export const localStorageItemsKeys = {
   shopItems: 'items',
   favorite: 'favorites' as keyof LocalStorageItemShop,
-  baket: 'baket' as keyof LocalStorageItemShop,
+  baket: 'basket' as keyof LocalStorageItemShop,
   cardForm: 'cardForm',
   orderForm: 'orderForm',
   cards: 'cards',
@@ -303,7 +303,7 @@ export const initialLocalStorageItems = {
     1: {},
     2: {},
   },
-  baket: {
+  basket: {
     1: {},
     2: {},
   },

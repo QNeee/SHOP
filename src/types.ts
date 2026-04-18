@@ -8,36 +8,31 @@ type SharesPhotoItem = {
   1280: string | string[];
 };
 
-export type SharesItem = {
+type Item = {
   productVariantId: string;
   productId: string;
   title: string;
   price: number;
   images: Record<string, string[]>;
   categoryId: number;
+  stock: number;
+  count?: number;
+};
+export type ProductItem = Item & {
   discountPercentage: number;
   discountExpiresIn: Date;
-  stock: number;
-  count?: number;
-};
-export type ProductItem = {
-  productId: string;
-  categoryId: number;
-  productName: string;
-  images: Record<string, string[]>;
   options: Record<string, string>;
-  variants: Variant[];
-  count?: number;
 };
-type Variant = {
-  productVariantId: string;
-  discountExpiresAt: Date;
-  discountPercent: number;
-  price: number;
-  memoryGb: number;
-  stock: number;
-  storageGb: number;
-};
+
+// type Variant = {
+//   productVariantId: string;
+//   discountExpiresAt: Date;
+//   discountPercent: number;
+//   price: number;
+//   memoryGb: number;
+//   stock: number;
+//   storageGb: number;
+// };
 export type CarouselsRefs = {
   AdBanner: React.RefObject<HTMLDivElement | null>;
   Catalog: React.RefObject<HTMLDivElement | null>;
@@ -47,12 +42,12 @@ export type CarouselsRefs = {
 };
 export type LocalSorageObject = {
   id: string;
-  type: 'favorites' | 'baket';
+  type: 'favorites' | 'basket';
   itemType: keyof LocalStorageItemShopCategory;
 };
 export type LocalStorageItemShop = {
   favorites: LocalStorageItemShopCategory;
-  baket: LocalStorageItemShopCategory;
+  basket: LocalStorageItemShopCategory;
 };
 export type LocalStorageItemShopCategory = {
   1: Record<string, number>;

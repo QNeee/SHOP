@@ -3,23 +3,22 @@ import type {
   LocalSorageObject,
   LocalStorageItemShop,
   LocalStorageItemShopCategory,
-  SharesItem,
+  ProductItem,
 } from '../../types';
 import {
   ButtonsContainer,
   CostContainer,
   DiscountContainer,
-  FavoriteContainer,
   ImageContainer,
   ProductCardContainer,
   TextContainer,
 } from './ProductCard.styled';
 import { Button } from '../Generic/GenericCarousel/GenericCarousel.styled';
-import { FavoriteIcon } from '../Generic/Icons/FavoriteIcon';
 import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGeneticContainer';
 import { Cost } from './Cost';
+import { FavoriteElem } from '../Generic/Favorite/FavoriteElem';
 interface IProductCardProps {
-  item: SharesItem;
+  item: ProductItem;
   onClick: (obj: LocalSorageObject) => void;
   favorite: LocalStorageItemShopCategory;
   id: string;
@@ -56,24 +55,17 @@ export const ProductCard: FC<IProductCardProps> = ({
       </TextContainer>
       <ButtonsContainer $available={item.stock > 0}>
         <p>{item.stock > 0 ? availabletext : noAvailabletext}</p>
-        <FavoriteContainer
-          onClick={() =>
-            onClick({
-              ...localStorageObj,
-              type: 'favorites',
-              itemType: item.categoryId as keyof LocalStorageItemShopCategory,
-            })
+        <FavoriteElem
+          onClick={onClick}
+          categoryId={item.categoryId}
+          productVariantId={item.productVariantId}
+          flag={
+            favorite[item.categoryId as keyof LocalStorageItemShopCategory][
+              item.productVariantId
+            ] || 0
           }
-          id={item.productVariantId}
-        >
-          <FavoriteIcon
-            flag={
-              favorite[item.categoryId as keyof LocalStorageItemShopCategory][
-                item.productVariantId
-              ] || 0
-            }
-          />
-        </FavoriteContainer>
+          localStorageObj={localStorageObj}
+        />
       </ButtonsContainer>
       <Button
         style={{ marginTop: '20px' }}
@@ -81,7 +73,7 @@ export const ProductCard: FC<IProductCardProps> = ({
         onClick={() =>
           onClick({
             ...localStorageObj,
-            type: 'baket',
+            type: 'basket',
             itemType: item.categoryId as keyof LocalStorageItemShopCategory,
           })
         }

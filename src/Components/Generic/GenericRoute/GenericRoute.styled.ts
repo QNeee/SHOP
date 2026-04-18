@@ -9,7 +9,6 @@ export const GenericRouteContainer = styled.div`
 
 export const BackContainer = styled.div`
   margin-top: 28px;
-  outline: 1px sold black;
   display: flex;
   justify-content: left;
   align-items: center;

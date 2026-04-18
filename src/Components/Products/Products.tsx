@@ -9,7 +9,7 @@ import { GenericCarousel } from '../Generic/GenericCarousel/GenericCarousel';
 import type {
   LocalSorageObject,
   LocalStorageItemShopCategory,
-  SharesItem,
+  ProductItem,
 } from '../../types';
 import { useLocation } from 'react-router-dom';
 interface IProductsProps {
@@ -18,7 +18,7 @@ interface IProductsProps {
   baket: LocalStorageItemShopCategory;
   carouselRef: React.RefObject<HTMLDivElement | null>;
   onClickCarousel: (e: React.MouseEvent<SVGSVGElement>) => void;
-  items: SharesItem[];
+  items: ProductItem[];
   headerTitle: string;
   id: string;
 }

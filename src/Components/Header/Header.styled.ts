@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
   height: 189px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #ccc;
   border-radius: 0 0 10px 10px;
   @media screen and (min-width: 1280px) {
     display: flex;

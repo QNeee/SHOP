@@ -7,3 +7,5 @@ export const getProductsSharesItems = (state: RootState) =>
   state.products.shares;
 export const getProductsWatchedItems = (state: RootState) =>
   state.products.watched;
+export const getProductsBasketItems = (state: RootState) =>
+  state.products.basket;

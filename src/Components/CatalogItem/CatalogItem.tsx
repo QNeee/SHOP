@@ -1,8 +1,14 @@
 import { useMemo, type FC } from 'react';
-import type { ProductItem } from '../../types';
+import type {
+  LocalSorageObject,
+  LocalStorageItemShop,
+  LocalStorageItemShopCategory,
+  ProductItem,
+} from '../../types';
 
 import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGeneticContainer';
 import {
+  ButtonsContainer,
   CatalogItemBorder,
   CatalogItemContainer,
   CatalogItemContainerWrapper,
@@ -13,15 +19,27 @@ import {
   ImageContainer,
 } from './CatalogItem.styled';
 import { DiscountContainer } from '../Products/ProductCard.styled';
-import { options } from '../../Helper';
+import { CatalogId, options } from '../../Helper';
 import { Cost } from '../Products/Cost';
-
+import { BasketButton } from '../Basket/Basket.styled';
+import { FavoriteElem } from '../Generic/Favorite/FavoriteElem';
 interface ICatalogItem {
   item: ProductItem;
-  idx: number;
+  favorite: LocalStorageItemShopCategory;
+  baket: LocalStorageItemShopCategory;
+  onClick: (obj: LocalSorageObject) => void;
 }
 
-export const CatalogItem: FC<ICatalogItem> = ({ item, idx }) => {
+export const CatalogItem: FC<ICatalogItem> = ({
+  item,
+  favorite,
+  baket,
+  onClick,
+}) => {
+  const localStorageObj = {
+    id: item.productVariantId,
+    elemId: CatalogId as keyof LocalStorageItemShop,
+  };
   const optionsArr: string[] = useMemo(() => {
     const arr = [];
     for (const it in item.options) {
@@ -30,45 +48,74 @@ export const CatalogItem: FC<ICatalogItem> = ({ item, idx }) => {
     }
     return arr;
   }, [item]);
-  const itemVariants = item.variants;
   const makeInStockTitle = () => {
-    if (itemVariants[0].stock > 0) return 'В наявності';
+    if (item.stock > 0) return 'В наявності';
     return 'Немає в наявності';
   };
   const onClickCataligItem = () => {
     // console.log(item.productId);
   };
   return (
-    <CatalogItemBorder $idx={idx}>
+    <CatalogItemBorder>
       <CatalogItemContainer>
         <CatalogItemContainerWrapper onClick={onClickCataligItem}>
           <ImageContainer onClick={(e) => e.stopPropagation()}>
             <ImageGenericContainer
-              title={item.productName}
+              title={item.title}
               itemPhotos={item.images}
             />
-            {itemVariants[0].discountPercent != null ? (
-              <DiscountContainer>Акція</DiscountContainer>
+            {item?.discountPercentage != null ? (
+              <DiscountContainer>-{item.discountPercentage}%</DiscountContainer>
             ) : null}
           </ImageContainer>
           <CatalogItemInfoContainer>
-            <h3>{item.productName}</h3>
+            <h3>{item.title}</h3>
             <CatalogItemInfoPContainer>
               {optionsArr.map((it, index) => (
                 <p key={index}>{it}</p>
               ))}
             </CatalogItemInfoPContainer>
             <CatalogItemCostContainer>
-              <CatalogItemCostAvailable $inStock={itemVariants[0].stock > 0}>
+              <CatalogItemCostAvailable $inStock={item.stock > 0}>
                 {makeInStockTitle()}
               </CatalogItemCostAvailable>
               <Cost
-                itemPrice={itemVariants[0].price}
-                itemDiscountPercentage={item.variants[0]?.discountPercent}
+                itemPrice={item.price}
+                itemDiscountPercentage={item?.discountPercentage}
               />
             </CatalogItemCostContainer>
           </CatalogItemInfoContainer>
         </CatalogItemContainerWrapper>
+        <ButtonsContainer>
+          <FavoriteElem
+            onClick={onClick}
+            categoryId={item.categoryId}
+            productVariantId={item.productVariantId}
+            flag={
+              favorite[item.categoryId as keyof LocalStorageItemShopCategory][
+                item.productVariantId
+              ] || 0
+            }
+            localStorageObj={localStorageObj}
+          />
+          <BasketButton
+            style={{ width: '143px' }}
+            type="button"
+            onClick={() => {
+              onClick({
+                ...localStorageObj,
+                type: 'basket',
+                itemType: item.categoryId as keyof LocalStorageItemShopCategory,
+              });
+            }}
+          >
+            {baket[item.categoryId as keyof LocalStorageItemShopCategory][
+              item.productVariantId
+            ]
+              ? 'Видалити з кошику'
+              : 'В кошик'}
+          </BasketButton>
+        </ButtonsContainer>
       </CatalogItemContainer>
     </CatalogItemBorder>
   );

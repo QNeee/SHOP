@@ -1,12 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { ProductItem, SharesItem } from '../../types';
-import { fetchProducts, fetchProductsShares } from './productsOperations';
+import type { ProductItem } from '../../types';
+import {
+  fetchBasketProducts,
+  fetchProducts,
+  fetchProductsShares,
+} from './productsOperations';
 export interface ISProductsState {
   loading: boolean;
   error: unknown;
   products: ProductItem[];
-  shares: SharesItem[];
-  watched: SharesItem[];
+  shares: ProductItem[];
+  watched: ProductItem[];
+  basket: ProductItem[];
 }
 const initialState: ISProductsState = {
   products: [],
@@ -14,6 +19,7 @@ const initialState: ISProductsState = {
   error: null,
   shares: [],
   watched: [],
+  basket: [],
 };
 
 export const productsSlice = createSlice({
@@ -21,12 +27,16 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {
     exitApp: () => initialState,
+    setBasket: (state, { payload }) => {
+      state.basket = payload;
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.products = [];
       })
       .addCase(fetchProducts.fulfilled, (state, { payload }) => {
         state.products = payload.data;
@@ -47,6 +57,19 @@ export const productsSlice = createSlice({
       .addCase(fetchProductsShares.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(fetchBasketProducts.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchBasketProducts.fulfilled, (state, { payload }) => {
+        state.basket = payload.data;
+        state.loading = false;
+      })
+      .addCase(fetchBasketProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
+export const { exitApp, setBasket } = productsSlice.actions;

@@ -15,12 +15,12 @@ import type {
   CheckedItem,
   DeletedItemFromBaket,
   Ordered,
-  SharesItem,
+  ProductItem,
 } from '../../types';
 import { BasketCard } from './BasketCard';
 import { BasketEmpty } from './BasketEmpty';
 interface IBasketProps {
-  items: SharesItem[];
+  items: ProductItem[];
   onClickDeleteAll: (data: CheckedItem[]) => void;
   onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
   setLocalStorageItems: Function;
@@ -59,7 +59,6 @@ export const Basket: FC<IBasketProps> = ({
       [id]: value,
     }));
   };
-  console.log(items.filter((it) => checkedItems[it.productVariantId]));
   return (
     <div style={{ marginBottom: '20px' }}>
       {items.length > 0 ? (

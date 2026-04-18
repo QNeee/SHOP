@@ -3,11 +3,20 @@ import { GenericRoute } from '../Components/Generic/GenericRoute/GenericRoute';
 import type { AppDispatch } from '../Redux/store';
 import { getProdutsItems } from '../Redux/products/productsSelectors';
 import { useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, type FC } from 'react';
 import { fetchProducts } from '../Redux/products/productsOperations';
 import { CatalogItem } from '../Components/CatalogItem/CatalogItem';
-
-export const CatalogItemPage = () => {
+import type { LocalSorageObject, LocalStorageItemShopCategory } from '../types';
+interface ICalaogItemPage {
+  favorite: LocalStorageItemShopCategory;
+  baket: LocalStorageItemShopCategory;
+  onClick: (obj: LocalSorageObject) => void;
+}
+export const CatalogItemPage: FC<ICalaogItemPage> = ({
+  onClick,
+  favorite,
+  baket,
+}) => {
   const dispath: AppDispatch = useDispatch();
   const items = useSelector(getProdutsItems);
   const { pathname } = useLocation();
@@ -18,8 +27,14 @@ export const CatalogItemPage = () => {
   return (
     <GenericRoute>
       <>
-        {items.map((item, index) => (
-          <CatalogItem idx={index} key={item.productId} item={item} />
+        {items.map((item) => (
+          <CatalogItem
+            onClick={onClick}
+            favorite={favorite}
+            baket={baket}
+            key={item.productVariantId}
+            item={item}
+          />
         ))}
       </>
     </GenericRoute>

@@ -2,7 +2,7 @@ import { type FC } from 'react';
 import type {
   LocalSorageObject,
   LocalStorageItemShopCategory,
-  SharesItem,
+  ProductItem,
 } from '../../types';
 import { Products } from '../Products/Products';
 import { CanLikeId } from '../../Helper';
@@ -13,7 +13,7 @@ interface IWatched {
   watchedRef: React.RefObject<HTMLDivElement | null>;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
   onClick: (obj: LocalSorageObject) => void;
-  items: SharesItem[];
+  items: ProductItem[];
 }
 export const Watched: FC<IWatched> = ({
   baket,

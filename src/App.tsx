@@ -29,7 +29,6 @@ import type {
   LocalStorageItemShop,
   LocalStorageItemShopCategory,
   Ordered,
-  SharesItem,
   TotalObj,
 } from './types';
 import React from 'react';
@@ -37,23 +36,26 @@ import { BasketLayout } from './Components/Layouts/BasketLayout';
 import { BasketPage } from './pages/BasketPage';
 import { OrderPage } from './pages/OrderPage';
 import { formReducer } from './Components/Order/formReducer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CatalogItemPage } from './pages/CatalogItemPage';
 import { ErrorPage } from './pages/ErrorPage';
-import { getProductsSharesItems } from './Redux/products/productsSelectors';
+import { getProductsBasketItems } from './Redux/products/productsSelectors';
+import { fetchBasketProducts } from './Redux/products/productsOperations';
+import type { AppDispatch } from './Redux/store';
+import { setBasket } from './Redux/products/productsSlice';
 
 function App() {
   const navigate = useNavigate();
-  const [renderItemsBaket, setRenderItemsBaket] = useState<SharesItem[]>([]);
   const [total, setTotal] = useState<TotalObj>(initialTotalObj);
   const [submit, setSubmit] = useState(false);
   const [form, dispatch] = useReducer(formReducer, initialFormData);
+  const appDispath: AppDispatch = useDispatch();
   const { baket, shopItems, favorite, orderForm } = localStorageItemsKeys;
   const [checkFormOrder, setCheckFormOrdr] = useState<CheckFormOrder>(
     initialCheckFormOrder,
   );
-  const sharesData = useSelector(getProductsSharesItems);
   const [ordered, setOrdered] = useState<Ordered>(initialOrdered);
+  const basketData = useSelector(getProductsBasketItems);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const [localStorageItems, setLocalStorageItems] =
     useState<LocalStorageItemShop>(() => {
@@ -61,32 +63,29 @@ function App() {
       return data ? JSON.parse(data) : initialLocalStorageItems;
     });
   useEffect(() => {
-    const data = Object.keys(localStorageItems[baket]).flatMap((k) => {
-      const itemKey =
-        localStorageItems[baket][
-          Number(k) as keyof LocalStorageItemShopCategory
-        ];
-      const filtered = sharesData
-        .filter((item) => item.productVariantId in itemKey)
-        .map((item) => ({ ...item, count: itemKey[item.productVariantId] }));
-      return filtered;
-    });
-    setRenderItemsBaket(data);
+    if (basketData.length === 0) {
+      const basketIdsItems = Object.values(localStorageItems[baket]).flatMap(
+        (category) => Object.keys(category),
+      );
+      appDispath(fetchBasketProducts(basketIdsItems));
+    }
+  }, []);
+  useEffect(() => {
     const initialChecked: Record<string, boolean> = {};
-    data.forEach((item) => {
+    basketData.forEach((item) => {
       initialChecked[item.productVariantId] = false;
     });
     setCheckedItems(initialChecked);
-    if (data.length === 0) {
+    if (basketData.length === 0) {
       setCheckedItems({});
     }
-  }, [localStorageItems, baket, sharesData]);
+  }, [basketData]);
   useEffect(() => {
-    const totalPrice = renderItemsBaket.reduce((acc, item) => {
+    const totalPrice = basketData.reduce((acc, item) => {
       const count = item.count ?? 1;
       return acc + item.price * count;
     }, 0);
-    const totalPriceWithDiscount = renderItemsBaket.reduce((acc, item) => {
+    const totalPriceWithDiscount = basketData.reduce((acc, item) => {
       const count = item.count ?? 1;
       return (
         acc +
@@ -99,28 +98,47 @@ function App() {
       valute,
     };
     setTotal(totalObj);
-  }, [renderItemsBaket]);
+  }, [basketData]);
   const onClickDeleteAll = (data: CheckedItem[]) => {
-    setLocalStorageItems((prev) => {
-      const needData = { ...prev[baket] };
+    const basketIdsItems = Object.values(localStorageItems[baket]).flatMap(
+      (category) => Object.keys(category),
+    );
 
-      data.forEach((item) => {
-        Object.entries(item).forEach(([key, id]) => {
-          if (id) {
-            delete needData[Number(key) as keyof LocalStorageItemShopCategory][
-              id
-            ];
-          }
-        });
-      });
-      const newData = { ...prev, [baket]: needData };
+    const idsToDelete = new Set(basketIdsItems);
+
+    const newBasket = basketData.filter(
+      (item) => !idsToDelete.has(item.productVariantId),
+    );
+
+    appDispath(setBasket(newBasket));
+
+    setLocalStorageItems((prev) => {
+      const needData = structuredClone(prev[baket]);
+
+      for (const item of data) {
+        for (const [key, id] of Object.entries(item)) {
+          if (!id) continue;
+
+          delete needData[Number(key) as keyof LocalStorageItemShopCategory]?.[
+            id
+          ];
+        }
+      }
+
+      const newData = {
+        ...prev,
+        [baket]: needData,
+      };
+
       localStorage.setItem(shopItems, JSON.stringify(newData));
       return newData;
     });
   };
   const onClickDeleteOne = (obj: DeletedItemFromBaket) => {
     const { type, id } = obj;
-
+    appDispath(
+      setBasket(basketData.filter((it) => it.productVariantId !== id)),
+    );
     setLocalStorageItems((prev) => {
       const needData = { ...prev[baket] };
       const typeData = { ...(needData[type] || {}) };
@@ -199,7 +217,7 @@ function App() {
     localStorage.removeItem(orderForm);
     setSubmit(false);
     setCheckFormOrdr(initialCheckFormOrder);
-    const arrayToDelete = renderItemsBaket.map((item) => {
+    const arrayToDelete = basketData.map((item) => {
       const obj: CheckedItem = { 1: undefined, 2: undefined };
       obj[item.categoryId as keyof CheckedItem] = item.productVariantId;
       return obj;
@@ -272,7 +290,7 @@ function App() {
               <BasketLayout
                 ordered={ordered}
                 setOrdered={setOrdered}
-                basketLength={renderItemsBaket.length}
+                basketLength={basketData.length}
                 onClickToOrder={onClickToOrder}
                 onSubmitOrderForm={onSubmitOrderForm}
                 total={total}
@@ -287,9 +305,9 @@ function App() {
                   setLocalStorageItems={setLocalStorageItems}
                   onClickDeleteOne={onClickDeleteOne}
                   onClickDeleteAll={onClickDeleteAll}
-                  items={renderItemsBaket}
                   checkedItems={checkedItems}
                   setCheckedItems={setCheckedItems}
+                  baket={localStorageItems[baket]}
                 />
               }
             />
@@ -306,7 +324,16 @@ function App() {
             />
           </Route>
           <Route path={Paths.profile} element={<ProfilePage />} />
-          <Route path={Paths.catalog + '/:id'} element={<CatalogItemPage />}>
+          <Route
+            path={Paths.catalog + '/:id'}
+            element={
+              <CatalogItemPage
+                favorite={localStorageItems[favorite]}
+                onClick={onClickAdd}
+                baket={localStorageItems[baket]}
+              />
+            }
+          >
             <Route
               path={Paths.catalog + '/:id' + '/:id'}
               element={
