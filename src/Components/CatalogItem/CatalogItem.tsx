@@ -1,5 +1,5 @@
 import { useMemo, type FC } from 'react';
-import type { ProductItem, SharesItem } from '../../types';
+import type { ProductItem } from '../../types';
 
 import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGeneticContainer';
 import {
@@ -15,7 +15,6 @@ import {
 import { DiscountContainer } from '../Products/ProductCard.styled';
 import { options } from '../../Helper';
 import { Cost } from '../Products/Cost';
-import { BasketButton } from '../Basket/Basket.styled';
 
 interface ICatalogItem {
   item: ProductItem;

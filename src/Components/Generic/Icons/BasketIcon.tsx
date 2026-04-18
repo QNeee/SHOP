@@ -2,7 +2,6 @@ import type { FC } from 'react';
 import type {
   CheckedItem,
   DeletedItemFromBaket,
-  ProductItem,
   SharesItem,
 } from '../../../types';
 
