@@ -38,6 +38,7 @@ export const BasketLayout: FC<IBasketLayout> = ({
               <BasketButton
                 type="submit"
                 onClick={isBasket ? onClickToOrder : onSubmitOrderForm}
+                style={{ marginBottom: '20px' }}
               >
                 Оформити замовлення
               </BasketButton>

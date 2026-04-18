@@ -1,15 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { ProductItem } from '../../types';
-import { fetchProducts } from './productsOperations';
+import type { ProductItem, SharesItem } from '../../types';
+import { fetchProducts, fetchProductsShares } from './productsOperations';
 export interface ISProductsState {
   loading: boolean;
   error: unknown;
-  items: ProductItem[];
+  products: ProductItem[];
+  shares: SharesItem[];
+  watched: SharesItem[];
 }
 const initialState: ISProductsState = {
-  items: [],
+  products: [],
   loading: false,
   error: null,
+  shares: [],
+  watched: [],
 };
 
 export const productsSlice = createSlice({
@@ -25,10 +29,22 @@ export const productsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchProducts.fulfilled, (state, { payload }) => {
-        state.items = payload.data;
+        state.products = payload.data;
         state.loading = false;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchProductsShares.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchProductsShares.fulfilled, (state, { payload }) => {
+        state.shares = payload.data;
+        state.loading = false;
+      })
+      .addCase(fetchProductsShares.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

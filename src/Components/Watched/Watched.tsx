@@ -1,14 +1,11 @@
-import { useEffect, type FC } from 'react';
+import { type FC } from 'react';
 import type {
   LocalSorageObject,
   LocalStorageItemShopCategory,
+  SharesItem,
 } from '../../types';
 import { Products } from '../Products/Products';
 import { CanLikeId } from '../../Helper';
-import { fetchShares } from '../../Redux/shares/sharesOperations';
-import type { AppDispatch } from '../../Redux/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSharesItems } from '../../Redux/shares/sharesSelectors';
 
 interface IWatched {
   baket: LocalStorageItemShopCategory;
@@ -16,6 +13,7 @@ interface IWatched {
   watchedRef: React.RefObject<HTMLDivElement | null>;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
   onClick: (obj: LocalSorageObject) => void;
+  items: SharesItem[];
 }
 export const Watched: FC<IWatched> = ({
   baket,
@@ -23,12 +21,8 @@ export const Watched: FC<IWatched> = ({
   watchedRef,
   onClick,
   onClickCarouselButton,
+  items,
 }) => {
-  const dispatch: AppDispatch = useDispatch();
-  const items = useSelector(getSharesItems);
-  useEffect(() => {
-    dispatch(fetchShares());
-  }, []);
   const headerTitle = 'Може сподобатись';
   return (
     <Products

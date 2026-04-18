@@ -8,20 +8,10 @@ export const ProductSection = styled.section<{ $pathname: string }>`
   margin-right: auto;
   padding-bottom: 19px;
   margin-top: 40px;
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: #ccc;
-  }
 
-  &::after {
-    bottom: 0;
-  }
   @media screen and (min-width: 1280px) {
-    padding: ${(props) => (props.$pathname === Paths.base + '/' ? '0 80px' : '0')};
+    padding: ${(props) =>
+      props.$pathname === Paths.base + '/' ? '0 80px' : '0'};
   }
 
   @media screen and (min-width: 1280px) {

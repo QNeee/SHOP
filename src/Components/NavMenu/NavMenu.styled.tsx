@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 export const Nav = styled.nav`
-  margin-top: 28px;
+  padding-top: 20px;
 `;
 export const IconsUl = styled.ul`
   list-style: none;

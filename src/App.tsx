@@ -38,9 +38,9 @@ import { BasketPage } from './pages/BasketPage';
 import { OrderPage } from './pages/OrderPage';
 import { formReducer } from './Components/Order/formReducer';
 import { useSelector } from 'react-redux';
-import { getSharesItems } from './Redux/shares/sharesSelectors';
 import { CatalogItemPage } from './pages/CatalogItemPage';
 import { ErrorPage } from './pages/ErrorPage';
+import { getProductsSharesItems } from './Redux/products/productsSelectors';
 
 function App() {
   const navigate = useNavigate();
@@ -52,7 +52,7 @@ function App() {
   const [checkFormOrder, setCheckFormOrdr] = useState<CheckFormOrder>(
     initialCheckFormOrder,
   );
-  const sharesData = useSelector(getSharesItems);
+  const sharesData = useSelector(getProductsSharesItems);
   const [ordered, setOrdered] = useState<Ordered>(initialOrdered);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const [localStorageItems, setLocalStorageItems] =

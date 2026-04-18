@@ -40,7 +40,6 @@ export const Basket: FC<IBasketProps> = ({
   setOrdered,
 }) => {
   const navigate = useNavigate();
-
   const checkedAll =
     Object.keys(checkedItems).length > 0 &&
     Object.values(checkedItems).every(Boolean);
@@ -49,7 +48,7 @@ export const Basket: FC<IBasketProps> = ({
     const newState: Record<string, boolean> = {};
 
     items.forEach((item) => {
-      newState[item.productId] = value;
+      newState[item.productVariantId] = value;
     });
 
     setCheckedItems(newState);
@@ -60,8 +59,9 @@ export const Basket: FC<IBasketProps> = ({
       [id]: value,
     }));
   };
+  console.log(items.filter((it) => checkedItems[it.productVariantId]));
   return (
-    <div>
+    <div style={{ marginBottom: '20px' }}>
       {items.length > 0 ? (
         <BasketWrapper>
           <BasketContainer>

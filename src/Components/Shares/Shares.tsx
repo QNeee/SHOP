@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react';
+import { type FC } from 'react';
 import { Products } from '../Products/Products';
 import type {
   LocalSorageObject,
@@ -6,11 +6,9 @@ import type {
   SharesItem,
 } from '../../types';
 import { SharesId } from '../../Helper';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSharesLodaing } from '../../Redux/shares/sharesSelectors';
-import { fetchShares } from '../../Redux/shares/sharesOperations';
-import type { AppDispatch } from '../../Redux/store';
+import { useSelector } from 'react-redux';
 import { Loader } from '../Generic/Loader/Loader';
+import { getProdutsLodaing } from '../../Redux/products/productsSelectors';
 interface IShared {
   baket: LocalStorageItemShopCategory;
   favorite: LocalStorageItemShopCategory;
@@ -27,12 +25,8 @@ export const Shares: FC<IShared> = ({
   onClick,
   items,
 }) => {
-  const dispatch: AppDispatch = useDispatch();
-  const sharesLoading = useSelector(getSharesLodaing);
+  const sharesLoading = useSelector(getProdutsLodaing);
   const headerTitle = 'Акції';
-  useEffect(() => {
-    dispatch(fetchShares());
-  }, []);
   return (
     <>
       {sharesLoading ? (

@@ -9,6 +9,11 @@ import { Header } from '../Header/Header';
 import { Main } from '../Main/Main';
 import { useLocation } from 'react-router-dom';
 import { Watched } from '../Watched/Watched';
+import { useSelector } from 'react-redux';
+import {
+  getProductsSharesItems,
+  getProductsWatchedItems,
+} from '../../Redux/products/productsSelectors';
 interface IMainLayoutProps {
   carouselsRefs: React.RefObject<HTMLDivElement | null>;
   onClickCarouselButton: (e: React.MouseEvent<SVGSVGElement>) => void;
@@ -27,6 +32,7 @@ export const MainLayout: FC<IMainLayoutProps> = ({
 }) => {
   const { pathname } = useLocation();
   const pathsBlockHeader = [Paths.basket, Paths.order];
+  const items = useSelector(getProductsWatchedItems);
   return (
     <>
       {!pathsBlockHeader.includes(pathname.replace(/\/$/, '')) ? (
@@ -35,13 +41,15 @@ export const MainLayout: FC<IMainLayoutProps> = ({
       <Main />
       {pathname === Paths.basket &&
       !ordered &&
-      !pathname.includes(Paths.catalog) ? (
+      !pathname.includes(Paths.catalog) &&
+      items.length > 0 ? (
         <Watched
           baket={baket}
           favorite={favorite}
           watchedRef={carouselsRefs}
           onClickCarouselButton={onClickCarouselButton}
           onClick={onClickFavorite}
+          items={items}
         />
       ) : null}
       {useIsmobileWidth() ? <Footer items={baket} /> : null}
