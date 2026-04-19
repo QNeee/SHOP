@@ -1,7 +1,6 @@
 import { type FC } from 'react';
 import type {
   LocalSorageObject,
-  LocalStorageItemShop,
   LocalStorageItemShopCategory,
   ProductItem,
 } from '../../types';
@@ -21,23 +20,17 @@ interface IProductCardProps {
   item: ProductItem;
   onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
   favorite: LocalStorageItemShopCategory;
-  id: string;
   baket: LocalStorageItemShopCategory;
 }
 
 export const ProductCard: FC<IProductCardProps> = ({
   item,
   favorite,
-  id,
   onClickAdd,
   baket,
 }) => {
   const availabletext = 'В навності';
   const noAvailabletext = 'Немає в наявності';
-  const localStorageObj = {
-    id: item.productVariantId,
-    elemId: id as keyof LocalStorageItemShop,
-  };
   return (
     <ProductCardContainer id={item.productVariantId}>
       <ImageContainer>
@@ -59,7 +52,6 @@ export const ProductCard: FC<IProductCardProps> = ({
           onClickAdd={onClickAdd}
           item={item}
           flag={favorite[item.productVariantId] || 0}
-          localStorageObj={localStorageObj}
         />
       </ButtonsContainer>
       <Button
@@ -68,7 +60,6 @@ export const ProductCard: FC<IProductCardProps> = ({
         onClick={() =>
           onClickAdd(
             {
-              ...localStorageObj,
               type: 'basket',
               itemId: item.productVariantId,
             },

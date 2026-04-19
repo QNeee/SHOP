@@ -1,7 +1,6 @@
 import { useMemo, type FC } from 'react';
 import type {
   LocalSorageObject,
-  LocalStorageItemShop,
   LocalStorageItemShopCategory,
   ProductItem,
 } from '../../types';
@@ -19,7 +18,7 @@ import {
   ImageContainer,
 } from './CatalogItem.styled';
 import { DiscountContainer } from '../Products/ProductCard.styled';
-import { CatalogId, options } from '../../Helper';
+import { options } from '../../Helper';
 import { Cost } from '../Products/Cost';
 import { BasketButton } from '../Basket/Basket.styled';
 import { FavoriteElem } from '../Generic/Favorite/FavoriteElem';
@@ -36,10 +35,6 @@ export const CatalogItem: FC<ICatalogItem> = ({
   baket,
   onClickAdd,
 }) => {
-  const localStorageObj = {
-    id: item.productVariantId,
-    elemId: CatalogId as keyof LocalStorageItemShop,
-  };
   const optionsArr: string[] = useMemo(() => {
     const arr = [];
     for (const it in item.options) {
@@ -90,12 +85,7 @@ export const CatalogItem: FC<ICatalogItem> = ({
           <FavoriteElem
             onClickAdd={onClickAdd}
             item={item}
-            flag={
-              favorite[item.categoryId as keyof LocalStorageItemShopCategory][
-                item.productVariantId
-              ] || 0
-            }
-            localStorageObj={localStorageObj}
+            flag={favorite[item.productVariantId] || 0}
           />
           <BasketButton
             style={{ width: '143px' }}
@@ -103,20 +93,14 @@ export const CatalogItem: FC<ICatalogItem> = ({
             onClick={() => {
               onClickAdd(
                 {
-                  ...localStorageObj,
                   type: 'basket',
-                  itemType:
-                    item.categoryId as keyof LocalStorageItemShopCategory,
+                  itemId: item.productVariantId,
                 },
                 item,
               );
             }}
           >
-            {baket[item.categoryId as keyof LocalStorageItemShopCategory][
-              item.productVariantId
-            ]
-              ? 'Видалити з кошику'
-              : 'В кошик'}
+            {baket[item.productVariantId] ? 'Видалити з кошику' : 'В кошик'}
           </BasketButton>
         </ButtonsContainer>
       </CatalogItemContainer>

@@ -49,7 +49,6 @@ export const Products: FC<IProductsProps> = ({
             {items.map((item) => (
               <ProductCard
                 onClickAdd={onClickAdd}
-                id={id}
                 key={item.productVariantId}
                 item={item}
                 favorite={favorite}

@@ -1,10 +1,5 @@
 import type { FC } from 'react';
-import type {
-  LocalSorageObject,
-  LocalStorageItemShop,
-  LocalStorageItemShopCategory,
-  ProductItem,
-} from '../../../types';
+import type { LocalSorageObject, ProductItem } from '../../../types';
 import { FavoriteIcon } from '../Icons/FavoriteIcon';
 import { FavoriteContainer } from './FavoriteElem.styled';
 
@@ -12,26 +7,16 @@ export interface IFavoriteElem {
   onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
   item: ProductItem;
   flag: number;
-  localStorageObj: {
-    id: string;
-    elemId: keyof LocalStorageItemShop;
-  };
 }
 
-export const FavoriteElem: FC<IFavoriteElem> = ({
-  onClickAdd,
-  flag,
-  localStorageObj,
-  item,
-}) => {
+export const FavoriteElem: FC<IFavoriteElem> = ({ onClickAdd, flag, item }) => {
   return (
     <FavoriteContainer
       onClick={() =>
         onClickAdd(
           {
-            ...localStorageObj,
             type: 'favorites',
-            itemType: item.categoryId as keyof LocalStorageItemShopCategory,
+            itemId: item.productVariantId,
           },
           item,
         )
