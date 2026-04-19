@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import type { DeletedItemFromBaket, ProductItem } from '../../types';
+import type { ProductItem } from '../../types';
 import {
   BaskerCardContainer,
   IconAndCounterContainer,
@@ -20,7 +20,7 @@ interface IBasketCardProps {
   item: ProductItem;
   checked: boolean;
   onChange: (id: string, value: boolean) => void;
-  onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
+  onClickDeleteOne: (id: string) => void;
   setLocalStorageItems: Function;
 }
 
@@ -69,7 +69,6 @@ export const BasketCard: FC<IBasketCardProps> = ({
           <Counter
             max={item.stock}
             itemId={item.productVariantId}
-            itemType={item.categoryId}
             setLocalStorageItems={setLocalStorageItems}
           />
         </IconAndCounterContainer>

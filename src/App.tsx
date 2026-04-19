@@ -6,7 +6,6 @@ import { MainPage } from './pages/MainPage';
 import {
   CanLikeId,
   Courier,
-  discountCalculate,
   formatDateString,
   initialCheckFormOrder,
   initialFormData,
@@ -15,19 +14,15 @@ import {
   initialTotalObj,
   localStorageItemsKeys,
   Paths,
-  valute,
 } from './Helper';
 import { ProfilePage } from './pages/ProfilePage';
 import { CatalogPage } from './pages/CatalogPage';
 import { useEffect, useReducer, useState } from 'react';
 import type {
   CarouselsRefs,
-  CheckedItem,
   CheckFormOrder,
-  DeletedItemFromBaket,
   LocalSorageObject,
   LocalStorageItemShop,
-  LocalStorageItemShopCategory,
   Ordered,
   ProductItem,
   TotalObj,
@@ -65,10 +60,7 @@ function App() {
     });
   useEffect(() => {
     if (basketData.length === 0) {
-      const basketIdsItems = Object.values(localStorageItems[baket]).flatMap(
-        (category) => Object.keys(category),
-      );
-      appDispath(fetchBasketProducts(basketIdsItems));
+      appDispath(fetchBasketProducts(Object.keys(localStorageItems[baket])));
     }
   }, []);
   useEffect(() => {
@@ -81,75 +73,38 @@ function App() {
       setCheckedItems({});
     }
   }, [basketData]);
-  useEffect(() => {
-    const totalPrice = basketData.reduce((acc, item) => {
-      const count = item.count ?? 1;
-      return acc + item.price * count;
-    }, 0);
-    const totalPriceWithDiscount = basketData.reduce((acc, item) => {
-      const count = item.count ?? 1;
-      return (
-        acc +
-        Number(discountCalculate(item.price, item.discountPercentage)) * count
-      );
-    }, 0);
-    const totalObj = {
-      total: totalPrice,
-      totalWithDiscount: totalPriceWithDiscount,
-      valute,
-    };
-    setTotal(totalObj);
-  }, [basketData]);
-  const onClickDeleteAll = (data: CheckedItem[]) => {
-    const basketIdsItems = Object.values(localStorageItems[baket]).flatMap(
-      (category) => Object.keys(category),
-    );
 
-    const idsToDelete = new Set(basketIdsItems);
-
+  const onClickDeleteAll = () => {
+    const ids = new Set(Object.keys(localStorageItems[baket]));
     const newBasket = basketData.filter(
-      (item) => !idsToDelete.has(item.productVariantId),
+      (item) => !ids.has(item.productVariantId),
     );
 
     appDispath(setBasket(newBasket));
 
     setLocalStorageItems((prev) => {
-      const needData = structuredClone(prev[baket]);
-
-      for (const item of data) {
-        for (const [key, id] of Object.entries(item)) {
-          if (!id) continue;
-
-          delete needData[Number(key) as keyof LocalStorageItemShopCategory]?.[
-            id
-          ];
-        }
-      }
-
       const newData = {
         ...prev,
-        [baket]: needData,
+        [baket]: {},
       };
 
       localStorage.setItem(shopItems, JSON.stringify(newData));
       return newData;
     });
   };
-  const onClickDeleteOne = (obj: DeletedItemFromBaket) => {
-    const { type, id } = obj;
+  const onClickDeleteOne = (id: string) => {
     appDispath(
       setBasket(basketData.filter((it) => it.productVariantId !== id)),
     );
     setLocalStorageItems((prev) => {
       const needData = { ...prev[baket] };
-      const typeData = { ...(needData[type] || {}) };
-      if (typeData[id]) delete typeData[id];
+      console.log(needData);
+      if (needData[id]) delete needData[id];
 
       const newData = {
         ...prev,
         [baket]: {
           ...needData,
-          [type]: typeData,
         },
       };
 
@@ -160,7 +115,7 @@ function App() {
   };
 
   const onClickAdd = (obj: LocalSorageObject, item: ProductItem) => {
-    const { type, itemType } = obj;
+    const { type, itemId } = obj;
     if (type === baket) {
       const exists = basketData.some(
         (d) => d.productVariantId === item.productVariantId,
@@ -174,21 +129,13 @@ function App() {
     }
     setLocalStorageItems((prev) => {
       const elemData = { ...prev[type] };
-      const itemData = { ...elemData[itemType] };
-
-      if (itemData[item.productVariantId])
-        delete itemData[item.productVariantId];
-      else itemData[item.productVariantId] = 1;
+      if (elemData[itemId]) delete elemData[itemId];
+      else elemData[itemId] = 1;
       const newData = {
         ...prev,
-        [type]: {
-          ...prev[type],
-          [itemType]: itemData,
-        },
+        [type]: elemData,
       };
-
       localStorage.setItem(shopItems, JSON.stringify(newData));
-
       return newData;
     });
   };
@@ -229,12 +176,7 @@ function App() {
     localStorage.removeItem(orderForm);
     setSubmit(false);
     setCheckFormOrdr(initialCheckFormOrder);
-    const arrayToDelete = basketData.map((item) => {
-      const obj: CheckedItem = { 1: undefined, 2: undefined };
-      obj[item.categoryId as keyof CheckedItem] = item.productVariantId;
-      return obj;
-    });
-    onClickDeleteAll(arrayToDelete);
+    onClickDeleteAll();
     setTotal(initialTotalObj);
     dispatch({ type: 'RESET' });
   };
@@ -300,6 +242,7 @@ function App() {
             path={Paths.basket}
             element={
               <BasketLayout
+                setTotal={setTotal}
                 ordered={ordered}
                 setOrdered={setOrdered}
                 basketLength={basketData.length}

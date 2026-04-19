@@ -58,11 +58,7 @@ export const ProductCard: FC<IProductCardProps> = ({
         <FavoriteElem
           onClickAdd={onClickAdd}
           item={item}
-          flag={
-            favorite[item.categoryId as keyof LocalStorageItemShopCategory][
-              item.productVariantId
-            ] || 0
-          }
+          flag={favorite[item.productVariantId] || 0}
           localStorageObj={localStorageObj}
         />
       </ButtonsContainer>
@@ -74,17 +70,13 @@ export const ProductCard: FC<IProductCardProps> = ({
             {
               ...localStorageObj,
               type: 'basket',
-              itemType: item.categoryId as keyof LocalStorageItemShopCategory,
+              itemId: item.productVariantId,
             },
             item,
           )
         }
       >
-        {baket[item.categoryId as keyof LocalStorageItemShopCategory][
-          item.productVariantId
-        ]
-          ? 'Видалити з кошику'
-          : 'В кошик'}
+        {baket[item.productVariantId] ? 'Видалити з кошику' : 'В кошик'}
       </Button>
     </ProductCardContainer>
   );

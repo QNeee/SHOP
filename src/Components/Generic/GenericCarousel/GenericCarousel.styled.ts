@@ -36,13 +36,16 @@ export const Carousel = styled.div`
 `;
 export const Slide = styled.img`
   flex: 0 0 100%;
-  height: 149px;
+  height: 180px;
   width: 100%;
   @media screen and (min-width: 480px) and (max-width: 768px) {
     height: 180px;
   }
-  @media screen and (min-width: 1024px) {
-    height: 500px;
+  @media screen and (min-width: 768px) {
+    height: 400px;
+  }
+  @media screen and (min-width: 1280px) {
+    height: 600px;
   }
   scroll-snap-align: center;
   border-radius: 16px;

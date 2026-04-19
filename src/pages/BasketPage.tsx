@@ -1,18 +1,11 @@
-import { useEffect, type FC } from 'react';
+import { type FC } from 'react';
 import { Basket } from '../Components/Basket/Basket';
-import type {
-  CheckedItem,
-  DeletedItemFromBaket,
-  LocalStorageItemShopCategory,
-  Ordered,
-} from '../types';
-import type { AppDispatch } from '../Redux/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchBasketProducts } from '../Redux/products/productsOperations';
+import type { LocalStorageItemShopCategory, Ordered } from '../types';
 import { getProductsBasketItems } from '../Redux/products/productsSelectors';
+import { useSelector } from 'react-redux';
 interface IBasketPageProps {
-  onClickDeleteAll: (data: CheckedItem[]) => void;
-  onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
+  onClickDeleteAll: () => void;
+  onClickDeleteOne: (id: string) => void;
   setLocalStorageItems: Function;
   checkedItems: Record<string, boolean>;
   setCheckedItems: React.Dispatch<
@@ -28,17 +21,7 @@ export const BasketPage: FC<IBasketPageProps> = ({
   checkedItems,
   setCheckedItems,
   setOrdered,
-  baket,
 }) => {
-  const dispatch: AppDispatch = useDispatch();
-  useEffect(() => {
-    if (items.length === 0) {
-      const basketIdsItems = Object.values(baket).flatMap((category) =>
-        Object.keys(category),
-      );
-      dispatch(fetchBasketProducts(basketIdsItems));
-    }
-  }, []);
   const items = useSelector(getProductsBasketItems);
   return (
     <Basket

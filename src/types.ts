@@ -42,24 +42,15 @@ export type CarouselsRefs = {
 };
 export type LocalSorageObject = {
   type: 'favorites' | 'basket';
-  itemType: keyof LocalStorageItemShopCategory;
+  itemId: keyof LocalStorageItemShopCategory;
 };
 export type LocalStorageItemShop = {
   favorites: LocalStorageItemShopCategory;
   basket: LocalStorageItemShopCategory;
 };
-export type LocalStorageItemShopCategory = {
-  1: Record<string, number>;
-  2: Record<string, number>;
-};
-export type CheckedItem = {
-  1: string | undefined;
-  2: string | undefined;
-};
-export type DeletedItemFromBaket = {
-  type: keyof CheckedItem;
-  id: string;
-};
+export type LocalStorageItemShopCategory = Record<string, number>;
+export type CheckedItem = Record<string, boolean>;
+
 export type TotalObj = {
   total: number;
   totalWithDiscount: number;

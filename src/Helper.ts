@@ -299,14 +299,8 @@ export const initialModalToDelete = {
 };
 export const valute = '$';
 export const initialLocalStorageItems = {
-  favorites: {
-    1: {},
-    2: {},
-  },
-  basket: {
-    1: {},
-    2: {},
-  },
+  favorites: {},
+  basket: {},
 };
 export const options = {
   cores: 'Кількість Ядер',

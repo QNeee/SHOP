@@ -21,16 +21,7 @@ interface INavMenuProps {
 }
 export const NavMenu: FC<INavMenuProps> = ({ items }) => {
   const isMobile = useIsmobileWidth();
-  const count = useMemo(() => {
-    let newCount = 0;
-    const keys = Object.keys(items);
-    keys.forEach((it) => {
-      newCount += Object.values(
-        items[Number(it) as keyof LocalStorageItemShopCategory],
-      ).length;
-    });
-    return newCount;
-  }, [items]);
+  const count = useMemo(() => Object.keys(items).length, [items]);
   return (
     <Nav>
       <IconsUl>

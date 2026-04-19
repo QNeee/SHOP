@@ -11,12 +11,7 @@ import {
 } from './Basket.styled';
 import { BasketIcon } from '../Generic/Icons/BasketIcon';
 import { type FC } from 'react';
-import type {
-  CheckedItem,
-  DeletedItemFromBaket,
-  Ordered,
-  ProductItem,
-} from '../../types';
+import type { Ordered, ProductItem } from '../../types';
 import { BasketCard } from './BasketCard';
 import { BasketEmpty } from './BasketEmpty';
 import { Loader } from '../Generic/Loader/Loader';
@@ -24,8 +19,8 @@ import { useSelector } from 'react-redux';
 import { getBasketLoading } from '../../Redux/products/productsSelectors';
 interface IBasketProps {
   items: ProductItem[];
-  onClickDeleteAll: (data: CheckedItem[]) => void;
-  onClickDeleteOne: (obj: DeletedItemFromBaket) => void;
+  onClickDeleteAll: () => void;
+  onClickDeleteOne: (id: string) => void;
   setLocalStorageItems: Function;
   checkedItems: Record<string, boolean>;
   setCheckedItems: React.Dispatch<
@@ -70,22 +65,7 @@ export const Basket: FC<IBasketProps> = ({
           <BasketContainer>
             <BasketIconContainer
               $checked={checkedAll}
-              onClick={() =>
-                onClickDeleteAll(
-                  items
-                    .filter((item) => checkedItems[item.productVariantId])
-                    .map((item) => ({
-                      1:
-                        item.categoryId === 1
-                          ? item.productVariantId
-                          : undefined,
-                      2:
-                        item.categoryId === 2
-                          ? item.productVariantId
-                          : undefined,
-                    })),
-                )
-              }
+              onClick={onClickDeleteAll}
             >
               <BasketIcon />
               <BasketIconText>Видалити</BasketIconText>
