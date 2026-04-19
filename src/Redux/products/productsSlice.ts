@@ -34,6 +34,9 @@ export const productsSlice = createSlice({
     setBasket: (state, { payload }) => {
       state.basket = payload;
     },
+    setShares: (state, { payload }) => {
+      state.shares = payload;
+    },
   },
   extraReducers(builder) {
     builder
