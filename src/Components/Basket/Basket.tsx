@@ -37,7 +37,7 @@ export const Basket: FC<IBasketProps> = ({
   setCheckedItems,
   setOrdered,
 }) => {
-  const basketLoading = true;
+  const basketLoading = useSelector(getBasketLoading);
   const navigate = useNavigate();
   const checkedAll =
     Object.keys(checkedItems).length > 0 &&
