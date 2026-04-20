@@ -16,16 +16,11 @@ import {
   ProfileIcon,
 } from '../Generic/Icons/NavMenuIcons';
 import { useSelector } from 'react-redux';
-import {
-  getBasketLoading,
-  getProductsBasketItems,
-} from '../../Redux/products/productsSelectors';
-import { Loader } from '../Generic/Loader/Loader';
+import { getProductsBasketItems } from '../../Redux/products/productsSelectors';
 interface INavMenuProps {}
 export const NavMenu: FC<INavMenuProps> = ({}) => {
   const isMobile = useIsmobileWidth();
   const count = useSelector(getProductsBasketItems).length;
-  const loading = useSelector(getBasketLoading);
   return (
     <Nav>
       <IconsUl>

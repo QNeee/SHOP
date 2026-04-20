@@ -1,15 +1,12 @@
 import type { FC } from 'react';
 import { NavMenu } from '../NavMenu/NavMenu';
-import type { LocalStorageItemShopCategory } from '../../types';
 import { FooterContainer } from './Footer.styled';
 
-interface IHeaderProps {
-  items: LocalStorageItemShopCategory;
-}
-export const Footer: FC<IHeaderProps> = ({ items }) => {
+interface IHeaderProps {}
+export const Footer: FC<IHeaderProps> = () => {
   return (
     <FooterContainer>
-      <NavMenu items={items} />
+      <NavMenu />
     </FooterContainer>
   );
 };

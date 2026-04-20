@@ -50,7 +50,7 @@ export const MainLayout: FC<IMainLayoutProps> = ({
           items={items}
         />
       ) : null}
-      {useIsmobileWidth() ? <Footer items={baket} /> : null}
+      {useIsmobileWidth() ? <Footer /> : null}
     </>
   );
 };

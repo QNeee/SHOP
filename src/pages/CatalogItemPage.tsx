@@ -14,7 +14,6 @@ import type {
   LocalStorageItemShopCategory,
   ProductItem,
 } from '../types';
-import { Loader } from '../Components/Generic/Loader/Loader';
 import { SkeletonCatalog } from '../Components/Generic/Loader/Skeleton/SkeletonCatalog/SkeletonCatalog';
 interface ICalaogItemPage {
   favorite: LocalStorageItemShopCategory;

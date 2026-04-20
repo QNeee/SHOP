@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 import {
-  ButtonsContainer,
   CatalogItemBorder,
   CatalogItemContainer,
   CatalogItemContainerWrapper,
