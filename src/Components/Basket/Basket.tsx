@@ -14,9 +14,9 @@ import { type FC } from 'react';
 import type { Ordered, ProductItem } from '../../types';
 import { BasketCard } from './BasketCard';
 import { BasketEmpty } from './BasketEmpty';
-import { Loader } from '../Generic/Loader/Loader';
 import { useSelector } from 'react-redux';
 import { getBasketLoading } from '../../Redux/products/productsSelectors';
+import { SkeletonBasket } from '../Generic/Loader/Skeleton/SkeletonBasket/SkeletonBasket';
 interface IBasketProps {
   items: ProductItem[];
   onClickDeleteAll: () => void;
@@ -96,7 +96,7 @@ export const Basket: FC<IBasketProps> = ({
       ) : items.length === 0 && !basketLoading ? (
         <BasketEmpty setOrdered={setOrdered} navigate={navigate} />
       ) : (
-        <Loader />
+        <SkeletonBasket itemsPerPage={4} />
       )}
     </div>
   );

@@ -34,7 +34,7 @@ export const MainLayout: FC<IMainLayoutProps> = ({
   return (
     <>
       {!pathsBlockHeader.includes(pathname.replace(/\/$/, '')) ? (
-        <Header items={baket} />
+        <Header />
       ) : null}
       <Main />
       {pathname === Paths.basket &&

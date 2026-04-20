@@ -47,13 +47,13 @@ export const CatalogItem: FC<ICatalogItem> = ({
     if (item.stock > 0) return 'В наявності';
     return 'Немає в наявності';
   };
-  const onClickCataligItem = () => {
+  const onClickCatalogItem = () => {
     // console.log(item.productId);
   };
   return (
     <CatalogItemBorder>
       <CatalogItemContainer>
-        <CatalogItemContainerWrapper onClick={onClickCataligItem}>
+        <CatalogItemContainerWrapper onClick={onClickCatalogItem}>
           <ImageContainer onClick={(e) => e.stopPropagation()}>
             <ImageGenericContainer
               title={item.title}

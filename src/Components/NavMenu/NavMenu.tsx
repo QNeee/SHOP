@@ -1,4 +1,4 @@
-import { useMemo, type FC } from 'react';
+import { type FC } from 'react';
 import { Paths, useIsmobileWidth } from '../../Helper';
 import {
   BaketCountContainer,
@@ -9,19 +9,23 @@ import {
   UrlText,
 } from './NavMenu.styled';
 import { Link } from 'react-router-dom';
-import type { LocalStorageItemShopCategory } from '../../types';
 import {
   BasketIcon,
   CatalogIcon,
   HomeIcon,
   ProfileIcon,
 } from '../Generic/Icons/NavMenuIcons';
-interface INavMenuProps {
-  items: LocalStorageItemShopCategory;
-}
-export const NavMenu: FC<INavMenuProps> = ({ items }) => {
+import { useSelector } from 'react-redux';
+import {
+  getBasketLoading,
+  getProductsBasketItems,
+} from '../../Redux/products/productsSelectors';
+import { Loader } from '../Generic/Loader/Loader';
+interface INavMenuProps {}
+export const NavMenu: FC<INavMenuProps> = ({}) => {
   const isMobile = useIsmobileWidth();
-  const count = useMemo(() => Object.keys(items).length, [items]);
+  const count = useSelector(getProductsBasketItems).length;
+  const loading = useSelector(getBasketLoading);
   return (
     <Nav>
       <IconsUl>
@@ -43,7 +47,7 @@ export const NavMenu: FC<INavMenuProps> = ({ items }) => {
         <li>
           <BaketCountContainer>
             <CountContainer $count={count}>
-              {count > 0 ? count : null}
+              {count > 0 ? <p>{count}</p> : null}
             </CountContainer>
             <IconsUrl as={Link} to={Paths.basket}>
               <BasketIcon />

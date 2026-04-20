@@ -34,7 +34,9 @@ export const CostContainer = styled.div`
   width: 144px;
   height: 21px;
 `;
-export const ButtonsContainer = styled.div<{ $available: boolean }>`
+export const ButtonsContainer = styled.div<{
+  $available: boolean;
+}>`
   width: 100%;
   display: flex;
   justify-content: space-around;

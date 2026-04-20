@@ -50,7 +50,15 @@ export const MainPage: FC<IMainPageProps> = ({
         carouselRef={carouselsRefs[CatalogId]}
         onClick={onClickCarouselButton}
       />
-      {sharesItems.length > 0 && !sharesLoading ? (
+      <Shares
+        items={sharesItems}
+        baket={baket}
+        favorite={favorite}
+        sharesRef={carouselsRefs[SharesId]}
+        onClickAdd={onClickAdd}
+        onClickCarouselButton={onClickCarouselButton}
+      />
+      {/* {sharesItems.length > 0 && !sharesLoading ? (
         <Shares
           items={sharesItems}
           baket={baket}
@@ -61,7 +69,7 @@ export const MainPage: FC<IMainPageProps> = ({
         />
       ) : sharesLoading ? (
         <Loader />
-      ) : null}
+      ) : null} */}
     </>
   );
 };

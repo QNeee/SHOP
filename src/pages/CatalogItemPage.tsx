@@ -15,6 +15,7 @@ import type {
   ProductItem,
 } from '../types';
 import { Loader } from '../Components/Generic/Loader/Loader';
+import { SkeletonCatalog } from '../Components/Generic/Loader/Skeleton/SkeletonCatalog/SkeletonCatalog';
 interface ICalaogItemPage {
   favorite: LocalStorageItemShopCategory;
   baket: LocalStorageItemShopCategory;
@@ -48,7 +49,7 @@ export const CatalogItemPage: FC<ICalaogItemPage> = ({
           ))}
         </>
       ) : (
-        <Loader />
+        <SkeletonCatalog itemsPerPage={4} />
       )}
     </GenericRoute>
   );

@@ -12,6 +12,9 @@ import type {
   ProductItem,
 } from '../../types';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getSharesLodaing } from '../../Redux/products/productsSelectors';
+import { SkeletonShares } from '../Generic/Loader/Skeleton/SkeletonShares/SkeletonShares';
 interface IProductsProps {
   onClickAdd: (obj: LocalSorageObject, item: ProductItem) => void;
   favorite: LocalStorageItemShopCategory;
@@ -34,6 +37,7 @@ export const Products: FC<IProductsProps> = ({
   baket,
 }) => {
   const { pathname } = useLocation();
+  const loading = useSelector(getSharesLodaing);
   return (
     <>
       <ProductSection $pathname={pathname}>
@@ -45,17 +49,21 @@ export const Products: FC<IProductsProps> = ({
           carouselRef={carouselRef}
           onClick={onClickCarousel}
         >
-          <>
-            {items.map((item) => (
-              <ProductCard
-                onClickAdd={onClickAdd}
-                key={item.productVariantId}
-                item={item}
-                favorite={favorite}
-                baket={baket}
-              />
-            ))}
-          </>
+          {!loading ? (
+            <>
+              {items.map((item) => (
+                <ProductCard
+                  onClickAdd={onClickAdd}
+                  key={item.productVariantId}
+                  item={item}
+                  favorite={favorite}
+                  baket={baket}
+                />
+              ))}
+            </>
+          ) : (
+            <SkeletonShares />
+          )}
         </GenericCarousel>
       </ProductSection>
     </>
