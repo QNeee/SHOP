@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { skeleton } from '../Skeleton.styled';
 
 export const SkeletonSharesImageDiv = styled.div`
   width: 144px;
@@ -7,6 +8,5 @@ export const SkeletonSharesImageDiv = styled.div`
     width: 169px;
     height: 216px;
   }
-  border-radius: 8px;
-  background-color: #c0c0c0;
+  ${skeleton};
 `;

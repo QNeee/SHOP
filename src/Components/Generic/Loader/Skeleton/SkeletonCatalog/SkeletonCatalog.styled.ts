@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { skeleton } from '../Skeleton.styled';
 
 export const SkeletonCatalogImageDiv = styled.div`
   width: 100px;
@@ -7,41 +8,35 @@ export const SkeletonCatalogImageDiv = styled.div`
     width: 169px;
     height: 216px;
   }
-  border-radius: 8px;
-  background-color: #c0c0c0;
+  ${skeleton};
 `;
 
 export const SkeletonCatalogTitleDiv = styled.div`
   height: 25px;
   width: 100%;
-  background-color: #c0c0c0;
-  border-radius: 8px;
+  ${skeleton};
 `;
 export const SkeletonCatalogInfoDiv = styled.div`
   margin-top: 15px;
   height: 100px;
   width: 100%;
-  background-color: #c0c0c0;
-  border-radius: 8px;
+  ${skeleton};
 `;
 export const SkeletonCatalogPriceDiv = styled.div`
   margin-top: 15px;
   height: 25px;
   width: 100%;
-  background-color: #c0c0c0;
-  border-radius: 8px;
+  ${skeleton};
 `;
 export const SkeletonButtonDiv = styled.div`
   width: 70%;
   height: 100%;
-  background-color: #c0c0c0;
-  border-radius: 8px;
+  ${skeleton};
 `;
 export const IconDiv = styled.div`
   height: 100%;
   width: 20%;
-  background-color: #c0c0c0;
-  border-radius: 8px;
+  ${skeleton};
 `;
 export const SkeletonButtonsWrapper = styled.div`
   margin-top: 15px;
