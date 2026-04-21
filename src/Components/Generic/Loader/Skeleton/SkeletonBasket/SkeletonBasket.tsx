@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import {
   BaskerCardContainer,
   ImageContainer,
-} from '../../../../Basket/BasketCard.styled';
+} from '../../../../Basket/BasketCard/BasketCard.styled';
 import {
   SkeletonBasketImageDiv,
   SkeletonBasketTitleDiv,

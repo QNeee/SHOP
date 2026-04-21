@@ -1,20 +1,19 @@
 import { type FC } from 'react';
-import type { ProductItem } from '../../types';
+import type { ProductItem } from '../../../types';
 import {
   BaskerCardContainer,
   IconAndCounterContainer,
   IconContainer,
   ImageContainer,
   InfoContainer,
-  InfoPriceContainer,
-  PriceContainer,
 } from './BasketCard.styled';
-import { InputCheckbox } from './Basket.styled';
-import { discountCalculate } from '../../Helper';
-import { BasketIcon } from '../Generic/Icons/BasketIcon';
-import { Counter } from './Counter';
-import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGeneticContainer';
-import { OldPrice, Price } from '../Products/Cost.styled';
+import { discountCalculate } from '../../../Helper';
+import { BasketIcon } from '../../Generic/Icons/BasketIcon';
+import { ImageGenericContainer } from '../../Generic/ImageGenericContainer/ImageGeneticContainer';
+import { OldPrice, Price } from '../../Products/Cost.styled';
+import { Counter } from './BasketCardInfo/Counter/Counter';
+import { InputCheckbox } from '../Basket.styled';
+import { PriceInfo } from './BasketCardInfo/PriceInfo/PriceInfo';
 
 interface IBasketCardProps {
   item: ProductItem;
@@ -53,15 +52,11 @@ export const BasketCard: FC<IBasketCardProps> = ({
           onChange={handleChange}
           type="checkbox"
         />
-        <InfoPriceContainer>
-          <p>{item.title}</p>
-          <PriceContainer>
-            <Price>{item.price + '$'}</Price>
-            <OldPrice style={{ marginTop: '5px', marginLeft: '8px' }}>
-              {discountCalculate(item.price, item?.discountPercentage) + '$'}
-            </OldPrice>
-          </PriceContainer>
-        </InfoPriceContainer>
+        <PriceInfo
+          title={item.title}
+          price={item.price}
+          discountPercentage={item.discountPercentage}
+        />
         <IconAndCounterContainer>
           <IconContainer>
             <BasketIcon onClickDeleteOne={onClickDeleteOne} item={item} />

@@ -1,22 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 
-import {
-  BasketContainer,
-  BasketIconContainer,
-  BasketIconText,
-  BasketWrapper,
-  InputCheckbox,
-  InputContainer,
-  StyledLabel,
-} from './Basket.styled';
+import { BasketWrapper } from './Basket.styled';
 import { BasketIcon } from '../Generic/Icons/BasketIcon';
 import { type FC } from 'react';
 import type { Ordered, ProductItem } from '../../types';
-import { BasketCard } from './BasketCard';
-import { BasketEmpty } from './BasketEmpty';
+import { BasketCard } from './BasketCard/BasketCard';
+import { BasketEmpty } from './BasketEmpty/BasketEmpty';
 import { useSelector } from 'react-redux';
 import { getBasketLoading } from '../../Redux/products/productsSelectors';
 import { SkeletonBasket } from '../Generic/Loader/Skeleton/SkeletonBasket/SkeletonBasket';
+import { BasketCheck } from './BasketCheck/BasketCheck';
 interface IBasketProps {
   items: ProductItem[];
   onClickDeleteAll: () => void;
@@ -62,26 +55,11 @@ export const Basket: FC<IBasketProps> = ({
     <div style={{ marginBottom: '20px' }}>
       {items.length > 0 && !basketLoading ? (
         <BasketWrapper>
-          <BasketContainer>
-            <BasketIconContainer
-              $checked={checkedAll}
-              onClick={onClickDeleteAll}
-            >
-              <BasketIcon />
-              <BasketIconText>Видалити</BasketIconText>
-            </BasketIconContainer>
-            <InputContainer>
-              <StyledLabel htmlFor="deleteAll">
-                Вибрати все
-                <InputCheckbox
-                  checked={checkedAll}
-                  onChange={(e) => toggleAll(e.target.checked)}
-                  type="checkbox"
-                  id="deleteAll"
-                />
-              </StyledLabel>
-            </InputContainer>
-          </BasketContainer>
+          <BasketCheck
+            checkedAll={checkedAll}
+            onClickDeleteAll={onClickDeleteAll}
+            toggleAll={toggleAll}
+          />
           {items.map((item) => (
             <BasketCard
               setLocalStorageItems={setLocalStorageItems}

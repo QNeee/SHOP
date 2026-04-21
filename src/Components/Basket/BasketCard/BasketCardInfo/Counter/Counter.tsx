@@ -4,8 +4,8 @@ import {
   CounterContainer,
   CounterValue,
 } from './Counter.styled';
-import { localStorageItemsKeys } from '../../Helper';
-import type { LocalStorageItemShop } from '../../types';
+import { localStorageItemsKeys } from '../../../../../Helper';
+import type { LocalStorageItemShop } from '../../../../../types';
 
 interface ICounterProps {
   initial?: number;

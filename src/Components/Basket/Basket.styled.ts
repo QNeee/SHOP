@@ -1,10 +1,5 @@
 import styled from 'styled-components';
-export const BasketContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 16px;
-`;
+
 export const BasketButton = styled.button`
   width: 267px;
   height: 49px;
@@ -39,32 +34,22 @@ export const BasketButton = styled.button`
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
   }
 `;
-export const BasketIconContainer = styled.div<{ $checked: boolean }>`
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  opacity: ${(props) => (props.$checked ? 1 : 0)};
-  cursor: pointer;
-  &:hover svg {
-    color: blue;
-    fill: blue;
-    stroke: blue;
-  }
+
+export const TotalText = styled.p`
+  text-align: center;
 `;
-export const BasketIconText = styled.p`
-  margin-left: 12px;
-  color: #666666;
+export const TotalContainer = styled.div`
+  margin-top: 26px;
 `;
-export const InputContainer = styled.div`
+export const TotalPrizeContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-
-export const StyledLabel = styled.label`
-  display: flex;
-  align-items: center;
-  gap: 17px;
+export const BasketWrapper = styled.div`
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 export const InputCheckbox = styled.input.attrs({ type: 'checkbox' })`
   width: 24px;
@@ -91,20 +76,4 @@ export const InputCheckbox = styled.input.attrs({ type: 'checkbox' })`
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
-`;
-export const TotalText = styled.p`
-  text-align: center;
-`;
-export const TotalContainer = styled.div`
-  margin-top: 26px;
-`;
-export const TotalPrizeContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-export const BasketWrapper = styled.div`
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
 `;
