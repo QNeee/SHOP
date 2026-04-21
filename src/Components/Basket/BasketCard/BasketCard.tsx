@@ -7,10 +7,8 @@ import {
   ImageContainer,
   InfoContainer,
 } from './BasketCard.styled';
-import { discountCalculate } from '../../../Helper';
 import { BasketIcon } from '../../Generic/Icons/BasketIcon';
 import { ImageGenericContainer } from '../../Generic/ImageGenericContainer/ImageGeneticContainer';
-import { OldPrice, Price } from '../../Products/Cost.styled';
 import { Counter } from './BasketCardInfo/Counter/Counter';
 import { InputCheckbox } from '../Basket.styled';
 import { PriceInfo } from './BasketCardInfo/PriceInfo/PriceInfo';
