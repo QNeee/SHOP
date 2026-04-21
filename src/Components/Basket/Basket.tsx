@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
 import { BasketWrapper } from './Basket.styled';
-import { BasketIcon } from '../Generic/Icons/BasketIcon';
 import { type FC } from 'react';
 import type { Ordered, ProductItem } from '../../types';
 import { BasketCard } from './BasketCard/BasketCard';
