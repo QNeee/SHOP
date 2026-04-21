@@ -5,23 +5,17 @@ import type {
   ProductItem,
 } from '../../types';
 
-import { ImageGenericContainer } from '../Generic/ImageGenericContainer/ImageGeneticContainer';
 import {
-  ButtonsContainer,
   CatalogItemBorder,
   CatalogItemContainer,
   CatalogItemContainerWrapper,
-  CatalogItemCostAvailable,
-  CatalogItemCostContainer,
   CatalogItemInfoContainer,
-  CatalogItemInfoPContainer,
-  ImageContainer,
 } from './CatalogItem.styled';
-import { DiscountContainer } from '../Products/ProductCard.styled';
 import { options } from '../../Helper';
-import { Cost } from '../Products/Cost';
-import { BasketButton } from '../Basket/Basket.styled';
-import { FavoriteElem } from '../Generic/Favorite/FavoriteElem';
+import { CatalogItemImage } from './CatalogItemInfo/CatalogItemImage/CatalogItemImage';
+import { CatalogItemOptions } from './CatalogItemInfo/CatalogItemOptions/CatalogItemOptions';
+import { CatalogItemsCost } from './CatalogItemInfo/CatalogItemsCost/CatalogItemsCost';
+import { CatalogItemButtons } from './CatalogItemInfo/CatalogitemButtons/CatalogItemButtons';
 interface ICatalogItem {
   item: ProductItem;
   favorite: LocalStorageItemShopCategory;
@@ -43,10 +37,6 @@ export const CatalogItem: FC<ICatalogItem> = ({
     }
     return arr;
   }, [item]);
-  const makeInStockTitle = () => {
-    if (item.stock > 0) return 'В наявності';
-    return 'Немає в наявності';
-  };
   const onClickCatalogItem = () => {
     // console.log(item.productId);
   };
@@ -54,55 +44,27 @@ export const CatalogItem: FC<ICatalogItem> = ({
     <CatalogItemBorder>
       <CatalogItemContainer>
         <CatalogItemContainerWrapper onClick={onClickCatalogItem}>
-          <ImageContainer onClick={(e) => e.stopPropagation()}>
-            <ImageGenericContainer
-              title={item.title}
-              itemPhotos={item.images}
-            />
-            {item?.discountPercentage != null ? (
-              <DiscountContainer>-{item.discountPercentage}%</DiscountContainer>
-            ) : null}
-          </ImageContainer>
+          <CatalogItemImage
+            title={item.title}
+            images={item.images}
+            discountPercentage={item?.discountPercentage}
+          />
           <CatalogItemInfoContainer>
             <h3>{item.title}</h3>
-            <CatalogItemInfoPContainer>
-              {optionsArr.map((it, index) => (
-                <p key={index}>{it}</p>
-              ))}
-            </CatalogItemInfoPContainer>
-            <CatalogItemCostContainer>
-              <CatalogItemCostAvailable $inStock={item.stock > 0}>
-                {makeInStockTitle()}
-              </CatalogItemCostAvailable>
-              <Cost
-                itemPrice={item.price}
-                itemDiscountPercentage={item?.discountPercentage}
-              />
-            </CatalogItemCostContainer>
+            <CatalogItemOptions optionsArr={optionsArr} />
+            <CatalogItemsCost
+              stock={item.stock}
+              price={item.price}
+              discountPercentage={item?.discountPercentage}
+            />
           </CatalogItemInfoContainer>
         </CatalogItemContainerWrapper>
-        <ButtonsContainer>
-          <FavoriteElem
-            onClickAdd={onClickAdd}
-            item={item}
-            flag={favorite[item.productVariantId] || 0}
-          />
-          <BasketButton
-            style={{ width: '143px' }}
-            type="button"
-            onClick={() => {
-              onClickAdd(
-                {
-                  type: 'basket',
-                  itemId: item.productVariantId,
-                },
-                item,
-              );
-            }}
-          >
-            {baket[item.productVariantId] ? 'Видалити з кошику' : 'В кошик'}
-          </BasketButton>
-        </ButtonsContainer>
+        <CatalogItemButtons
+          onClickAdd={onClickAdd}
+          item={item}
+          isInFavorite={favorite[item.productVariantId] || 0}
+          isAvailable={baket[item.productVariantId] != null}
+        />
       </CatalogItemContainer>
     </CatalogItemBorder>
   );
